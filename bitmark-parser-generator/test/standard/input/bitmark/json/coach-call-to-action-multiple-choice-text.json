@@ -1,0 +1,1491 @@
+[
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287839"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "coach-call-to-action-multiple-choice-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students complete",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "d",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "t",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "s",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": false
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " the ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "cloze",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "cloth",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "close",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " with the correct verb forms.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-call-to-action-multiple-choice-text:bitmark--]",
+          "location": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 55,
+              "offset": 54
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text:bitmark--]\n[@id:287839]\n[%][%coach-call-to-action-multiple-choice-text]\nThe students complete[+d][-t][-s][@example] the [+cloze][-cloth][-close] with the correct verb forms."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "213773"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "46",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "ln einem Beratungsunternehmen für Evaluationen von Bundesprojekten diskutiert die Geschäftsleiterin mit drei Partnern, welchen Preis sie für ein ausgeschriebenes Mandat offerieren wollen. Dabei sind sie nicht einig, well sie sich an verschiedenen «K»onentieren. Welche Faktoren sind bei den folgenden Argumenten relevant?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Zahlungsbereitschaft Kunde",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Konkurrenz",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kapazität",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kosten",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Wir sollten günstiger sein als Polyconsult, sonst kriegen sie diesen Auftrag auch noch und können weiter Mitarbeitende einstellen, die uns dann fehlen.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Zahlungsbereitschaft Kunde",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Konkurrenz",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kapazität",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kosten",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Wenn wir das Projekt im Januar machen können, können wir 10% Rabatt geben. Im Januar ist wenig los. Sonst offerieren wir den normalen Preis.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Zahlungsbereitschaft Kunde",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Konkurrenz",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kapazität",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kosten",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Ich glaube, wir sollten dieses Projekt wirklich tief offerieren, weil sie kaum Budget haben. Wenn wir dieses Projekt sauber durchführen, können wir bet Folgeprojekten, wenn der Kredit gesprochen ist, die verlorene Marge wieder gutmachen.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Zahlungsbereitschaft Kunde",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Konkurrenz",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kapazität",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Kosten",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Für den Marktforschungsteil müssen wir höhere Ansätze verlangen, weil wir den extern einkaufen müssen.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-call-to-action-multiple-choice-text:bitmark--]",
+          "location": {
+            "start": {
+              "line": 6,
+              "column": 1,
+              "offset": 219
+            },
+            "end": {
+              "line": 6,
+              "column": 55,
+              "offset": 273
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text:bitmark--]\n[@id:213773]\n[%46]\n[!ln einem Beratungsunternehmen für Evaluationen von Bundesprojekten diskutiert die Geschäftsleiterin mit drei Partnern, welchen Preis sie für ein ausgeschriebenes Mandat offerieren wollen. Dabei sind sie nicht einig, well sie sich an verschiedenen «K»onentieren. Welche Faktoren sind bei den folgenden Argumenten relevant?]\n[-Zahlungsbereitschaft Kunde][+Konkurrenz][-Kapazität][-Kosten] Wir sollten günstiger sein als Polyconsult, sonst kriegen sie diesen Auftrag auch noch und können weiter Mitarbeitende einstellen, die uns dann fehlen.\n\n[-Zahlungsbereitschaft Kunde][-Konkurrenz][+Kapazität][-Kosten] Wenn wir das Projekt im Januar machen können, können wir 10% Rabatt geben. Im Januar ist wenig los. Sonst offerieren wir den normalen Preis.\n\n[+Zahlungsbereitschaft Kunde][-Konkurrenz][-Kapazität][-Kosten] Ich glaube, wir sollten dieses Projekt wirklich tief offerieren, weil sie kaum Budget haben. Wenn wir dieses Projekt sauber durchführen, können wir bet Folgeprojekten, wenn der Kredit gesprochen ist, die verlorene Marge wieder gutmachen.\n\n[-Zahlungsbereitschaft Kunde][-Konkurrenz][-Kapazität][+Kosten] Für den Marktforschungsteil müssen wir höhere Ansätze verlangen, weil wir den extern einkaufen müssen."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "213840"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "59",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Es ist eine Aufgabe der Unternehmensführung, die strategischen Unternehmensziele festzulegen. Ordnen Sie die folgenden Aussagen dem richtigen Zielbereich zu.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Leistungsziel",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Finanzziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Soziales Ziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Bis 20xx zählen wir im Produktbereich XY mindestens 120 000 Kunden bei einem Umsatz von mindestens CHF 4 Mio",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Leistungsziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Finanzziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Soziales Ziel",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Aus unserem erzielten Reingewinn (vor Steuern) fliessen jährlich maximal 3% In die regionale und die überregionale Jugendsportförderung.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Leistungsziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Finanzziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Soziales Ziel",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Mittels des Führungsmodells MbO (Management by Objectives) beteiligen wir unsere Mitarbeitenden finanziell am persönlichen Leistungserfolg.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Leistungsziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Finanzziel",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Soziales Ziel",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Sämtliche Investitionsvorhaben, die die Erweiterung unserer Fertigungskapazitäten betreffen, müssen zu mindestens 75% eigenfinanziert sein.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-call-to-action-multiple-choice-text:bitmark--]",
+          "location": {
+            "start": {
+              "line": 19,
+              "column": 1,
+              "offset": 1513
+            },
+            "end": {
+              "line": 19,
+              "column": 55,
+              "offset": 1567
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text:bitmark--]\n[@id:213840]\n[%59]\n[!Es ist eine Aufgabe der Unternehmensführung, die strategischen Unternehmensziele festzulegen. Ordnen Sie die folgenden Aussagen dem richtigen Zielbereich zu.]\n[+Leistungsziel][-Finanzziel][-Soziales Ziel] Bis 20xx zählen wir im Produktbereich XY mindestens 120 000 Kunden bei einem Umsatz von mindestens CHF 4 Mio\n[-Leistungsziel][-Finanzziel][+Soziales Ziel] Aus unserem erzielten Reingewinn (vor Steuern) fliessen jährlich maximal 3% In die regionale und die überregionale Jugendsportförderung.\n[-Leistungsziel][-Finanzziel][+Soziales Ziel] Mittels des Führungsmodells MbO (Management by Objectives) beteiligen wir unsere Mitarbeitenden finanziell am persönlichen Leistungserfolg.\n[-Leistungsziel][+Finanzziel][-Soziales Ziel] Sämtliche Investitionsvorhaben, die die Erweiterung unserer Fertigungskapazitäten betreffen, müssen zu mindestens 75% eigenfinanziert sein."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "208481"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "15",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Gehören die Personengruppen zum Beschaffungs- oder zum Absatzmarkt? Markieren Sie die zutreffende Antwort.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Lieferanten ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Beschaffungsmarkt",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Absatzmarkt",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Kunden ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Beschaffungsmarkt",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Absatzmarkt",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Konkurrenz  ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Beschaffungsmarkt",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Absatzmarkt",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Mitarbeitende",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Beschaffungsmarkt",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Absatzmarkt",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Kapitalgeber",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "Beschaffungsmarkt",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "Absatzmarkt",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-call-to-action-multiple-choice-text:bitmark--]",
+          "location": {
+            "start": {
+              "line": 29,
+              "column": 1,
+              "offset": 2460
+            },
+            "end": {
+              "line": 29,
+              "column": 55,
+              "offset": 2514
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text:bitmark--]\n[@id:208481]\n[%15]\n[!Gehören die Personengruppen zum Beschaffungs- oder zum Absatzmarkt? Markieren Sie die zutreffende Antwort.]\n\nLieferanten [+Beschaffungsmarkt][-Absatzmarkt]\nKunden [-Beschaffungsmarkt][+Absatzmarkt]\nKonkurrenz  [-Beschaffungsmarkt][+Absatzmarkt]\nMitarbeitende[+Beschaffungsmarkt][-Absatzmarkt]\nKapitalgeber[+Beschaffungsmarkt][-Absatzmarkt]"
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "107949"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "16",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Ein Bekannter von dir ist noch nicht lange in Deutschland. Du erklärst ihm wichtige Verkehrsschilder. Wähl das",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "richtige Modalverb zur Erklärung.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "resource": {
+        "type": "image",
+        "image": {
+          "format": "png",
+          "provider": "docs.bitbook.education",
+          "src": "https://docs.bitbook.education/bit-books/dw/einstufungstest-a1/web-resources/images/et-a1-16.png",
+          "width": null,
+          "height": null,
+          "alt": "",
+          "zoomDisabled": false,
+          "license": "",
+          "copyright": "",
+          "showInIndex": false,
+          "caption": []
+        }
+      },
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Wähl das richtige Wort.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "A) Hier ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "dürfen",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "müssen",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Sie nicht parken.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "B) Hier ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "können",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "müssen",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Sie über die Straße gehen.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "C) Hier ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "dürfen",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "müssen",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " Sie warten.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text&image]\n[@id:107949]\n[%16]\n[&image:https://docs.bitbook.education/bit-books/dw/einstufungstest-a1/web-resources/images/et-a1-16.png]\n[!Ein Bekannter von dir ist noch nicht lange in Deutschland. Du erklärst ihm wichtige Verkehrsschilder. Wähl das\nrichtige Modalverb zur Erklärung.]\n\nWähl das richtige Wort.\nA) Hier [+dürfen][-müssen] Sie nicht parken.\nB) Hier [+können][-müssen] Sie über die Straße gehen.\nC) Hier [-dürfen][+müssen] Sie warten."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "cloze",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "cloth",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "close",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " with the correct verb forms.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text]\nThe students completed the [+cloze][@example][-cloth][-close] with the correct verb forms."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "cloze",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "cloth",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "close",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " with the correct verb forms.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text]\n[@example]\nThe students completed the [+cloze][-cloth][-close] with the correct verb forms."
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "cloze",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "cloth",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": false
+                  },
+                  {
+                    "text": "close",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " with the correct verb forms.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-multiple-choice-text]\nThe students completed the [+cloze][-cloth][@example][-close] with the correct verb forms."
+  }
+]

@@ -1,0 +1,246 @@
+[
+  {
+    "type": "paragraph",
+    "content": [
+      {
+        "marks": [
+          {
+            "type": "link",
+            "attrs": {
+              "href": "https://image.com",
+              "target": "_blank"
+            }
+          }
+        ],
+        "text": "image.com",
+        "type": "text"
+      },
+      {
+        "text": " try a link as first thing",
+        "type": "text"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "text": "try a link in the ",
+        "type": "text"
+      },
+      {
+        "marks": [
+          {
+            "type": "link",
+            "attrs": {
+              "href": "https://image.com",
+              "target": "_blank"
+            }
+          }
+        ],
+        "text": "image.com",
+        "type": "text"
+      },
+      {
+        "text": " middle",
+        "type": "text"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "text": "try a link at the end ",
+        "type": "text"
+      },
+      {
+        "marks": [
+          {
+            "type": "link",
+            "attrs": {
+              "href": "https://image.com",
+              "target": "_blank"
+            }
+          }
+        ],
+        "text": "image.com",
+        "type": "text"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "marks": [
+          {
+            "type": "link",
+            "attrs": {
+              "href": "https://image.com",
+              "target": "_blank"
+            }
+          }
+        ],
+        "text": "Highlight text",
+        "type": "text"
+      },
+      {
+        "text": " as a link",
+        "type": "text"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "type": "hardBreak"
+      },
+      {
+        "marks": [
+          {
+            "type": "italic"
+          },
+          {
+            "type": "link",
+            "attrs": {
+              "href": "https://image.com",
+              "target": "_blank"
+            }
+          },
+          {
+            "type": "bold"
+          }
+        ],
+        "text": "Highlight text",
+        "type": "text"
+      },
+      {
+        "text": " as a link",
+        "type": "text"
+      }
+    ],
+    "attrs": {}
+  },
+  {
+    "type": "bulletList",
+    "content": [
+      {
+        "type": "listItem",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {},
+            "content": [
+              {
+                "text": "Test link in a list",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "listItem",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {},
+            "content": [
+              {
+                "text": "Entgelt für ",
+                "type": "text"
+              },
+              {
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://image.com",
+                      "target": "_blank"
+                    }
+                  }
+                ],
+                "text": "image.com",
+                "type": "text"
+              },
+              {
+                "text": " that was a link",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "attrs": {}
+  },
+  {
+    "type": "paragraph",
+    "content": [],
+    "attrs": {}
+  },
+  {
+    "type": "bulletList",
+    "content": [
+      {
+        "type": "listItem",
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {},
+            "content": [
+              {
+                "text": "Test link in a list 2",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "bulletList",
+            "attrs": {
+              "start": 1
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {},
+                    "content": [
+                      {
+                        "text": "Entgelt ",
+                        "type": "text"
+                      },
+                      {
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "https://image.com",
+                              "target": "_blank"
+                            }
+                          }
+                        ],
+                        "text": "Highligh\ntext",
+                        "type": "text"
+                      },
+                      {
+                        "text": " as a link",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "attrs": {}
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "bit": {
+      "type": "vendor-padlet-embed",
+      "format": "text",
+      "bitLevel": 1,
+      "id": [
+        "342346"
+      ],
+      "padletId": "2c7rc1zj8jdo25ed",
+      "bubbleTag": [
+        "Tag 1",
+        "",
+        "Tag 2",
+        "**Tag 3**"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.vendor-padlet-embed]\n[@id:342346]\n[@padletId:2c7rc1zj8jdo25ed]\n[@bubbleTag:Tag 1]\n[@bubbleTag:]\n[@bubbleTag:Tag 2]\n[@bubbleTag:**Tag 3**]"
+  }
+]

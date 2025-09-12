@@ -1,0 +1,372 @@
+[
+  {
+    "bit": {
+      "type": "mark",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "marks": [
+        {
+          "mark": "adjective",
+          "color": "blue",
+          "emphasis": "underline"
+        },
+        {
+          "mark": "verb",
+          "color": "red",
+          "emphasis": "circle"
+        },
+        {
+          "mark": "noun",
+          "color": "blue",
+          "emphasis": "underline"
+        }
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Please mark all ==adjectives==|mark:underline|color:blue| and ==verbs==|mark:circle|color:red|.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "In der ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "letzten",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Zeit vermehrten sich die Gerüchte, Bruno habe ein Verhältnis",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "mit der ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "schönen",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Backgroundsängerin Sharika.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Jetzt reagierte seine Ehefrau. In einem Interview mit der Zeitschrift BLITZ sagte die Blondine:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "„Jetzt ist Schluss! Ich kann es nicht ertragen, dass Bruno schon wieder eine Geliebte hat!“",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Corinna hat bereits den ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "erfolgreichen",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Scheidungsanwalt Otto August von",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Unmut engagiert, der sie im Scheidungsprozess vertreten soll. Sie fordert die Hälfte des Vermögens",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "und das ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "alleinige",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Sorgerecht für den ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "gemeinsamen",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Sohn Lucas (6 Jahre).",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Was das Finanzielle betrifft, so räumen Experten der ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "betrogenen",
+                "mark": "verb",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Ehefrau wenig Chancen ein. Sie",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "hatte vor der Hochzeit einen Ehevertrag unterschrieben und auf ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "finanzielle",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Ansprüche im Fall",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "einer Scheidung verzichtet. Für Bruno wäre es die fünfte Scheidung. Er hat bereits sieben Kinder aus früheren",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Ehen, für die er Unterhalt zahlen muss.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Doch vielleicht gibt es eine ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "unerwartete",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Wendung. Ein ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "stadtbekannter",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true,
+                "example": true
+              }
+            },
+            {
+              "text": " Juwelier",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "bestätigte gestern gegenüber BLITZ, dass Bruno Schmuck im Wert von 50 000 Euro gekauft habe. Ist",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "der ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "wertvolle",
+                "mark": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Schmuck für Corinna? Will Bruno seinen Fehler wieder gutmachen? Gibt es am Ende",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "sogar eine ",
+              "type": "text"
+            },
+            {
+              "type": "mark",
+              "attrs": {
+                "solution": "romantische",
+                "mark": "adjective",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true,
+                "example": true
+              }
+            },
+            {
+              "text": " Versöhnung?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "Only default [@example] is allowed, using default",
+          "text": "[@example:hello]",
+          "location": {
+            "start": {
+              "line": 20,
+              "column": 109,
+              "offset": 1361
+            },
+            "end": {
+              "line": 20,
+              "column": 125,
+              "offset": 1377
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.mark]\n[!Please mark all ==adjectives==|mark:underline|color:blue| and ==verbs==|mark:circle|color:red|.]\n[@mark:adjective][@color:blue][@emphasis:underline]\n[@mark:verb][@color:red][@emphasis:circle]\n[@mark:noun][@color:blue]\n\nIn der [=letzten][@mark:adjective] Zeit vermehrten sich die Gerüchte, Bruno habe ein Verhältnis\nmit der [=schönen][@mark:adjective] Backgroundsängerin Sharika.\n\nJetzt reagierte seine Ehefrau. In einem Interview mit der Zeitschrift BLITZ sagte die Blondine:\n„Jetzt ist Schluss! Ich kann es nicht ertragen, dass Bruno schon wieder eine Geliebte hat!“\nCorinna hat bereits den [=erfolgreichen][@mark:adjective] Scheidungsanwalt Otto August von\nUnmut engagiert, der sie im Scheidungsprozess vertreten soll. Sie fordert die Hälfte des Vermögens\nund das [=alleinige][@mark:adjective] Sorgerecht für den [=gemeinsamen][@mark:adjective] Sohn Lucas (6 Jahre).\nWas das Finanzielle betrifft, so räumen Experten der [=betrogenen][@mark:verb] Ehefrau wenig Chancen ein. Sie\nhatte vor der Hochzeit einen Ehevertrag unterschrieben und auf [=finanzielle][@mark:adjective] Ansprüche im Fall\neiner Scheidung verzichtet. Für Bruno wäre es die fünfte Scheidung. Er hat bereits sieben Kinder aus früheren\nEhen, für die er Unterhalt zahlen muss.\n\nDoch vielleicht gibt es eine [=unerwartete][@mark:adjective] Wendung. Ein [=stadtbekannter][@mark:adjective][@example:hello] Juwelier\nbestätigte gestern gegenüber BLITZ, dass Bruno Schmuck im Wert von 50 000 Euro gekauft habe. Ist\nder [=wertvolle] Schmuck für Corinna? Will Bruno seinen Fehler wieder gutmachen? Gibt es am Ende\nsogar eine [=romantische][@mark:adjective][@example] Versöhnung?"
+  }
+]

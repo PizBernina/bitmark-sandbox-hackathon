@@ -1,0 +1,76 @@
+[
+  {
+    "bit": {
+      "type": "match-all-reverse",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "324342"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "item",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Lead",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Instruction",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "pairs": [
+        {
+          "key": "He will fix your laptop for you.",
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isCaseSensitive": true,
+          "isExample": false,
+          "example": null,
+          "values": [
+            "Your laptop will be fixed by him.",
+            "Your laptop will be fixed for you by him."
+          ]
+        }
+      ],
+      "isExample": false,
+      "heading": {},
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.match-all-reverse]\n[@id:324342]\n[%item][%Lead]\n[!Instruction]\n===\nHe will fix your laptop for you.\n==\nYour laptop will be fixed by him.\n--\nYour laptop will be fixed for you by him.\n==="
+  }
+]

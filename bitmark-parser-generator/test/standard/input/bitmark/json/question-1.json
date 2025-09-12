@@ -1,0 +1,175 @@
+[
+  {
+    "bit": {
+      "type": "question-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "D1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Hier finden Sie wichtigen Wortschatz des Kapitels:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Angaben zur eigenen Person",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich heiße ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Mein Name ist ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich komme aus ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich wohne in ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich bin von Beruf ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich arbeite bei ... als ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich bin ledig/Single, verheiratet, geschieden.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich habe die ",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "italic"
+                }
+              ],
+              "text": "(deutsche)",
+              "type": "text"
+            },
+            {
+              "text": " Staatsbürgerschaft.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* Ich bin ",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "italic"
+                }
+              ],
+              "text": "(Deutsche(r)). ",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* In meiner Freizeit ...",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Schule und Ausbildung",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.question-1]\n\n**Hier finden Sie wichtigen Wortschatz des Kapitels:**\n[%D1]\n\n**Angaben zur eigenen Person**\n* Ich heiße ...\n* Mein Name ist ...\n* Ich komme aus ...\n* Ich wohne in ...\n* Ich bin von Beruf ...\n* Ich arbeite bei ... als ...\n* Ich bin ledig/Single, verheiratet, geschieden.\n* Ich habe die __(deutsche)__ Staatsbürgerschaft.\n* Ich bin __(Deutsche(r)). __\n* In meiner Freizeit ...\n\n**Schule und Ausbildung**"
+  }
+]

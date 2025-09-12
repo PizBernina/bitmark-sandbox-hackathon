@@ -1,0 +1,232 @@
+[
+  {
+    "bit": {
+      "type": "cloze-list",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Instruction",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Some body",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "listItems": [
+        {
+          "item": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "1.",
+                  "type": "text"
+                }
+              ],
+              "attrs": {}
+            }
+          ],
+          "lead": [],
+          "hint": [],
+          "instruction": [],
+          "body": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "This is a ",
+                  "type": "text"
+                },
+                {
+                  "type": "gap",
+                  "solutions": [
+                    "gap"
+                  ],
+                  "item": [],
+                  "lead": [],
+                  "hint": [],
+                  "instruction": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "text": "instruction",
+                          "type": "text"
+                        }
+                      ],
+                      "attrs": {}
+                    }
+                  ],
+                  "isCaseSensitive": true,
+                  "isExample": false,
+                  "example": null
+                },
+                {
+                  "text": " text with ^ another ",
+                  "type": "text"
+                },
+                {
+                  "type": "gap",
+                  "solutions": [
+                    "cloze"
+                  ],
+                  "item": [],
+                  "lead": [],
+                  "hint": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "text": "hint",
+                          "type": "text"
+                        }
+                      ],
+                      "attrs": {}
+                    }
+                  ],
+                  "instruction": [],
+                  "isCaseSensitive": true,
+                  "isExample": false,
+                  "example": null
+                },
+                {
+                  "text": ".",
+                  "type": "text"
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        },
+        {
+          "item": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "2.",
+                  "type": "text"
+                }
+              ],
+              "attrs": {}
+            }
+          ],
+          "lead": [],
+          "hint": [],
+          "instruction": [],
+          "body": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "This is another ",
+                  "type": "text"
+                },
+                {
+                  "type": "gap",
+                  "solutions": [
+                    "gap"
+                  ],
+                  "item": [],
+                  "lead": [],
+                  "hint": [],
+                  "instruction": [],
+                  "isCaseSensitive": true,
+                  "isExample": false,
+                  "example": null
+                },
+                {
+                  "text": " text.",
+                  "type": "text"
+                },
+                {
+                  "type": "hardBreak"
+                },
+                {
+                  "text": "With ",
+                  "type": "text"
+                },
+                {
+                  "type": "gap",
+                  "solutions": [
+                    "two"
+                  ],
+                  "item": [],
+                  "lead": [],
+                  "hint": [],
+                  "instruction": [],
+                  "isCaseSensitive": true,
+                  "isExample": false,
+                  "example": null
+                },
+                {
+                  "text": " lines.",
+                  "type": "text"
+                }
+              ],
+              "attrs": {}
+            }
+          ]
+        }
+      ],
+      "footer": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Optional Footer",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.cloze-list:bitmark--]",
+          "location": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 24,
+              "offset": 23
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.cloze-list:bitmark--]\n[!Instruction]\n\nSome body\n\n====\n[%1.] This is a [_gap][!instruction] text with ^^ another [_cloze][?hint].\n====\n[%2.] This is ^another [_gap] text.\nWith [_two] lines.\n\n~~~~\nOptional Footer"
+  }
+]

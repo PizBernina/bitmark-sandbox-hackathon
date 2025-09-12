@@ -1,0 +1,166 @@
+[
+  {
+    "bit": {
+      "type": "prototype-images",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "890929"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Trusted by leading brands",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "images": [
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/10/logo_zurich-1.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/03/logo_postfinance.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/03/logo_atram.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/07/CommonWealth.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/03/logo_nspartners.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": false,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/03/logo_swissfex.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2023/03/logo_bevestor.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        },
+        {
+          "type": "image",
+          "image": {
+            "format": "png",
+            "provider": "www.additiv.com",
+            "src": "https://www.additiv.com/wp-content/uploads/2021/09/logo_coop.png",
+            "width": null,
+            "height": null,
+            "alt": "",
+            "zoomDisabled": true,
+            "license": "",
+            "copyright": "",
+            "showInIndex": false,
+            "caption": []
+          }
+        }
+      ],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.prototype-images]\n[@id:890929]\n[!Trusted by leading brands]\n\n[&image:https://www.additiv.com/wp-content/uploads/2023/10/logo_zurich-1.png]\n[&image:https://www.additiv.com/wp-content/uploads/2023/03/logo_postfinance.png][@zoomDisabled]\n[&image:https://www.additiv.com/wp-content/uploads/2023/03/logo_atram.png]\n[&image:https://www.additiv.com/wp-content/uploads/2023/07/CommonWealth.png]\n[&image:https://www.additiv.com/wp-content/uploads/2023/03/logo_nspartners.png][@zoomDisabled:false]\n[&image:https://www.additiv.com/wp-content/uploads/2023/03/logo_swissfex.png]\n[&image:https://www.additiv.com/wp-content/uploads/2023/03/logo_bevestor.png][@zoomDisabled:true]\n[&image:https://www.additiv.com/wp-content/uploads/2021/09/logo_coop.png]"
+  }
+]

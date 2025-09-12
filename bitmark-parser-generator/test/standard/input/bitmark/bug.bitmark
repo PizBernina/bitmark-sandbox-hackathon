@@ -1,0 +1,33 @@
+[.bug:bitmark++]
+[@ageRange:18][@ageRange:120]
+[@groupTag: group A ][@tag: item 1 ][@tag: ][@tag: item 2 ]
+[@groupTag: group A ][@tag: item 3 ][@tag: item 1 ]
+[@groupTag: ][@tag: ]
+[@groupTag: group B ][@tag: item B1 ]
+
+
+**Some bold text,**
+followed by some plain text. cloze open close cloze1 book.
+[&image:https://cdn.bitbook.education/cat.jpg]
+
+Some more text.
+
+[.bug-alt:bitmark++]
+[@id:151971]
+[@searchIndex:Value1]
+[@searchIndex:Value2 ]
+[%][%][%][%marginNumber]
+[!
+
+Instruction with ==notranslate==|notranslate|
+
+• List 1
+• List 2
+
+]
+
+Bit content with ==notranslate==|notranslate|
+
+• List 1
+• List 2
+

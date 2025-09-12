@@ -1,0 +1,202 @@
+[
+  {
+    "bit": {
+      "type": "true-false-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285736"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "28",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "true-false-1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "statement": "Ein Elefant ist grösser als eine Maus.",
+      "isCorrect": true,
+      "isExample": true,
+      "example": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.true-false-1]\n[@id:285736]\n[%28][%true-false-1]\n[@example]\n[+Ein Elefant ist grösser als eine Maus.]"
+  },
+  {
+    "bit": {
+      "type": "true-false-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285736"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "28",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "true-false-1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "statement": "Ein Elefant ist grösser als eine Maus.",
+      "isCorrect": true,
+      "isExample": true,
+      "example": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.true-false-1]\n[@id:285736]\n[%28][%true-false-1]\n[+Ein Elefant ist grösser als eine Maus.][@example]"
+  },
+  {
+    "bit": {
+      "type": "true-false-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285736"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "28",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "true-false-1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "statement": "Ein Elefant ist grösser als eine Maus.",
+      "isCorrect": true,
+      "isExample": true,
+      "example": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.true-false-1]\n[@id:285736]\n[%28][%true-false-1]\n[+Ein Elefant ist grösser als eine Maus.][@example:false]"
+  },
+  {
+    "bit": {
+      "type": "true-false-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285736"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "28",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "true-false-1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "statement": "Ein Elefant ist grösser als eine Maus.",
+      "isCorrect": true,
+      "isExample": true,
+      "example": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.true-false-1]\n[@id:285736]\n[%28][%true-false-1]\n[@example:false]\n[+Ein Elefant ist grösser als eine Maus.]"
+  }
+]

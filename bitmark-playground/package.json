@@ -1,0 +1,87 @@
+{
+  "name": "@gmb/bitmark-playground",
+  "version": "0.0.6",
+  "description": "A web playground for parsing and generating bitmark",
+  "author": "Get More Brain Ltd",
+  "license": "ISC",
+  "homepage": "https://getmorebrain.github.io/bitmark-playground",
+  "scripts": {
+    "start": "PORT=3010 && run generate-build-info && react-app-rewired start",
+    "build": "run generate-build-info && react-app-rewired build",
+    "test": "react-app-rewired test",
+    "generate-build-info": "node ./scripts/generate-build-info.js",
+    "ncu": "yarn dlx npm-check-updates -i"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@gmb/bitmark-parser-generator": "^1.5.28",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.6",
+    "@types/lodash": "^4.17.16",
+    "@types/node": "^20.8.7",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "@uidotdev/usehooks": "^2.4.0",
+    "lodash": "^4.17.21",
+    "monaco-editor": "^0.44.0",
+    "monaco-editor-core": "^0.44.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-monaco-editor": "^0.54.0",
+    "react-scripts": "5.0.1",
+    "theme-ui": "^0.16.1",
+    "typescript": "^5.2.2",
+    "valtio": "^1.11.3",
+    "web-tree-sitter": "^0.25.3",
+    "web-vitals": "^3.5.0"
+  },
+  "devDependencies": {
+    "customize-cra": "^1.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-arca": "^0.16.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-valtio": "^0.6.2",
+    "monaco-editor-webpack-plugin": "^7.1.0",
+    "prettier": "^3.0.3",
+    "react-app-rewired": "^2.2.1",
+    "tree-sitter-cpp": "^0.23.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getMoreBrain/bitmark-playground.git"
+  },
+  "packageManager": "yarn@3.5.0",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6.8.0",
+    "git": ">=2.11.0",
+    "yarn": ">=3.5.0"
+  },
+  "keywords": [
+    "bitmark"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "contributors": [
+    "Richard Sewell (https://github.com/zx-ncoderz)"
+  ]
+}

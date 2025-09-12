@@ -1,0 +1,598 @@
+[
+  {
+    "bit": {
+      "type": "highlight-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285686"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "10",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "highlight-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "She went to the ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "mall",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "sea",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " and ate ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "breakfast",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "fish",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "trees",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": ".",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.highlight-text]\n[@id:285686]\n[%10][%highlight-text]\nShe went to the [+mall][-sea] and ate [+breakfast][-fish][-trees]."
+  },
+  {
+    "bit": {
+      "type": "highlight-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285687"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "10",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "highlight-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "She went to the ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "mall",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "sea",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " and ate ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "breakfast",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "fish",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "trees",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": ".",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.highlight-text]\n[@id:285687]\n[%10][%highlight-text]\n[@example]\nShe went to the [+mall][-sea] and ate [+breakfast][-fish][-trees]."
+  },
+  {
+    "bit": {
+      "type": "highlight-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285688"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "10",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "highlight-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "She went to the ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "mall",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "sea",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " and ate ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "breakfast",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "fish",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": false
+                  },
+                  {
+                    "text": "trees",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": ".",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.highlight-text]\n[@id:285688]\n[%10][%highlight-text]\nShe went to the [+mall][-sea] and ate [+breakfast][-fish][@example][-trees]."
+  },
+  {
+    "bit": {
+      "type": "highlight-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "285689"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "10",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "highlight-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "She went to the ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "mall",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "sea",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " and ate ",
+              "type": "text"
+            },
+            {
+              "type": "highlight",
+              "attrs": {
+                "texts": [
+                  {
+                    "text": "breakfast",
+                    "isCorrect": true,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "fish",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "trees",
+                    "isCorrect": false,
+                    "isHighlighted": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": ".",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.highlight-text]\n[@id:285689]\n[%10][%highlight-text]\nShe went to the [+mall][-sea] and ate [+breakfast][@example][-fish][-trees]."
+  }
+]

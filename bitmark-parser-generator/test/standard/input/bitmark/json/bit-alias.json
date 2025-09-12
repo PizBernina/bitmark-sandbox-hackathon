@@ -1,0 +1,192 @@
+[
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h44",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h44]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "anchor": "b1_c03",
+      "reference": "com.firstpub.09823409h50",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h50][▼b1_c03]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h54",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h54]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h56",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h56]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h42",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h42]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h43",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h43]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h44",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h44]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h45",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h45]"
+  },
+  {
+    "bit": {
+      "type": "bit-alias",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "reference": "com.firstpub.09823409h47",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-alias][►com.firstpub.09823409h47]"
+  }
+]

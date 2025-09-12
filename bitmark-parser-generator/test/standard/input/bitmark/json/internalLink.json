@@ -1,0 +1,107 @@
+[
+  {
+    "bit": {
+      "type": "internal-link",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "192356"
+      ],
+      "reference": "Ref_Starbucks",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Überprüfe deine Antwort nach dem Lesen:",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.internal-link]\n[@id:192356]\n[!Überprüfe deine Antwort nach dem Lesen:]\n[►Ref_Starbucks]"
+  },
+  {
+    "bit": {
+      "type": "internal-link",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "192374"
+      ],
+      "reference": "Ref_Emmi",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Überprüfe deine Antwort nach dem Lesen:",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.internal-link]\n[@id:192374]\n[!Überprüfe deine Antwort nach dem Lesen:]\n[►Ref_Emmi]"
+  },
+  {
+    "bit": {
+      "type": "internal-link",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "192383"
+      ],
+      "reference": "Ref_Globus",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Überprüfe deine Antwort nach dem Lesen:",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.internal-link]\n[@id:192383]\n[!Überprüfe deine Antwort nach dem Lesen:]\n[►Ref_Globus]"
+  }
+]

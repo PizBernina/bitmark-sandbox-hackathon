@@ -1,0 +1,571 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Node Version",
+      "program": "",
+      "runtimeArgs": ["--version"],
+      "console": "internalConsole",
+      "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Info",
+      "program": "${workspaceFolder}/test/custom/dev/devInfo.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Config",
+      "program": "${workspaceFolder}/test/custom/dev/devGenerateConfig.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Parser",
+      "program": "${workspaceFolder}/test/custom/dev/devParser.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Generator",
+      "program": "${workspaceFolder}/test/custom/dev/devGenerator.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Prettify",
+      "program": "${workspaceFolder}/test/custom/dev/devPrettify.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Text Parser (bitmark body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkBodyParser.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Text Generator (bitmark body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkBodyGenerator.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Text Parser (bitmark tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkTagParser.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Text Generator (bitmark tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkTagGenerator.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Breakscape (bitmark body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkBodyBreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Unbreakscape (bitmark body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkBodyUnbreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Breakscape (bitmark tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkTagBreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Unbreakscape (bitmark tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextBitmarkTagUnbreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Breakscape (plain body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextPlainBodyBreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Unbreakscape (plain body)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextPlainBodyUnbreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Breakscape (plain tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextPlainTagBreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Unbreakscape (plain tag)",
+      "program": "${workspaceFolder}/test/custom/dev/devTextPlainTagUnbreakscape.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Regenerate Bitmark Tests",
+      "program": "${workspaceFolder}/test/custom/dev/devRegenerateBitmarkTests.ts",
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build Grammar (bitmark)",
+      "program": "${workspaceFolder}/scripts/grammar/bitmark/generate-bitmark-parser.ts",
+      "args": ["--bit", "--test"],
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build Grammar (text)",
+      "program": "${workspaceFolder}/scripts/grammar/bitmark/generate-text-parser.ts",
+      "args": ["--test"],
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Current file",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": ["${fileBasenameNoExtension}"],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: ALL Standard Tests",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": ["-i"],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Bitmark Parser - Standard Tests",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/bitmark-parser.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Bitmark Generator - Standard Tests",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/bitmark-generator.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Parser (bitmark body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-body-parser.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Generator (bitmark body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-body-generator.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Parser (bitmark tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-tag-parser.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Generator (bitmark tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-tag-generator.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Breakscape (bitmark body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-body-breakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Unbreakscape (bitmark body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-body-unbreakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Breakscape (bitmark tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-tag-breakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Unbreakscape (bitmark tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-bitmark-tag-unbreakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Breakscape (plain body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-plain-body-breakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Unbreakscape (plain body)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-plain-body-unbreakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Breakscape (plain tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-plain-tag-breakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Text Unbreakscape (plain tag)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/text-plain-tag-unbreakscape.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Web Parser - Standard Tests",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/web-parser.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Test: Web Generator - Standard Tests",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--config=jest.config.js",
+        "--testMatch",
+        "<rootDir>/test/standard/web-generator.test.ts",
+        "-i"
+      ],
+      // "preLaunchTask": "build",
+      "console": "integratedTerminal"
+      // "disableOptimisticBPs": true,
+      // "internalConsoleOptions": "openOnSessionStart",
+      // "outFiles": ["${workspaceRoot}/dist/**/*"],
+      // "envFile": "${workspaceRoot}/.env",
+    }
+  ]
+}

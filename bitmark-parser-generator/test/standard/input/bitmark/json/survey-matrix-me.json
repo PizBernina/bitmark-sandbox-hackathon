@@ -1,0 +1,276 @@
+[
+  {
+    "bit": {
+      "type": "survey-matrix-me",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "pointerLeft": "60%",
+      "pointerTop": "20%",
+      "buttonCaption": "This is a button caption",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "resource": {
+        "type": "image",
+        "image": {
+          "format": "png",
+          "provider": "docs.bitbook.education",
+          "src": "https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png",
+          "width": null,
+          "height": null,
+          "alt": "",
+          "zoomDisabled": false,
+          "license": "",
+          "copyright": "",
+          "showInIndex": false,
+          "caption": []
+        }
+      },
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "◼︎ Ausgewählte temporale Adjektive",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Vergangenheit:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* gestrig, ehemalig, vorherig, damalig",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.survey-matrix-me]\n[@pointerTop:20%]\n[@pointerLeft:60%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]\n[@buttonCaption:This is a button caption]"
+  },
+  {
+    "bit": {
+      "type": "survey-matrix-me",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "pointerLeft": "60%",
+      "pointerTop": "20%",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "resource": {
+        "type": "image",
+        "image": {
+          "format": "png",
+          "provider": "docs.bitbook.education",
+          "src": "https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png",
+          "width": null,
+          "height": null,
+          "alt": "",
+          "zoomDisabled": false,
+          "license": "",
+          "copyright": "",
+          "showInIndex": false,
+          "caption": []
+        }
+      },
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "◼︎ Ausgewählte temporale Adjektive",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Vergangenheit:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* gestrig, ehemalig, vorherig, damalig",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "buttonCaption": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "[@buttonCaption] is required at least 1 time(s)",
+          "text": "[.survey-matrix-me&image]\n[@pointerTop:20%]\n[@pointerLeft:60%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]\n\n",
+          "location": {
+            "start": {
+              "line": 10,
+              "column": 1,
+              "offset": 337
+            },
+            "end": {
+              "line": 18,
+              "column": 1,
+              "offset": 638
+            }
+          }
+        },
+        {
+          "message": "Resource type [&image] is specified in the bit header, but no extra resource is allowed for this bit.",
+          "text": "[.survey-matrix-me&image]\n[@pointerTop:20%]\n[@pointerLeft:60%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]\n\n",
+          "location": {
+            "start": {
+              "line": 10,
+              "column": 1,
+              "offset": 337
+            },
+            "end": {
+              "line": 18,
+              "column": 1,
+              "offset": 638
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.survey-matrix-me&image]\n[@pointerTop:20%]\n[@pointerLeft:60%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]"
+  },
+  {
+    "bit": {
+      "type": "survey-matrix-me",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "pointerLeft": "50%",
+      "buttonCaption": "This is a button caption",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "resource": {
+        "type": "image",
+        "image": {
+          "format": "png",
+          "provider": "docs.bitbook.education",
+          "src": "https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png",
+          "width": null,
+          "height": null,
+          "alt": "",
+          "zoomDisabled": false,
+          "license": "",
+          "copyright": "",
+          "showInIndex": false,
+          "caption": []
+        }
+      },
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "◼︎ Ausgewählte temporale Adjektive",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Vergangenheit:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "* gestrig, ehemalig, vorherig, damalig",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pointerTop": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "[@pointerTop] is required at least 1 time(s)",
+          "text": "[.survey-matrix-me]\n[@pointerLeft:50%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]\n[@buttonCaption:This is a button caption]\n",
+          "location": {
+            "start": {
+              "line": 19,
+              "column": 1,
+              "offset": 639
+            },
+            "end": {
+              "line": 26,
+              "column": 1,
+              "offset": 957
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.survey-matrix-me]\n[@pointerLeft:50%]\n**◼︎ Ausgewählte temporale Adjektive**\n**Vergangenheit:**\n* gestrig, ehemalig, vorherig, damalig\n[&image:https://docs.bitbook.education/bit-books/schubert/schubert_erkundungen_b2/web-resources/images/gesch_ft_kommerz_und_handel_958.png]\n[@buttonCaption:This is a button caption]"
+  }
+]

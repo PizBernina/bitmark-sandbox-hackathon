@@ -1,0 +1,67 @@
+[
+  {
+    "bit": {
+      "type": "record-audio",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "92374"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "it supports just the starndard tags",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "this is a record bit",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.record-audio]\n[@id:92374]\n[!this is a record bit]\n[%it supports just the starndard tags]"
+  },
+  {
+    "bit": {
+      "type": "record-audio",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.record-audio]"
+  }
+]

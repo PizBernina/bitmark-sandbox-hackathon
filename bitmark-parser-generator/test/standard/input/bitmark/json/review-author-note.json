@@ -1,0 +1,108 @@
+[
+  {
+    "bit": {
+      "type": "review-author-note",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "210022"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Lernziele",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Nach der Bearbeitung dieses Kapitels können Sie ...",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "resolved": false,
+      "resolvedDate": "",
+      "resolvedBy": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.review-author-note]\n[@id:210022]\n[%][%**Lernziele**]\n\nNach der Bearbeitung dieses Kapitels können Sie ..."
+  },
+  {
+    "bit": {
+      "type": "review-author-note",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "210040"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Lernziele",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Nach der Bearbeitung dieses Kapitels können Sie ...",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "resolved": false,
+      "resolvedDate": "",
+      "resolvedBy": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.review-author-note:bitmark++]\n[@id:210040]\n[%][%**Lernziele**]\n\nNach der Bearbeitung dieses Kapitels können Sie ..."
+  }
+]

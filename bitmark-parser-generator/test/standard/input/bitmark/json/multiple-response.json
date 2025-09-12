@@ -1,0 +1,775 @@
+[
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "291969"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche der folgenden Personen sind grundsätzlich beitragspflichtig?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "responses": [
+            {
+              "response": "Unselbständige",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "IV-Rentner",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "18 jähriger Schüler",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "22 jähriger Student",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "16 jähriger Lehrling",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            }
+          ]
+        }
+      ],
+      "isExample": false,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "end": {
+              "line": 1,
+              "column": 31,
+              "offset": 30
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n[@id:291969]\n[%]\n[!Welche der folgenden Personen sind grundsätzlich beitragspflichtig?]\n===\n[+Unselbständige]\n[+IV-Rentner]\n[-18 jähriger Schüler]\n[+22 jähriger Student]\n[-16 jähriger Lehrling]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "291969"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche der folgenden Personen sind grundsätzlich beitragspflichtig?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "Unselbständige",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "IV-Rentner",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "18 jähriger Schüler",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            },
+            {
+              "response": "22 jähriger Student",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "16 jähriger Lehrling",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 13,
+              "column": 1,
+              "offset": 230
+            },
+            "end": {
+              "line": 13,
+              "column": 31,
+              "offset": 260
+            }
+          }
+        },
+        {
+          "message": "Only 'true' / 'false' / default are allowed here, using default",
+          "text": "[@example:Test]",
+          "location": {
+            "start": {
+              "line": 18,
+              "column": 1,
+              "offset": 353
+            },
+            "end": {
+              "line": 18,
+              "column": 16,
+              "offset": 368
+            }
+          }
+        },
+        {
+          "message": "Only 'true' / 'false' / default are allowed here, using default",
+          "text": "[@example:Correct response]",
+          "location": {
+            "start": {
+              "line": 20,
+              "column": 14,
+              "offset": 400
+            },
+            "end": {
+              "line": 20,
+              "column": 41,
+              "offset": 427
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n[@id:291969]\n[%]\n[!Welche der folgenden Personen sind grundsätzlich beitragspflichtig?]\n===\n[@example:Test]\n[+Unselbständige]\n[+IV-Rentner][@example:Correct response]\n[-18 jähriger Schüler]\n[+22 jähriger Student]\n[-16 jähriger Lehrling]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "291969"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche der folgenden Personen sind grundsätzlich beitragspflichtig?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "Unselbständige",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "IV-Rentner",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "18 jähriger Schüler",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            },
+            {
+              "response": "22 jähriger Student",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "16 jähriger Lehrling",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 26,
+              "column": 1,
+              "offset": 503
+            },
+            "end": {
+              "line": 26,
+              "column": 31,
+              "offset": 533
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n[@id:291969]\n[%]\n[!Welche der folgenden Personen sind grundsätzlich beitragspflichtig?]\n===\n[+Unselbständige]\n[+IV-Rentner]\n[-18 jähriger Schüler][@example]\n[+22 jähriger Student]\n[-16 jähriger Lehrling]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "291969"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche der folgenden Personen sind grundsätzlich beitragspflichtig?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "Unselbständige",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "IV-Rentner",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "18 jähriger Schüler",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            },
+            {
+              "response": "22 jähriger Student",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "16 jähriger Lehrling",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 38,
+              "column": 1,
+              "offset": 743
+            },
+            "end": {
+              "line": 38,
+              "column": 31,
+              "offset": 773
+            }
+          }
+        },
+        {
+          "message": "Only 'true' / 'false' / default are allowed here, using default",
+          "text": "[@example:Another text here]",
+          "location": {
+            "start": {
+              "line": 46,
+              "column": 23,
+              "offset": 963
+            },
+            "end": {
+              "line": 46,
+              "column": 51,
+              "offset": 991
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n[@id:291969]\n[%]\n[!Welche der folgenden Personen sind grundsätzlich beitragspflichtig?]\n===\n[+Unselbständige]\n[+IV-Rentner][@example]\n[-18 jähriger Schüler][@example]\n[+22 jähriger Student][@example:Another text here]\n[-16 jähriger Lehrling]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "CorrectAnswer1",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "CorrectAnswer2",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "FalseAnswer3",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            }
+          ]
+        },
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "FalseAnswer4",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 50,
+              "column": 1,
+              "offset": 1021
+            },
+            "end": {
+              "line": 50,
+              "column": 31,
+              "offset": 1051
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n[@example]\n===\n[+CorrectAnswer1]\n[+CorrectAnswer2]\n[-FalseAnswer3]\n===\n[-FalseAnswer4]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "CorrectAnswer1",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "CorrectAnswer2",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            },
+            {
+              "response": "FalseAnswer3",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            }
+          ]
+        },
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "responses": [
+            {
+              "response": "FalseAnswer4",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 60,
+              "column": 1,
+              "offset": 1144
+            },
+            "end": {
+              "line": 60,
+              "column": 31,
+              "offset": 1174
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n===\n[+CorrectAnswer1][@example]\n[+CorrectAnswer2][@example]\n[-FalseAnswer3][@example]\n===\n[-FalseAnswer4]\n==="
+  },
+  {
+    "bit": {
+      "type": "multiple-response",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "quizzes": [
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "responses": [
+            {
+              "response": "CorrectAnswer1",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": false
+            },
+            {
+              "response": "CorrectAnswer2",
+              "isCorrect": true,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            },
+            {
+              "response": "FalseAnswer3",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": true,
+              "example": true
+            }
+          ]
+        },
+        {
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "responses": [
+            {
+              "response": "FalseAnswer4",
+              "isCorrect": false,
+              "item": [],
+              "hint": [],
+              "instruction": [],
+              "isExample": false,
+              "example": null
+            }
+          ]
+        }
+      ],
+      "isExample": true,
+      "footer": [],
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.multiple-response:bitmark--]",
+          "location": {
+            "start": {
+              "line": 69,
+              "column": 1,
+              "offset": 1286
+            },
+            "end": {
+              "line": 69,
+              "column": 31,
+              "offset": 1316
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.multiple-response:bitmark--]\n===\n[+CorrectAnswer1][@example:false]\n[+CorrectAnswer2]\n[-FalseAnswer3][@example:true]\n===\n[-FalseAnswer4]\n==="
+  }
+]

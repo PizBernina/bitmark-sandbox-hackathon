@@ -1,0 +1,43 @@
+[
+  {
+    "bit": {
+      "type": "chapter-subject-matter",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "342336"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Chapter subject matter",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "It's exactly the same as an .article.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.chapter-subject-matter]\n[@id:342336]\nChapter subject matter\nIt's exactly the same as an .article."
+  }
+]

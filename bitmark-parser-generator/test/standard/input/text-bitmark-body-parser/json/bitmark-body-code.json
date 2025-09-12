@@ -1,0 +1,106 @@
+[
+  {
+    "type": "paragraph",
+    "content": [
+      {
+        "text": "Some code follows:",
+        "type": "text"
+      }
+    ],
+    "attrs": {}
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "javascript"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "const chain = Object.assign({}, ...ch)\n\nlet textAlign_ = chain.captionAlign || \"left\"; delete chain.captionAlign\nlet alt_ = chain.alt || null; delete chain.alt\nlet title_ = chain.caption || null; delete chain.caption\nlet class_ = chain.align || \"center\"; delete chain.align"
+      }
+    ]
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "typescript"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "/**\n   * Convert Bitmark text to text AST.\n   *\n   * The Bitmark text should be a string.\n   * If parsed bitmark text AST is passed to this function, it will be returned as is.\n   *\n   * @param text - bitmark text\n   * @returns bitmark text AST as plain JS object\n   */\n  toAst(text: string | TextAst | undefined, options?: BitmarkTextParserOptions): TextAst {\n    // If input is not a string, return it as is\n    if (Array.isArray(text)) return text;\n    const str = text as string;\n\n    const testXor = 2  0x12345678;\n\n    // Ensure options is an object\n    const opts = Object.assign({}, options);\n\n    // Default text format to bitmark-- if not specified\n    if (!opts.textFormat) opts.textFormat = TextFormat.bitmarkMinusMinus;\n\n    const startRule = opts.textFormat === TextFormat.bitmarkPlusPlus ? 'bitmarkPlusPlus' : 'bitmarkMinusMinus';\n\n    return bitmarkTextParse(str ?? '', {\n      startRule,\n    });\n  }"
+      }
+    ]
+  },
+  {
+    "type": "paragraph",
+    "content": [
+      {
+        "text": "Some more code follows with tricky bits:",
+        "type": "text"
+      }
+    ],
+    "attrs": {}
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "the code starts here"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "and continues on the next line,\nand the next line"
+      }
+    ]
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "c99"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "int main(int argc, char* argv[]){\n  // Body\n}"
+      }
+    ]
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "typescript"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "void veryNastyCode() {\n  int xor = 1  0x1234; // This is fine, not breakscaped away\n  int or  = 1 // Inline comment followed by no indentation\n| 0x1234; // This is going to break things\n}"
+      }
+    ]
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "coffeescript"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "void moreNastyCodeMustBeEscaped() {\n  int xor = 1  0x1234; // This is fine, not breakscaped away\n  int or  = 1 // Inline comment followed by no indentation\n|\n  return \"Not sure why that is there, but it needs to be escaped!\";\n}"
+      }
+    ]
+  },
+  {
+    "type": "codeBlock",
+    "attrs": {
+      "language": "c++"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "int mess_up(int **doublePointer) {\n  return \"take that!!\"\n}"
+      }
+    ]
+  }
+]

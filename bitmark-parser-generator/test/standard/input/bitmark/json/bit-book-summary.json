@@ -1,0 +1,24 @@
+[
+  {
+    "bit": {
+      "type": "bit-book-summary",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "isTemplate": true,
+      "isTemplateStripTheme": true,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.bit-book-summary]"
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "bit": {
+      "type": "book-reference",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "135647"
+      ],
+      "lang": "en-US",
+      "refAuthor": [
+        "Philippe Pointet"
+      ],
+      "refBookTitle": "How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning",
+      "refPublisher": [
+        "kpmg"
+      ],
+      "citationStyle": "Stylish",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "refPublicationYear": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.book-reference]\n[@id:135647]\n[@lang:en-US]\n[@refPublisher:kpmg]\n[@refBookTitle:How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning]\n[@refAuthor:Philippe Pointet]\n[@citationStyle:Stylish]"
+  },
+  {
+    "bit": {
+      "type": "book-reference",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "135647"
+      ],
+      "lang": "en-US",
+      "refAuthor": [
+        "Philippe Pointet"
+      ],
+      "refBookTitle": "How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning",
+      "refPublisher": [
+        "kpmg",
+        "gmpk"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "refPublicationYear": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.book-reference]\n[@id:135647]\n[@lang:en-US]\n[@refPublisher:kpmg]\n[@refPublisher:gmpk]\n[@refBookTitle:How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning]\n[@refAuthor:Philippe Pointet]"
+  },
+  {
+    "bit": {
+      "type": "book-reference",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "135647"
+      ],
+      "lang": "en-US",
+      "refAuthor": [
+        "Philippe Pointet",
+        "Someone Else"
+      ],
+      "refBookTitle": "How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning",
+      "refPublisher": [
+        "kpmg"
+      ],
+      "refPublicationYear": "2025",
+      "citationStyle": "Not so stylish",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "[@refBookTitle] is included more than 1 time(s). The earlier ones will be ignored",
+          "text": "[@refBookTitle:How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning]",
+          "location": {
+            "start": {
+              "line": 23,
+              "column": 1,
+              "offset": 608
+            },
+            "end": {
+              "line": 23,
+              "column": 124,
+              "offset": 731
+            }
+          },
+          "original": {
+            "text": "[@refBookTitle:Overridden]",
+            "location": {
+              "start": {
+                "line": 22,
+                "column": 1,
+                "offset": 581
+              },
+              "end": {
+                "line": 22,
+                "column": 27,
+                "offset": 607
+              }
+            }
+          }
+        },
+        {
+          "message": "[@citationStyle] is included more than 1 time(s). The earlier ones will be ignored",
+          "text": "[@citationStyle:Not so stylish]",
+          "location": {
+            "start": {
+              "line": 27,
+              "column": 1,
+              "offset": 813
+            },
+            "end": {
+              "line": 27,
+              "column": 32,
+              "offset": 844
+            }
+          },
+          "original": {
+            "text": "[@citationStyle:Stylish]",
+            "location": {
+              "start": {
+                "line": 26,
+                "column": 1,
+                "offset": 788
+              },
+              "end": {
+                "line": 26,
+                "column": 25,
+                "offset": 812
+              }
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.book-reference]\n[@id:135647]\n[@lang:en-US]\n[@refPublisher:kpmg]\n[@refPublicationYear:2025]\n[@refBookTitle:Overridden]\n[@refBookTitle:How the Content-First Standard “bitmark” Enables the Digital Transformation and Democratization of Learning]\n[@refAuthor:Philippe Pointet]\n[@refAuthor:Someone Else]\n[@citationStyle:Stylish]\n[@citationStyle:Not so stylish]"
+  },
+  {
+    "bit": {
+      "type": "book-reference",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "135647"
+      ],
+      "lang": "en-US",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "refAuthor": [],
+      "refBookTitle": "",
+      "refPublisher": [],
+      "refPublicationYear": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.book-reference]\n[@id:135647]\n[@lang:en-US]"
+  }
+]

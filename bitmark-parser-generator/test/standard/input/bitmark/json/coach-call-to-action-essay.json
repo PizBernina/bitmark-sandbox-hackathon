@@ -1,0 +1,702 @@
+[
+  {
+    "bit": {
+      "type": "coach-call-to-action-essay",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Listen to the train announcement. Write down every word you hear.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "sampleSolution": "The train now approaching Platform 2 is the delayed 11.45 South West Trains service to Poole. Platform 2 for the 11.45 service to Poole.",
+      "body": [],
+      "isExample": false,
+      "example": null,
+      "partialAnswer": "",
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-essay]\n[%1]\n[!Listen to the train announcement. Write down every word you hear.]\n[@sampleSolution:The train now approaching Platform 2 is the delayed 11.45 South West Trains service to Poole. Platform 2 for the 11.45 service to Poole.]"
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-essay",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": ["245552"],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Lernaufgabe E – 22",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Überprüfen Sie die Hypothese und beurteilen Sie diese Aussage.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Fachmann Gesundheit Bruno Moll und Fachfrau Gesundheit Anna Schulz haben in der erweiterten Beispielhaften Situation mithilfe des Internets weitere präventive Massnahmen recherchiert. Aus ihren Recherchen ziehen sie den Schluss, dass es reicht, wenn sich die Klientinnen und Klienten gut ernähren, viel an der frischen Luft sind und gute soziale Kontakte pflegen.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "example": null,
+      "partialAnswer": "",
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-call-to-action-essay:bitmark--]",
+          "location": {
+            "start": {
+              "line": 6,
+              "column": 1,
+              "offset": 260
+            },
+            "end": {
+              "line": 6,
+              "column": 40,
+              "offset": 299
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-call-to-action-essay:bitmark--]\n[@id:245552]\n[%][%Lernaufgabe E – 22]\nFachmann Gesundheit Bruno Moll und Fachfrau Gesundheit Anna Schulz haben in der erweiterten Beispielhaften Situation mithilfe des Internets weitere präventive Massnahmen recherchiert. Aus ihren Recherchen ziehen sie den Schluss, dass es reicht, wenn sich die Klientinnen und Klienten gut ernähren, viel an der frischen Luft sind und gute soziale Kontakte pflegen. [!Überprüfen Sie die Hypothese und beurteilen Sie diese Aussage.]"
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-essay",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": ["272740"],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "2",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Situationen und Aufgaben gemäss Lehrplan",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Machen Sie sich Gedanken zu folgenden Fragen:",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Ein Kunde hat eine sehr empfindliche Haut, die schnell zu ",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Juckreiz",
+              "type": "text"
+            },
+            {
+              "text": " neigt. Er möchte sich längerfristig so behandeln, dass dieser Juckreiz möglichst selten auftritt.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Haben Sie selbst dieses Problem auch schon erlebt, dass es Sie juckt? Was haben Sie dagegen unternommen?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Warum hat die Haut gejuckt? Welche Ursachen könnten eine Rolle spielen?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "example": null,
+      "partialAnswer": "",
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-essay::bitmark++]\n[@id:272740]\n[%2][%Situationen und Aufgaben gemäss Lehrplan]\nEin Kunde hat eine sehr empfindliche Haut, die schnell zu **Juckreiz** neigt. Er möchte sich längerfristig so behandeln, dass dieser Juckreiz möglichst selten auftritt.\n\n[!Machen Sie sich Gedanken zu folgenden Fragen:]\n\nHaben Sie selbst dieses Problem auch schon erlebt, dass es Sie juckt? Was haben Sie dagegen unternommen?\nWarum hat die Haut gejuckt? Welche Ursachen könnten eine Rolle spielen?"
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-essay",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": ["152151"],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "|image:",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_6.png",
+                    "target": "_blank"
+                  }
+                }
+              ],
+              "text": "docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_6.png",
+              "type": "text"
+            },
+            {
+              "text": "|",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "1)VOST: 3.200.000 * 60% * 7,70%\t\t\t\tVOST\t",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "147.840",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "2)|image:",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_5.png",
+                    "target": "_blank"
+                  }
+                }
+              ],
+              "text": "docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_5.png",
+              "type": "text"
+            },
+            {
+              "text": "|",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "3) VOST auf steuerbaren Leistungen = 84,5% auf 7,7% von 360\t    ",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "23.423",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "4)direkte VOST auf Ausland-Umsätzen, da für diese",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "optiert werden könnte (Art. 29 Ibis MWSTG).",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Berechnung: 80.000 / 3.900 = 20.51%; 140.000 * 20,51 * 7,70%\t       ",
+              "type": "text"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "2.211",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Abrechnung:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Umsatz (3.200.000+820.000+390.000)\t4.410.000",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "./. ausg. Umsätze\t-390.000",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "steuerbare Umsätze\t4.020.000",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Steuer 7,70%\t309.540",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "VOST\t-176.557",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Nettozahllast\t132.983",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Eine Garagen- und Fahrschulgruppe wendet die Gruppenbesteuerung an: Die Beteiligungsverhältnisse präsentieren sich wie folgt:",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "image",
+          "attrs": {
+            "alignment": "center",
+            "textAlign": "left",
+            "src": "https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_1.png",
+            "alt": null,
+            "title": null,
+            "class": "center",
+            "zoomDisabled": true
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Erstellen Sie die Mehrwertsteuerabrechnung 20.1 aufgrund der nachfolgenden Angaben:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "01.01. bis 31.12.20.1 - Beträge In CHF (exkl. MWST)",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Autohandels AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "3.200.000 - Verkäufe an inländische Kunden",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "80.000 - Verkäufe an Fahrschule",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "100.000 - Dividendenerträge von Gruppengesellschaften",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Investitionen 7,7% = 50% des Umsatzes",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Übriger Aufwand 7,7% = 10% des Umsatzes",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Immobilien AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "120.000 - Mieterträge von Autohandels AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "80.000 - Mieterträge von Reparatur und Carrossierie AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "100.000 - Mietersträge von Fahrschule AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "-65.000 - Aufwendungen (7,7%)",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Reparatur und Carrosserie AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "820.000 - Umsätze mit Dritten",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "150.000 - Umsätze mit Fahrschule AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "-360.000 - Aufwendungen (7,7%)",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Fahrschule AG",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "270.000 - Kurse und Schulungen im Inland",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "80.000 - Kurse und Schulungen im Ausland",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "40.000 - Verkäufe von ausgemusterten Fahrzeugen an Dritte",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "140.000 - Aufwendungen (7,7%)",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "example": null,
+      "partialAnswer": "",
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-essay:bitmark++]\n[@id:152151]\n[!Eine Garagen- und Fahrschulgruppe wendet die Gruppenbesteuerung an: Die Beteiligungsverhältnisse präsentieren sich wie folgt:]\n|image:https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_1.png|\n\nErstellen Sie die Mehrwertsteuerabrechnung 20.1 aufgrund der nachfolgenden Angaben:\n\n**01.01. bis 31.12.20.1 - Beträge In CHF (exkl. MWST)**\nAutohandels AG\n3.200.000 - Verkäufe an inländische Kunden\n80.000 - Verkäufe an Fahrschule\n100.000 - Dividendenerträge von Gruppengesellschaften\nInvestitionen 7,7% = 50% des Umsatzes\nÜbriger Aufwand 7,7% = 10% des Umsatzes\n\nImmobilien AG\n120.000 - Mieterträge von Autohandels AG\n80.000 - Mieterträge von Reparatur und Carrossierie AG\n100.000 - Mietersträge von Fahrschule AG\n-65.000 - Aufwendungen (7,7%)\n\nReparatur und Carrosserie AG\n820.000 - Umsätze mit Dritten\n150.000 - Umsätze mit Fahrschule AG\n-360.000 - Aufwendungen (7,7%)\n\nFahrschule AG\n270.000 - Kurse und Schulungen im Inland\n80.000 - Kurse und Schulungen im Ausland\n40.000 - Verkäufe von ausgemusterten Fahrzeugen an Dritte\n140.000 - Aufwendungen (7,7%)\n\n\n[?|image:https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_6.png|\n1)VOST: 3.200.000 * 60% * 7,70%\t\t\t\tVOST\t**147.840**\n2)|image:https://docs.bitmark.cloud/bit-books/akad/skript_mehrwertsteuer/web-resources/images/akad_mwst_fallbeispiele_5.png|\n3) VOST auf steuerbaren Leistungen = 84,5% auf 7,7% von 360\t    **23.423**\n\n4)direkte VOST auf Ausland-Umsätzen, da für diese\noptiert werden könnte (Art. 29 Ibis MWSTG).\nBerechnung: 80.000 / 3.900 = 20.51%; 140.000 * 20,51 * 7,70%\t       **2.211**\n\n**Abrechnung:**\n\nUmsatz (3.200.000+820.000+390.000)\t4.410.000\n./. ausg. Umsätze\t-390.000\nsteuerbare Umsätze\t4.020.000\n\n**Steuer 7,70%\t309.540**\n**VOST\t-176.557**\n**Nettozahllast\t132.983**\n]"
+  },
+  {
+    "bit": {
+      "type": "coach-call-to-action-essay",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": ["136476"],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "1",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Gib das Ergebnis an:",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "(107 · 0.471)+(6.98+3.41+3.02−3.39)−(97 · 0.471)",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "isExample": false,
+      "example": null,
+      "partialAnswer": "",
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-call-to-action-essay]\n[@id:136476]\n[%1]\n[!Gib das Ergebnis an:\n(107 · 0.471)+(6.98+3.41+3.02−3.39)−(97 · 0.471)]"
+  }
+]

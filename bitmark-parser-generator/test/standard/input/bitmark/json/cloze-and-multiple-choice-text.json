@@ -1,0 +1,799 @@
+[
+  {
+    "bit": {
+      "type": "cloze-and-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287842"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "cloze-and-multiple-choice-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "cloze"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " with the correct verb ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "forms",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "formats",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " is on another line and may cause issues with bit chaining.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " correctly",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " incorrectly",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.cloze-and-multiple-choice-text]\n[@id:287842]\n[%][%cloze-and-multiple-choice-text]\nThe students completed the [_cloze] with the correct verb [+forms][-formats]\n\n[+other][-options] is on another line and may cause issues with bit chaining.\n\nHere we chain [+other][-options] correctly\n\nHere we chain [+other] [-options] incorrectly"
+  },
+  {
+    "bit": {
+      "type": "cloze-and-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287843"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "cloze-and-multiple-choice-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "cloze"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isCaseSensitive": true,
+                "isExample": true,
+                "example": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "cloze",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ]
+              }
+            },
+            {
+              "text": " with the correct verb ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "forms",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "formats",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " is on another line and may cause issues with bit chaining.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " correctly",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " incorrectly",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.cloze-and-multiple-choice-text]\n[@id:287843]\n[%][%cloze-and-multiple-choice-text]\n[@example]\nThe students completed the [_cloze] with the correct verb [+forms][-formats]\n\n[+other][-options] is on another line and may cause issues with bit chaining.\n\nHere we chain [+other][-options] correctly\n\nHere we chain [+other] [-options] incorrectly"
+  },
+  {
+    "bit": {
+      "type": "cloze-and-multiple-choice-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287844"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "cloze-and-multiple-choice-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The students completed the ",
+              "type": "text"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "cloze",
+                  "gap"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isCaseSensitive": true,
+                "isExample": true,
+                "example": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "gap",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ]
+              }
+            },
+            {
+              "text": " with the correct verb ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "forms",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "formats",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " is on another line and may cause issues with bit chaining.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": true,
+                    "example": true
+                  },
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": true
+              }
+            },
+            {
+              "text": " correctly",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Here we chain ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "other",
+                    "isCorrect": true,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " ",
+              "type": "text"
+            },
+            {
+              "type": "select",
+              "attrs": {
+                "options": [
+                  {
+                    "text": "options",
+                    "isCorrect": false,
+                    "item": [],
+                    "lead": [],
+                    "hint": [],
+                    "instruction": [],
+                    "isExample": false,
+                    "example": null
+                  }
+                ],
+                "prefix": "",
+                "postfix": "",
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [],
+                "isExample": false
+              }
+            },
+            {
+              "text": " incorrectly",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.cloze-and-multiple-choice-text]\n[@id:287844]\n[%][%cloze-and-multiple-choice-text]\nThe students completed the [_cloze][_gap][@example] with the correct verb [+forms][-formats]\n\n[+other][-options] is on another line and may cause issues with bit chaining.\n\nHere we chain [+other][@example][-options] correctly\n\nHere we chain [+other] [-options] incorrectly"
+  }
+]

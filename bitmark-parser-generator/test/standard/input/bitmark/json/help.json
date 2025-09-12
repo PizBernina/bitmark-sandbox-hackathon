@@ -1,0 +1,283 @@
+[
+  {
+    "bit": {
+      "type": "help",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "210023"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Schlüsselbegriffe",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Bedürfnis, Kundenorientierung, Marketing",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.help]\n[@id:210023]\n[%][%**Schlüsselbegriffe**]\nBedürfnis, Kundenorientierung, Marketing"
+  },
+  {
+    "bit": {
+      "type": "help",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "210041"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Schlüsselbegriffe",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Analyse, Budget, Instrumente, Kontrolle, Marketingkonzept, Strategien, Ziele",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.help]\n[@id:210041]\n[%][%**Schlüsselbegriffe**]\nAnalyse, Budget, Instrumente, Kontrolle, Marketingkonzept, Strategien, Ziele"
+  },
+  {
+    "bit": {
+      "type": "help",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "210064"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Schlüsselbegriffe",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Befragung, Beobachtung, externe Quellen, Fokusgruppen, interne Quellen, Markttest, Methoden, Mystery Shopping, Online-Befragung, Panel, persönliche Befragung, Primärmarktforschung, Produkttest, qualitative Marktforschung, quantitative Marktforschung, Secundärmarktforschung, Stichprobe, telefonische Befragung, Test, Werbetest",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.help]\n[@id:210064]\n[%][%**Schlüsselbegriffe**]\nBefragung, Beobachtung, externe Quellen, Fokusgruppen, interne Quellen, Markttest, Methoden, Mystery Shopping, Online-Befragung, Panel, persönliche Befragung, Primärmarktforschung, Produkttest, qualitative Marktforschung, quantitative Marktforschung, Secundärmarktforschung, Stichprobe, telefonische Befragung, Test, Werbetest"
+  },
+  {
+    "bit": {
+      "type": "help",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "208484"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Schlüsselbegriffe",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Aufwand, Effektivität, Effizienz, Erfolg, Ertrag, Gewinn, Mehrwert, primäre Aktivitäten, Produktivität, sekundäre Aktivitäten, Verlust, Wertkette, Wertschöpfung, Wirtschaftlichkeit",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.help:bitmark--]",
+          "location": {
+            "start": {
+              "line": 18,
+              "column": 1,
+              "offset": 597
+            },
+            "end": {
+              "line": 18,
+              "column": 18,
+              "offset": 614
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.help:bitmark--]\n[@id:208484]\n[%][%**Schlüsselbegriffe**]\nAufwand, Effektivität, Effizienz, Erfolg, Ertrag, Gewinn, Mehrwert, primäre Aktivitäten, Produktivität, sekundäre Aktivitäten, Verlust, Wertkette, Wertschöpfung, Wirtschaftlichkeit"
+  },
+  {
+    "bit": {
+      "type": "help-alt",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "151971"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "marginNumber",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "The bit content",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.help-alt:bitmark--]",
+          "location": {
+            "start": {
+              "line": 23,
+              "column": 1,
+              "offset": 838
+            },
+            "end": {
+              "line": 23,
+              "column": 22,
+              "offset": 859
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.help-alt:bitmark--]\n[@id:151971]\n[%][%][%][%marginNumber]\n\nThe bit content"
+  }
+]

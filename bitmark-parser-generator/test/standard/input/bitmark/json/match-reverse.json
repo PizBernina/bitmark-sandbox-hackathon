@@ -1,0 +1,111 @@
+[
+  {
+    "bit": {
+      "type": "match-reverse",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287869"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "match-reverse",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Wie heißen die passenden Nomen?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "pairs": [
+        {
+          "key": "Tier",
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isCaseSensitive": true,
+          "isExample": true,
+          "example": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "text": "das",
+                  "type": "text"
+                }
+              ],
+              "attrs": {}
+            }
+          ],
+          "values": [
+            "das"
+          ]
+        },
+        {
+          "key": "Kuh",
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isCaseSensitive": true,
+          "isExample": false,
+          "example": null,
+          "values": [
+            "die"
+          ]
+        },
+        {
+          "key": "Löwe",
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isCaseSensitive": true,
+          "isExample": false,
+          "example": null,
+          "values": [
+            "die"
+          ]
+        },
+        {
+          "key": "Schmetterling",
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isCaseSensitive": true,
+          "isExample": false,
+          "example": null,
+          "values": [
+            "der"
+          ]
+        }
+      ],
+      "isExample": true,
+      "heading": {},
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.match-reverse]\n[@id:287869]\n[%][%match-reverse]\n[!Wie heißen die passenden Nomen?]\n===\nTier\n==\ndas[@example]\n===\nKuh\n==\ndie\n===\nLöwe\n==\ndie\n===\nSchmetterling\n==\nder\n==="
+  }
+]

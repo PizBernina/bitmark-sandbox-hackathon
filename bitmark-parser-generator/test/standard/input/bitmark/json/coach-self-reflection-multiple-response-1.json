@@ -1,0 +1,1208 @@
+[
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "186300"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Die Qualicard ist ein branchenspezifisches Instrument zur Beurteilung der Qualität in der betrieblichen Ausbildun.",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Qualicard ist eine gesetzliche Vorschrift für die Ausbildungsbewilligung.",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Qualicard ist ein berufsunabhängiges Instrument zur Beurteilung der Qualität in der betrieblichen Ausbildung.",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1]\n[@id:186300]\n[!Bitte wählen Sie alle zutreffenden Antworten]\n[-Die Qualicard ist ein branchenspezifisches Instrument zur Beurteilung der Qualität in der betrieblichen Ausbildun.]\n[-Die Qualicard ist eine gesetzliche Vorschrift für die Ausbildungsbewilligung.]\n[+Die Qualicard ist ein berufsunabhängiges Instrument zur Beurteilung der Qualität in der betrieblichen Ausbildung.]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "186301"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Kreuze zwei Bereiche an, die in der Qualicard geregelt werden",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Anstellung",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Einführung in die Arbeitswelt",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Verhalten der Lernenden",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Schulische Leistungen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1]\n[@id:186301]\n[!Kreuze zwei Bereiche an, die in der Qualicard geregelt werden]\n[+Anstellung]\n[+Einführung in die Arbeitswelt]\n[-Verhalten der Lernenden]\n[-Schulische Leistungen]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "186302"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche Punkte gehören in den Einführungszprozess?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Die Leistungen der Lernenden in der Berufsfachschule und in den überbetrieblichen Kursen werden kontrolliert und besprochen.",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Lernenden werden bei Lehrbeginn über Sinn und Zweck der Bildungsverordnung und des Bildungsplans (betrieblicher Bildungsplan, Modelllehrgang, etc.) informiert.",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Lernenden werden über die Tätigkeiten und das Arbeitsumfeld des Lehrbetriebs informiert.",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die für die Ausbildung zuständigen Personen sind bestimmt.",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1]\n[@id:186302]\n[!Welche Punkte gehören in den Einführungszprozess?]\n[-Die Leistungen der Lernenden in der Berufsfachschule und in den überbetrieblichen Kursen werden kontrolliert und besprochen.]\n[-Die Lernenden werden bei Lehrbeginn über Sinn und Zweck der Bildungsverordnung und des Bildungsplans (betrieblicher Bildungsplan, Modelllehrgang, etc.) informiert.]\n[+Die Lernenden werden über die Tätigkeiten und das Arbeitsumfeld des Lehrbetriebs informiert.]\n[+Die für die Ausbildung zuständigen Personen sind bestimmt.]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187540"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Was ist das Ziel eines Beurteilungsgesprächs? Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Die Lerndokumentation überprüfen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Lernenden besser kennenzulernen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Rückmeldung zum Verhalten und Leistung",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Überprüfen der betrieblichen Ausbildung und deren Zielen",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 25,
+              "column": 1,
+              "offset": 1212
+            },
+            "end": {
+              "line": 25,
+              "column": 55,
+              "offset": 1266
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187540]\n[!Was ist das Ziel eines Beurteilungsgesprächs? Bitte wählen Sie alle zutreffenden Antworten]\n[-Die Lerndokumentation überprüfen]\n[-Die Lernenden besser kennenzulernen]\n[+Rückmeldung zum Verhalten und Leistung]\n[+Überprüfen der betrieblichen Ausbildung und deren Zielen]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187541"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Welche Informationsquellen für die Vorbereitung eines Gesprächs kennst du?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Rückmeldungen Praxisbildner/Berufsbildner",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Beobachtungen am Arbeitsplatz",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Gehörtes von Arbeitskollegen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Lerndokumentation",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 33,
+              "column": 1,
+              "offset": 1552
+            },
+            "end": {
+              "line": 33,
+              "column": 55,
+              "offset": 1606
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187541]\n[!Welche Informationsquellen für die Vorbereitung eines Gesprächs kennst du?\nBitte wählen Sie alle zutreffenden Antworten]\n[+Rückmeldungen Praxisbildner/Berufsbildner]\n[+Beobachtungen am Arbeitsplatz]\n[-Gehörtes von Arbeitskollegen]\n[+Lerndokumentation]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187542"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Wie schaffst du eine angenehme Gesprächsumgebung? Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Die Dauer des Gesprächs definieren",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Mit den Zielen für das nächste Semester beginnen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Mit einem 'Eisbrecher' starten",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Der Sinn des Gesprächs erklären",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 42,
+              "column": 1,
+              "offset": 1875
+            },
+            "end": {
+              "line": 42,
+              "column": 55,
+              "offset": 1929
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187542]\n[!Wie schaffst du eine angenehme Gesprächsumgebung? Bitte wählen Sie alle zutreffenden Antworten]\n[+Die Dauer des Gesprächs definieren]\n[-Mit den Zielen für das nächste Semester beginnen]\n[+Mit einem 'Eisbrecher' starten]\n[+Der Sinn des Gesprächs erklären]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187543"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Wenn du das Beurteilungsgespräch alleine führst, was ist dabei zu beachten?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Genügend Zeit einberechnen",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Rückmeldungen bei anderen Berufsbildner/Praxisbildner K° einholen",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Dass der Raum gross genug ist",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Mich absichern was ich von den anderen BB/PB rückmelden darf",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 50,
+              "column": 1,
+              "offset": 2201
+            },
+            "end": {
+              "line": 50,
+              "column": 55,
+              "offset": 2255
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187543]\n[!Wenn du das Beurteilungsgespräch alleine führst, was ist dabei zu beachten?\nBitte wählen Sie alle zutreffenden Antworten]\n[+Genügend Zeit einberechnen]\n[+Rückmeldungen bei anderen Berufsbildner/Praxisbildner K° einholen]\n[-Dass der Raum gross genug ist]\n[+Mich absichern was ich von den anderen BB/PB rückmelden darf]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187544"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Nach welchen Beurteilungsmerkmalen beurteilst du die Teamfähigkeit? Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Umgang mit Kritik",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Beteiligt sich der Lernende in Gesprächen aktiv",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Bringt sich der Lernende ins Team ein",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Pünktlichkeit",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 59,
+              "column": 1,
+              "offset": 2590
+            },
+            "end": {
+              "line": 59,
+              "column": 55,
+              "offset": 2644
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187544]\n[!Nach welchen Beurteilungsmerkmalen beurteilst du die Teamfähigkeit? Bitte wählen Sie alle zutreffenden Antworten]\n[+Umgang mit Kritik]\n[+Beteiligt sich der Lernende in Gesprächen aktiv]\n[+Bringt sich der Lernende ins Team ein]\n[-Pünktlichkeit]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187233"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Was sind die Vorteile einer Lerndokumentation für den Lernenden?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Reflexion des Gelernten",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Neue Lernstrategien sammeln",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Zusammenfassung der neugelernten Arbeitstechniken",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Die Lerndoku dient als Nachschlagewerk",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 67,
+              "column": 1,
+              "offset": 2905
+            },
+            "end": {
+              "line": 67,
+              "column": 55,
+              "offset": 2959
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187233]\n[!Was sind die Vorteile einer Lerndokumentation für den Lernenden?\nBitte wählen Sie alle zutreffenden Antworten]\n[+Reflexion des Gelernten]\n[-Neue Lernstrategien sammeln]\n[+Zusammenfassung der neugelernten Arbeitstechniken]\n[+Die Lerndoku dient als Nachschlagewerk]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "187234"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Was sind die Vorteile für den Berufsbildner/Praxisbildner",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Bitte wählen Sie alle zutreffenden Antworten",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [],
+      "responses": [
+        {
+          "response": "Lernender lernt eine Arbeit zu schreiben",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Führungsinstrument",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Übersicht über den effektiv erfolgten Bildungsverlauf",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 76,
+              "column": 1,
+              "offset": 3240
+            },
+            "end": {
+              "line": 76,
+              "column": 55,
+              "offset": 3294
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@id:187234]\n[!Was sind die Vorteile für den Berufsbildner/Praxisbildner\nBitte wählen Sie alle zutreffenden Antworten]\n[-Lernender lernt eine Arbeit zu schreiben]\n[+Führungsinstrument]\n[+Übersicht über den effektiv erfolgten Bildungsverlauf]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "208470"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "4",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Markieren Sie die Produktionsfaktoren.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Die für die Produktion von Gütern eingesetzten Mittel nennt man Produktionsfaktoren. Davon gibt es 4.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "responses": [
+        {
+          "response": "Know-how",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Arbeit",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Arbeitslosigkeit",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Werkstoffe",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Betriebsmittel",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Ressourcen",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "Konsumgüter",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        }
+      ],
+      "isExample": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1]\n[@id:208470]\n[%4]\nDie für die Produktion von Gütern eingesetzten Mittel nennt man Produktionsfaktoren. Davon gibt es 4.\n[!Markieren Sie die Produktionsfaktoren.]\n[+Know-how]\n[+Arbeit]\n[-Arbeitslosigkeit]\n[+Werkstoffe]\n[+Betriebsmittel]\n[-Ressourcen]\n[-Konsumgüter]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "responses": [
+        {
+          "response": "CorrectAnswer1",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": true
+        },
+        {
+          "response": "CorrectAnswer2",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": true
+        },
+        {
+          "response": "FalseAnswer3",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": false
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 99,
+              "column": 1,
+              "offset": 3851
+            },
+            "end": {
+              "line": 99,
+              "column": 55,
+              "offset": 3905
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[@example]\n[+CorrectAnswer1]\n[+CorrectAnswer2]\n[-FalseAnswer3]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "responses": [
+        {
+          "response": "CorrectAnswer1",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": true
+        },
+        {
+          "response": "CorrectAnswer2",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": true
+        },
+        {
+          "response": "FalseAnswer3",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": false
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 106,
+              "column": 1,
+              "offset": 3971
+            },
+            "end": {
+              "line": 106,
+              "column": 55,
+              "offset": 4025
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[+CorrectAnswer1][@example]\n[+CorrectAnswer2][@example]\n[-FalseAnswer3][@example]"
+  },
+  {
+    "bit": {
+      "type": "coach-self-reflection-multiple-response-1",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "responses": [
+        {
+          "response": "CorrectAnswer1",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": false
+        },
+        {
+          "response": "CorrectAnswer2",
+          "isCorrect": true,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": false,
+          "example": null
+        },
+        {
+          "response": "FalseAnswer3",
+          "isCorrect": false,
+          "item": [],
+          "hint": [],
+          "instruction": [],
+          "isExample": true,
+          "example": true
+        }
+      ],
+      "isExample": true,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "bitmark-- text format is deprecated. Bit will be parsed as bitmark++",
+          "text": "[.coach-self-reflection-multiple-response-1:bitmark--]",
+          "location": {
+            "start": {
+              "line": 112,
+              "column": 1,
+              "offset": 4110
+            },
+            "end": {
+              "line": 112,
+              "column": 55,
+              "offset": 4164
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.coach-self-reflection-multiple-response-1:bitmark--]\n[+CorrectAnswer1][@example:false]\n[+CorrectAnswer2]\n[-FalseAnswer3][@example:true]"
+  }
+]

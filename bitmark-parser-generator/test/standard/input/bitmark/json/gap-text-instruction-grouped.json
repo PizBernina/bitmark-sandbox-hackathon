@@ -1,0 +1,321 @@
+[
+  {
+    "bit": {
+      "type": "gap-text-instruction-grouped",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "287822"
+      ],
+      "item": [],
+      "lead": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "gap-text-instruction-grouped",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Der Fußball ",
+              "type": "text"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "erfreut"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "erfreuen",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": true,
+                "example": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "erfreut",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ]
+              }
+            },
+            {
+              "text": " sich nicht nur in Deutschland besonderer Beliebtheit, er ",
+              "type": "text"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "steht"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "stehen",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " auch in vielen anderen Ländern in der Rangliste der beliebtesten Sportarten ganz oben. ...",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": true,
+      "quizCountItems": true,
+      "quizStrikethroughSolutions": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.gap-text-instruction-grouped]\n[@id:287822]\n[%][%gap-text-instruction-grouped]\nDer Fußball [_erfreut][!erfreuen][@example] sich nicht nur in Deutschland besonderer Beliebtheit, er [_steht][!stehen] auch in vielen anderen Ländern in der Rangliste der beliebtesten Sportarten ganz oben. ..."
+  },
+  {
+    "bit": {
+      "type": "gap-text-instruction-grouped",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "107938"
+      ],
+      "item": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "5",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "In einem Café fängst du ein Gespräch mit einer Studentin an. Du möchtest der Studentin ein paar Fragen stellen.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Welches Fragewort passt? Wähl aus.",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "text": "Wähl die Wörter in der richtigen Reihenfolge aus.",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  ""
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "woher",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " kommen Sie?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  ""
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "wo",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " wohnen Sie?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "Was"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "was",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " studieren Sie?",
+              "type": "text"
+            },
+            {
+              "type": "hardBreak"
+            },
+            {
+              "type": "gap",
+              "attrs": {
+                "solutions": [
+                  "Welche"
+                ],
+                "item": [],
+                "lead": [],
+                "hint": [],
+                "instruction": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "text": "welche",
+                        "type": "text"
+                      }
+                    ],
+                    "attrs": {}
+                  }
+                ],
+                "isCaseSensitive": true,
+                "isExample": false,
+                "example": null
+              }
+            },
+            {
+              "text": " Sprachen sprechen Sie?",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "isExample": false,
+      "quizCountItems": true,
+      "quizStrikethroughSolutions": false,
+      "revealSolutions": false
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.gap-text-instruction-grouped]\n[@id:107938]\n[%5]\n[!In einem Café fängst du ein Gespräch mit einer Studentin an. Du möchtest der Studentin ein paar Fragen stellen.\nWelches Fragewort passt? Wähl aus.\nWähl die Wörter in der richtigen Reihenfolge aus.]\n[_][!woher] kommen Sie?\n[_][!wo] wohnen Sie?\n[_Was][!was] studieren Sie?\n[_Welche][!welche] Sprachen sprechen Sie?"
+  }
+]

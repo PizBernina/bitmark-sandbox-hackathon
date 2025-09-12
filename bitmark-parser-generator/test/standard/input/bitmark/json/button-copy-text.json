@@ -1,0 +1,47 @@
+[
+  {
+    "bit": {
+      "type": "button-copy-text",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "342341"
+      ],
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": ".button-copy-text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ],
+      "body": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "text": "Button Text",
+              "type": "text"
+            }
+          ],
+          "attrs": {}
+        }
+      ]
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.button-copy-text]\n[@id:342341]\n[!.button-copy-text]\nButton Text"
+  }
+]

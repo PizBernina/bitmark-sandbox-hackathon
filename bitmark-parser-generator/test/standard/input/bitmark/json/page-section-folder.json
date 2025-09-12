@@ -1,0 +1,85 @@
+[
+  {
+    "bit": {
+      "type": "page-section-folder",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "151970"
+      ],
+      "productFolder": "123",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": [],
+      "slug": ""
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2"
+    },
+    "bitmark": "[.page-section-folder]\n[@id:151970]\n[@productFolder:123]"
+  },
+  {
+    "bit": {
+      "type": "page-section-folder",
+      "format": "bitmark++",
+      "bitLevel": 1,
+      "id": [
+        "304379"
+      ],
+      "slug": "testing-1234",
+      "productFolder": "124",
+      "item": [],
+      "lead": [],
+      "pageNumber": [],
+      "marginNumber": [],
+      "hint": [],
+      "instruction": [],
+      "body": []
+    },
+    "parser": {
+      "version": "3.25.2",
+      "bitmarkVersion": "3",
+      "textParserVersion": "8.32.2",
+      "warnings": [
+        {
+          "message": "[@productFolder] is included more than 1 time(s). The earlier ones will be ignored",
+          "text": "[@productFolder:124]",
+          "location": {
+            "start": {
+              "line": 9,
+              "column": 21,
+              "offset": 136
+            },
+            "end": {
+              "line": 9,
+              "column": 41,
+              "offset": 156
+            }
+          },
+          "original": {
+            "text": "[@productFolder:123]",
+            "location": {
+              "start": {
+                "line": 9,
+                "column": 1,
+                "offset": 116
+              },
+              "end": {
+                "line": 9,
+                "column": 21,
+                "offset": 136
+              }
+            }
+          }
+        }
+      ]
+    },
+    "bitmark": "[.page-section-folder]\n[@id:304379]\n[@slug:testing-1234]\n[@productFolder:123][@productFolder:124]"
+  }
+]
