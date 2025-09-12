@@ -1,0 +1,28 @@
+# General
+notes.md
+notes_A.md
+.nvmrc
+todo
+
+# Dependencies
+**/node_modules/
+
+# Build outputs
+**/dist/
+**/build/
+**/.turbo/
+**/.cache/
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# Env files
+*.env
+*.env.*.local
+
+# Misc
+.DS_Store
+EOF
