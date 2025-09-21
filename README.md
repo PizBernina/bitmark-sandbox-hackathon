@@ -1,7 +1,8 @@
 
 ## ToDo
-- Get feedback from bitmark
+- Add automatic and smart breakscaping
 - Integrate LLM features
+- Render output so others can display it
 - Add tests
 
 
