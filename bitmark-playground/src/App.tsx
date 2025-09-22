@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Flex, Text, ThemeUIProvider } from 'theme-ui';
+import { useSnapshot } from 'valtio';
 
 import { BitmarkJsonDuration } from './components/bitmark/BitmarkJsonDuration';
 import { BitmarkJsonTextBox } from './components/bitmark/BitmarkJsonTextBox';
@@ -9,6 +10,7 @@ import { SandboxAutoViewer } from './components/sandbox/SandboxAutoViewer';
 import { Copyright } from './components/version/Copyright';
 import { Version } from './components/version/Version';
 import { BitmarkParserGeneratorProvider } from './services/BitmarkParserGenerator';
+import { bitmarkState } from './state/bitmarkState';
 import { theme } from './theme/theme';
 import './App.css';
 
@@ -43,6 +45,7 @@ const initialMarkup = '[.article] Hello World!';
 // `.trim();
 
 function App() {
+  const snap = useSnapshot(bitmarkState);
   return (
     <ThemeUIProvider theme={theme}>
       <BitmarkParserGeneratorProvider>
@@ -146,6 +149,7 @@ function App() {
                 sx={{
                   alignItems: 'flex-end',
                   mt: 2,
+                  gap: 3,
                 }}
               >
                 <Text
@@ -155,6 +159,14 @@ function App() {
                 >
                   Sandbox outputs
                 </Text>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  <input
+                    type="checkbox"
+                    checked={snap.breakscapeWarningsEnabled}
+                    onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
+                  />
+                  <span style={{ fontSize: 12, opacity: 0.8 }}>Breakscaping warnings</span>
+                </label>
               </Flex>
               <Flex
                 sx={{

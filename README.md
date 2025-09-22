@@ -568,6 +568,37 @@ End‑to‑end (playground/app):
   - Viewer is framework‑agnostic; example provided in React matches the playground. Angular/Vue/Svelte wrappers are trivial since the API is a single `convert()` call.
 
 
+## Breakscaping rules and fixes
+
+Breakscaping escapes characters in Bitmark text by inserting carets (^) so they aren’t parsed as markup. The inverse (unbreakscaping) removes those carets. Rules differ by context:
+
+- Bitmark body (bitmark++): escape repeated marks, code/title/list-leading markers, tag triggers, dividers, and caret runs.
+- Bitmark tag: escape repeated marks, end-of-tag bracket, and caret runs.
+- Plain tag: escape end-of-tag and caret runs.
+- Plain body: escape start-of-bit triggers only.
+
+In the playground editor:
+- Linting shows red squiggles where current text differs from the expected breakscaped form.
+- Quick Fix offers “Insert caret(s)” or “Remove unnecessary caret(s)”.
+- “Fix all related issues” applies to the selection if present, otherwise the whole document.
+- A paste infobar appears when issues are detected in the pasted region; click “Fix pasted region” to apply.
+- Warnings are Bitmark-only and can be toggled in the UI (no live auto-fix).
+
+Implementation notes:
+- Expected text is computed as breakscape(unbreakscape(input)) with v2 disabled.
+- Code/pre/inline-code lines are ignored to reduce false positives.
+- Use AST (when available) for precise context; otherwise, safe heuristics are applied.
+
+### Editor bits and ignored regions
+
+- `.app-code-editor` bodies are context-sensitive:
+  - If `@computerLanguage: json` OR the body parses as JSON (starts with `{`/`[` and JSON.parse succeeds) → ignored for breakscaping (no warnings/fixes), because it is literal data.
+  - If `@computerLanguage: bitmark` → treated as “sample markup” by default and ignored (no warnings/fixes), because authors commonly paste runnable Bitmark examples here.
+  - Optional: a per-editor toggle can switch a specific `.app-code-editor` to “literal text” mode, in which case breakscaping lint/fix applies to its body as if it were normal body text. This is useful when the editor holds prose that must be caret-escaped.
+
+- Paste notifications only appear when the pasted region actually differs from the normalized result; if no change is needed, no toast is shown.
+
+
 ## Changes Summary
 
 Code changes in:

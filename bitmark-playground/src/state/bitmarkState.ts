@@ -16,6 +16,8 @@ export interface BitmarkState {
   readonly jsonErrorAsString: string | undefined;
   readonly jsonDurationSec: number | undefined;
   readonly jsonUpdates: number;
+  readonly breakscapeWarningsEnabled: boolean;
+  setBreakscapeWarningsEnabled(enabled: boolean): void;
   // AST not implemented yet
   // ast: BitmarkAst | undefined;
   // astError: string | undefined;
@@ -36,6 +38,11 @@ const bitmarkState = proxy<BitmarkState>({
   jsonErrorAsString: undefined,
   jsonDurationSec: undefined,
   jsonUpdates: 0,
+  breakscapeWarningsEnabled: true,
+  setBreakscapeWarningsEnabled: (enabled: boolean) => {
+    const state = bitmarkState as Writable<BitmarkState>;
+    state.breakscapeWarningsEnabled = enabled;
+  },
   setJson: (markup: string, json: BitWrapperJson[] | undefined, jsonError: Error | undefined, durationSec?: number) => {
     const state = bitmarkState as Writable<BitmarkState>;
 

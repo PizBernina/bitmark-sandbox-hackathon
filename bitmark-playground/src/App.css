@@ -1,3 +1,11 @@
+/* Breakscape squiggles to ensure visibility over custom highlighters */
+.breakscape-error-underline {
+  text-decoration: wavy underline 2px #ff5c5c;
+}
+
+.breakscape-warn-underline {
+  text-decoration: wavy underline 2px #ffcc66;
+}
 .App {
   text-align: center;
 }
