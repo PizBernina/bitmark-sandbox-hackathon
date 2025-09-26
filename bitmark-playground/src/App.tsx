@@ -6,6 +6,7 @@ import { BitmarkJsonDuration } from './components/bitmark/BitmarkJsonDuration';
 import { BitmarkJsonTextBox } from './components/bitmark/BitmarkJsonTextBox';
 import { BitmarkMarkupDuration } from './components/bitmark/BitmarkMarkupDuration';
 import { BitmarkMarkupTextBox } from './components/bitmark/BitmarkMarkupTextBox';
+import { BitmarkRenderedUI } from './components/bitmark/BitmarkRenderedUI';
 import { SandboxAutoViewer } from './components/sandbox/SandboxAutoViewer';
 import { Copyright } from './components/version/Copyright';
 import { Version } from './components/version/Version';
@@ -14,7 +15,17 @@ import { bitmarkState } from './state/bitmarkState';
 import { theme } from './theme/theme';
 import './App.css';
 
-const initialMarkup = '';
+const initialMarkup = `[.cloze] The students completed the [_assignment] with the correct verb forms.
+
+[.multiple-choice] What color are violets? [-red][+blue][-green]
+
+[.cloze-and-multiple-choice-text] Roses are [_red], violets are [-green][+blue][-yellow]
+
+[.text] This is **bold** text and __italic__ text and ==underlined== text.
+
+[!Colors] This is a header
+
+[.paragraph] This is a regular paragraph with some **bold** and __italic__ formatting.`;
 // const initialMarkup = `
 // [.article:bitmark++&video]
 
@@ -63,6 +74,7 @@ function App() {
               height: '100%',
             }}
           >
+            {/* Left Column */}
             <Flex
               sx={{
                 flexDirection: 'column',
@@ -71,116 +83,158 @@ function App() {
                 minHeight: 0,
               }}
             >
+              {/* Top Left: Bitmark Input */}
               <Flex
                 sx={{
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-between',
+                  flexDirection: 'column',
+                  flex: '1 1 50%',
+                  minHeight: 0,
                 }}
               >
-                <Flex sx={{ alignItems: 'flex-end', gap: 2 }}>
-                  <Text
+                <Flex
+                  sx={{
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-between',
+                    mb: 2,
+                  }}
+                >
+                  <Flex sx={{ alignItems: 'flex-end', gap: 2 }}>
+                    <Text
+                      sx={{
+                        variant: 'header.code',
+                      }}
+                    >
+                      bitmark
+                    </Text>
+                    <BitmarkMarkupDuration
+                      sx={{
+                        variant: 'text.parserDuration',
+                      }}
+                    />
+                  </Flex>
+                  <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
+                    <input
+                      type="checkbox"
+                      checked={snap.breakscapeWarningsEnabled}
+                      onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
+                    />
+                    <span>Breakscaping warnings</span>
+                  </label>
+                </Flex>
+                <Flex
+                  sx={{
+                    resize: 'none',
+                    variant: 'textarea.code',
+                    flexGrow: 1,
+                  }}
+                >
+                  <BitmarkMarkupTextBox
+                    className={'markup-editor'}
                     sx={{
-                      variant: 'header.code',
+                      border: '1px solid',
+                      borderColor: 'accent',
                     }}
-                  >
-                    bitmark
-                  </Text>
-                  <BitmarkMarkupDuration
-                    sx={{
-                      variant: 'text.parserDuration',
+                    initialMarkup={initialMarkup}
+                    options={{
+                      wordWrap: 'on',
                     }}
                   />
                 </Flex>
-                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
-                  <input
-                    type="checkbox"
-                    checked={snap.breakscapeWarningsEnabled}
-                    onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
-                  />
-                  <span>Breakscaping warnings</span>
-                </label>
               </Flex>
+
+              {/* Bottom Left: Rendered UI */}
               <Flex
                 sx={{
-                  resize: 'none',
-                  variant: 'textarea.code',
-                  flexGrow: 1,
+                  flexDirection: 'column',
+                  flex: '1 1 50%',
+                  minHeight: 0,
+                  mt: 2,
                 }}
               >
-                <BitmarkMarkupTextBox
-                  className={'markup-editor'}
-                  sx={{
-                    border: '1px solid',
-                    borderColor: 'accent',
-                  }}
-                  initialMarkup={initialMarkup}
-                  options={{
-                    wordWrap: 'on',
-                    // bracketPairColorization: {
-                    //   enabled: false,
-                    //   independentColorPoolPerBracketType: false,
-                    // },
-                  }}
-                />
+                <BitmarkRenderedUI />
               </Flex>
             </Flex>
+
+            {/* Right Column */}
             <Flex
               sx={{
                 flexDirection: 'column',
                 flexGrow: 1,
                 width: '50%',
+                ml: 2,
               }}
             >
-              <Flex
-                sx={{
-                  alignItems: 'flex-end',
-                }}
-              >
-                <Text
-                  sx={{
-                    variant: 'header.code',
-                  }}
-                >
-                  JSON
-                </Text>
-                <BitmarkJsonDuration
-                  sx={{
-                    variant: 'text.parserDuration',
-                  }}
-                />
-              </Flex>
-              <Flex sx={{ resize: 'none', variant: 'textarea.code', flex: '1 1 50%', minHeight: 0 }}>
-                <BitmarkJsonTextBox
-                  className={'json-editor'}
-                  sx={{ border: '1px solid', borderColor: 'accent' }}
-                  options={{ wordWrap: 'on' }}
-                />
-              </Flex>
-              <Flex
-                sx={{
-                  alignItems: 'flex-end',
-                  mt: 2,
-                }}
-              >
-                <Text
-                  sx={{
-                    variant: 'header.code',
-                  }}
-                >
-                  Sandbox outputs
-                </Text>
-              </Flex>
+              {/* Top Right: JSON Output */}
               <Flex
                 sx={{
                   flexDirection: 'column',
-                  border: '1px solid',
-                  borderColor: 'accent',
-                  overflowY: 'auto',
                   flex: '1 1 50%',
                   minHeight: 0,
                 }}
               >
-                <SandboxAutoViewer />
+                <Flex
+                  sx={{
+                    alignItems: 'flex-end',
+                    mb: 2,
+                  }}
+                >
+                  <Text
+                    sx={{
+                      variant: 'header.code',
+                    }}
+                  >
+                    JSON
+                  </Text>
+                  <BitmarkJsonDuration
+                    sx={{
+                      variant: 'text.parserDuration',
+                    }}
+                  />
+                </Flex>
+                <Flex sx={{ resize: 'none', variant: 'textarea.code', flexGrow: 1, minHeight: 0 }}>
+                  <BitmarkJsonTextBox
+                    className={'json-editor'}
+                    sx={{ border: '1px solid', borderColor: 'accent' }}
+                    options={{ wordWrap: 'on' }}
+                  />
+                </Flex>
+              </Flex>
+
+              {/* Bottom Right: Sandbox Outputs */}
+              <Flex
+                sx={{
+                  flexDirection: 'column',
+                  flex: '1 1 50%',
+                  minHeight: 0,
+                  mt: 2,
+                }}
+              >
+                <Flex
+                  sx={{
+                    alignItems: 'flex-end',
+                    mb: 2,
+                  }}
+                >
+                  <Text
+                    sx={{
+                      variant: 'header.code',
+                    }}
+                  >
+                    Sandbox outputs
+                  </Text>
+                </Flex>
+                <Flex
+                  sx={{
+                    flexDirection: 'column',
+                    border: '1px solid',
+                    borderColor: 'accent',
+                    overflowY: 'auto',
+                    flexGrow: 1,
+                    minHeight: 0,
+                  }}
+                >
+                  <SandboxAutoViewer />
+                </Flex>
               </Flex>
             </Flex>
           </Flex>

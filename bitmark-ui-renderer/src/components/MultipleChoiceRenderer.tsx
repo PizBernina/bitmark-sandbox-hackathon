@@ -1,0 +1,109 @@
+import React, { useState } from 'react';
+import { Box, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
+import { MultipleChoiceBit } from '../types';
+
+interface MultipleChoiceRendererProps {
+  bit: MultipleChoiceBit;
+  onInteraction: (value: string) => void;
+}
+
+export const MultipleChoiceRenderer: React.FC<MultipleChoiceRendererProps> = ({ bit, onInteraction }) => {
+  const [selectedValue, setSelectedValue] = useState(bit.selectedValue || '');
+
+  const handleChange = (event: any) => {
+    const newValue = event.target.value;
+    setSelectedValue(newValue);
+    onInteraction(newValue);
+  };
+
+  // Parse the content to find multiple choice patterns
+  const parseContent = (content: string | undefined) => {
+    if (!content) {
+      return [{
+        type: 'text' as const,
+        content: 'No content available'
+      }];
+    }
+    
+    // Look for [-text][+text] patterns in the content
+    const parts = content.split(/(\[[-+][^\]]*\])/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('[-') || part.startsWith('[+')) {
+        const isCorrect = part.startsWith('[+');
+        const text = part.slice(2, -1);
+        return {
+          type: 'option' as const,
+          text,
+          correct: isCorrect,
+          value: text.toLowerCase().replace(/\s+/g, '-')
+        };
+      }
+      return {
+        type: 'text' as const,
+        content: part
+      };
+    });
+  };
+
+  const parsedParts = parseContent(bit.content);
+  const options = parsedParts.filter(part => part.type === 'option');
+
+  return (
+    <Box
+      sx={{
+        p: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 2,
+        backgroundColor: 'background.paper',
+        boxShadow: 1,
+        mb: 2,
+      }}
+    >
+      <Typography variant="body1" component="div">
+        {parsedParts.map((part, index) => {
+          if (part.type === 'option') {
+            return (
+              <motion.span
+                key={index}
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <FormControl size="small" sx={{ mx: 1, minWidth: 120 }}>
+                  <InputLabel>Choose</InputLabel>
+                  <Select
+                    value={selectedValue}
+                    onChange={handleChange}
+                    label="Choose"
+                    sx={{
+                      backgroundColor: 'grey.100',
+                      '&:hover': {
+                        backgroundColor: 'primary.100',
+                      },
+                      '&.Mui-focused': {
+                        backgroundColor: 'primary.50',
+                      },
+                    }}
+                  >
+                    {options.map((option, optionIndex) => (
+                      <MenuItem key={optionIndex} value={option.value}>
+                        {option.text}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </motion.span>
+            );
+          }
+          return (
+            <span key={index}>
+              {part.content}
+            </span>
+          );
+        })}
+      </Typography>
+    </Box>
+  );
+};
