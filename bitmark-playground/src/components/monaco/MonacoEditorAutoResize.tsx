@@ -59,30 +59,32 @@ class MonacoEditorAutoResize extends React.Component<MonacoEditorAutoResizeProps
   }
 
   divResize(_entries: ResizeObserverEntry[], _observer: ResizeObserver): void {
-    const div = this.divRef.current;
+    requestAnimationFrame(() => {
+      const div = this.divRef.current;
 
-    if (div) {
-      this.width = div.clientWidth ?? 0;
-      this.height = div.clientHeight ?? 0;
+      if (div) {
+        this.width = div.clientWidth ?? 0;
+        this.height = div.clientHeight ?? 0;
 
-      // Always update width; height depends on mode
-      const nextState: State = {
-        width: this.width,
-        height: this.props.fitContentHeight ? this.state.height : this.height,
-      };
-      this.setState(nextState);
+        // Always update width; height depends on mode
+        const nextState: State = {
+          width: this.width,
+          height: this.props.fitContentHeight ? this.state.height : this.height,
+        };
+        this.setState(nextState);
 
-      // If we already have an editor, re-layout on width changes
-      if (this.editor) {
-        const targetHeight = this.props.fitContentHeight ? this.state.height : this.height;
-        try {
-          this.editor.layout({ width: this.width, height: targetHeight });
-        } catch (_err) {
-          // Ignore layout errors (editor may be tearing down)
-          void 0;
+        // If we already have an editor, re-layout on width changes
+        if (this.editor) {
+          const targetHeight = this.props.fitContentHeight ? this.state.height : this.height;
+          try {
+            this.editor.layout({ width: this.width, height: targetHeight });
+          } catch (_err) {
+            // Ignore layout errors (editor may be tearing down)
+            void 0;
+          }
         }
       }
-    }
+    });
   }
 
   private onEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor, m: typeof monaco) => {

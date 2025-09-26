@@ -14,7 +14,17 @@ import { bitmarkState } from './state/bitmarkState';
 import { theme } from './theme/theme';
 import './App.css';
 
-const initialMarkup = '[.article] Hello World!';
+const initialMarkup = `[.app-code-editor][@id:ex1][@computerLanguage:json]
+[
+  {"type":"article","body":{"bodyText":"Hello code!","bodyType":"text"}}
+]
+
+[.sandbox-output-bitmark][@fromId:ex1][@prettify:true]
+
+[.app-code-editor][@id:ex2][@computerLanguage:bitmark]
+[.article] Hello from bitmark!
+
+[.sandbox-output-json][@fromId:ex2][@prettify:2]`;
 // const initialMarkup = `
 // [.article:bitmark++&video]
 
@@ -74,20 +84,31 @@ function App() {
               <Flex
                 sx={{
                   alignItems: 'flex-end',
+                  justifyContent: 'space-between',
                 }}
               >
-                <Text
-                  sx={{
-                    variant: 'header.code',
-                  }}
-                >
-                  bitmark
-                </Text>
-                <BitmarkMarkupDuration
-                  sx={{
-                    variant: 'text.parserDuration',
-                  }}
-                />
+                <Flex sx={{ alignItems: 'flex-end', gap: 2 }}>
+                  <Text
+                    sx={{
+                      variant: 'header.code',
+                    }}
+                  >
+                    bitmark
+                  </Text>
+                  <BitmarkMarkupDuration
+                    sx={{
+                      variant: 'text.parserDuration',
+                    }}
+                  />
+                </Flex>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
+                  <input
+                    type="checkbox"
+                    checked={snap.breakscapeWarningsEnabled}
+                    onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
+                  />
+                  <span>Breakscaping warnings</span>
+                </label>
               </Flex>
               <Flex
                 sx={{
@@ -149,7 +170,6 @@ function App() {
                 sx={{
                   alignItems: 'flex-end',
                   mt: 2,
-                  gap: 3,
                 }}
               >
                 <Text
@@ -159,14 +179,6 @@ function App() {
                 >
                   Sandbox outputs
                 </Text>
-                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                  <input
-                    type="checkbox"
-                    checked={snap.breakscapeWarningsEnabled}
-                    onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
-                  />
-                  <span style={{ fontSize: 12, opacity: 0.8 }}>Breakscaping warnings</span>
-                </label>
               </Flex>
               <Flex
                 sx={{

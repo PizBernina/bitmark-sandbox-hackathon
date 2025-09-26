@@ -54,14 +54,15 @@ export function SandboxViewer({ input, output }: { input: Input; output: OutputR
       const start = performance.now();
       const res = bitmarkParserGenerator.convert(source, {
         outputFormat: output.format,
-        jsonOptions: typeof prettify !== 'undefined' ? { prettifyJson: prettify === true ? 2 : prettify } : undefined,
-        bitmarkOptions: typeof prettify !== 'undefined' ? { prettifyJson: !!prettify } : undefined,
+        jsonOptions:
+          typeof prettify !== 'undefined' ? { prettifyJson: prettify === true ? 2 : prettify } : { prettifyJson: 2 },
+        bitmarkOptions: typeof prettify !== 'undefined' ? { prettifyJson: !!prettify } : { prettifyJson: true },
       } as any);
       const end = performance.now();
       const text =
         typeof res === 'string'
           ? res
-          : JSON.stringify(res, null, prettify === true ? 2 : (prettify as number | undefined));
+          : JSON.stringify(res, null, prettify === true ? 2 : typeof prettify === 'number' ? prettify : 2);
       return {
         rendered: text,
         durationMs: Math.round(end - start),

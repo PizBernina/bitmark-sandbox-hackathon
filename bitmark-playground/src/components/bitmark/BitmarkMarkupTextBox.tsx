@@ -33,6 +33,12 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
   const { loadSuccess, loadError, markupToJson } = useBitmarkConverter();
   const { bitmarkParserGenerator } = useBitmarkParserGenerator();
 
+  // Debug parser loading
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: bitmarkParserGenerator changed', { hasBPG: !!bitmarkParserGenerator });
+  }, [bitmarkParserGenerator]);
+
   // Local UI state for paste notification
   const [pasteRegion, setPasteRegion] = useState<Range | undefined>(undefined);
   const [showPasteInfo, setShowPasteInfo] = useState(false);
@@ -118,40 +124,130 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
     };
   }, []);
 
-  // Schedule debounced analysis
-  const scheduleAnalysis = useCallback((delayMs: number = 300) => {
-    if (analysisTimerRef.current) window.clearTimeout(analysisTimerRef.current);
-    analysisTimerRef.current = window.setTimeout(() => {
-      runAnalysis();
-    }, delayMs);
-  }, []);
-
   // Run breakscape analysis and set Monaco markers
   const runAnalysis = useCallback(() => {
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: runAnalysis called');
     const ed = editorRef.current;
     const monaco = monacoRef.current;
-    if (!ed || !monaco || !bitmarkParserGenerator) return;
+    if (!ed || !monaco || !bitmarkParserGenerator) {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: runAnalysis early return', {
+        hasEditor: !!ed,
+        hasMonaco: !!monaco,
+        hasBPG: !!bitmarkParserGenerator,
+        breakscapeEnabled: bitmarkStateSnap.breakscapeWarningsEnabled,
+      });
+      return;
+    }
 
     const model = ed.getModel();
-    if (!model) return;
+    if (!model) {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: no model found');
+      return;
+    }
     const text = model.getValue() ?? '';
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: analysis text', { textLength: text.length, text: text.substring(0, 100) });
 
     const ignoredLines = getIgnoredLineSet(model);
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: ignored lines', { count: ignoredLines.size, lines: Array.from(ignoredLines) });
 
     // Compute canonical breakscaped form: breakscape(unbreakscape(text))
     let normalized = text;
     try {
-      // Bitmark body rules by default (v2 off)
-      const un = bitmarkParserGenerator.unbreakscapeText(text) as string;
-      const br = bitmarkParserGenerator.breakscapeText(un) as string;
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: available methods', Object.getOwnPropertyNames(bitmarkParserGenerator));
+
+      // Check for breakscaping in global scope
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const global = window as any;
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: global breakscaping methods', {
+        hasBreakscape: !!global.breakscape,
+        hasUnbreakscape: !!global.unbreakscape,
+        hasBreakscapeText: !!global.breakscapeText,
+        hasUnbreakscapeText: !!global.unbreakscapeText,
+        globalKeys: Object.keys(global).filter((k) => k.includes('breakscape') || k.includes('Breakscape')),
+      });
+
+      // Try different approaches for breakscaping
+      let un: string;
+      let br: string;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const bpg = bitmarkParserGenerator as any;
+
+      // Try global breakscaping functions first
+      if (typeof global.unbreakscapeText === 'function') {
+        un = global.unbreakscapeText(text) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using global unbreakscapeText');
+      } else if (typeof global.unbreakscape === 'function') {
+        un = global.unbreakscape(text) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using global unbreakscape');
+      } else if (typeof bpg.unbreakscapeText === 'function') {
+        un = bpg.unbreakscapeText(text) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using bpg unbreakscapeText');
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: no unbreakscape method found, using original text');
+        un = text;
+      }
+
+      if (typeof global.breakscapeText === 'function') {
+        br = global.breakscapeText(un) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using global breakscapeText');
+      } else if (typeof global.breakscape === 'function') {
+        br = global.breakscape(un) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using global breakscape');
+      } else if (typeof bpg.breakscapeText === 'function') {
+        br = bpg.breakscapeText(un) as string;
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: using bpg breakscapeText');
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('DEBUG: no breakscape method found, using unbreakscaped text');
+        br = un;
+      }
+
       normalized = br ?? text;
-    } catch {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: breakscaping computation', {
+        original: text.substring(0, 50),
+        unbreakscaped: un.substring(0, 50),
+        breakscaped: br.substring(0, 50),
+        normalized: normalized.substring(0, 50),
+        changed: normalized !== text,
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: breakscaping failed', error);
       // If breakscape fails, clear markers and exit gracefully
       monaco.editor.setModelMarkers(model, 'breakscape', []);
       return;
     }
 
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: breakscaping check', {
+      enabled: bitmarkStateSnap.breakscapeWarningsEnabled,
+      normalized: normalized === text,
+      textLength: text.length,
+      normalizedLength: normalized.length,
+    });
+
     if (!bitmarkStateSnap.breakscapeWarningsEnabled || normalized === text) {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: clearing markers', {
+        enabled: bitmarkStateSnap.breakscapeWarningsEnabled,
+        normalized: normalized === text,
+      });
       monaco.editor.setModelMarkers(model, 'breakscape', []);
       if (decorationIdsRef.current.length) {
         decorationIdsRef.current = ed.deltaDecorations(decorationIdsRef.current, []);
@@ -166,6 +262,9 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
       const heuristic = findHeuristicMarkers(model, ignoredLines);
       if (heuristic.length > 0) markers = heuristic;
     }
+
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: setting markers', { markerCount: markers.length, markers });
     monaco.editor.setModelMarkers(model, 'breakscape', markers);
     // Also decorate with squiggles explicitly to ensure visibility with custom highlighter
     if (markers.length > 0) {
@@ -184,7 +283,27 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
     } else if (decorationIdsRef.current.length) {
       decorationIdsRef.current = ed.deltaDecorations(decorationIdsRef.current, []);
     }
-  }, [bitmarkParserGenerator]);
+  }, [bitmarkParserGenerator, bitmarkStateSnap.breakscapeWarningsEnabled]);
+
+  // Schedule debounced analysis
+  const scheduleAnalysis = useCallback(
+    (delayMs: number = 300) => {
+      if (analysisTimerRef.current) window.clearTimeout(analysisTimerRef.current);
+      analysisTimerRef.current = window.setTimeout(() => {
+        runAnalysis();
+      }, delayMs);
+    },
+    [runAnalysis],
+  );
+
+  // Trigger initial breakscaping analysis after editor mounts and parser loads
+  useEffect(() => {
+    if (editorRef.current && monacoRef.current && bitmarkParserGenerator) {
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: triggering initial analysis - all dependencies ready');
+      scheduleAnalysis(100);
+    }
+  }, [scheduleAnalysis, bitmarkParserGenerator]);
 
   // Build minimal diff markers for display and quick fix
   const buildDiffMarkers = useCallback(
