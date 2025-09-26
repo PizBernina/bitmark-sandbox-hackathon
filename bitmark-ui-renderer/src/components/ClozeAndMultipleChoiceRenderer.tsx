@@ -112,38 +112,8 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
               </motion.span>
             );
           } else if (part.type === 'option') {
-            return (
-              <motion.span
-                key={index}
-                initial={{ scale: 0.95 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                <FormControl size="small" sx={{ mx: 1, minWidth: 120 }}>
-                  <InputLabel>Choose</InputLabel>
-                  <Select
-                    value={selectedValue}
-                    onChange={handleSelectChange}
-                    label="Choose"
-                    sx={{
-                      backgroundColor: 'grey.100',
-                      '&:hover': {
-                        backgroundColor: 'primary.100',
-                      },
-                      '&.Mui-focused': {
-                        backgroundColor: 'primary.50',
-                      },
-                    }}
-                  >
-                    {options.map((option, optionIndex) => (
-                      <MenuItem key={optionIndex} value={option.value}>
-                        {option.text}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </motion.span>
-            );
+            // Don't render individual options here, they'll be handled by the dropdown
+            return null;
           }
           return (
             <span key={index}>
@@ -151,6 +121,38 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
             </span>
           );
         })}
+        {options.length > 0 && (
+          <motion.div
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.2 }}
+            style={{ marginTop: 16 }}
+          >
+            <FormControl size="small" sx={{ minWidth: 200 }}>
+              <InputLabel>Choose an option</InputLabel>
+              <Select
+                value={selectedValue}
+                onChange={handleSelectChange}
+                label="Choose an option"
+                sx={{
+                  backgroundColor: 'grey.100',
+                  '&:hover': {
+                    backgroundColor: 'primary.100',
+                  },
+                  '&.Mui-focused': {
+                    backgroundColor: 'primary.50',
+                  },
+                }}
+              >
+                {options.map((option, optionIndex) => (
+                  <MenuItem key={optionIndex} value={option.value}>
+                    {option.text}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </motion.div>
+        )}
       </Typography>
     </Box>
   );

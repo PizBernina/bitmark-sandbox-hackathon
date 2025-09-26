@@ -150,41 +150,44 @@ var MultipleChoiceRenderer = ({ bit, onInteraction }) => {
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ jsx2(Typography2, { variant: "body1", component: "div", children: parsedParts.map((part, index) => {
-        if (part.type === "option") {
-          return /* @__PURE__ */ jsx2(
-            motion2.span,
-            {
-              initial: { scale: 0.95 },
-              animate: { scale: 1 },
-              transition: { duration: 0.2 },
-              children: /* @__PURE__ */ jsxs(FormControl, { size: "small", sx: { mx: 1, minWidth: 120 }, children: [
-                /* @__PURE__ */ jsx2(InputLabel, { children: "Choose" }),
-                /* @__PURE__ */ jsx2(
-                  Select,
-                  {
-                    value: selectedValue,
-                    onChange: handleChange,
-                    label: "Choose",
-                    sx: {
-                      backgroundColor: "grey.100",
-                      "&:hover": {
-                        backgroundColor: "primary.100"
-                      },
-                      "&.Mui-focused": {
-                        backgroundColor: "primary.50"
-                      }
+      children: /* @__PURE__ */ jsxs(Typography2, { variant: "body1", component: "div", children: [
+        parsedParts.map((part, index) => {
+          if (part.type === "option") {
+            return null;
+          }
+          return /* @__PURE__ */ jsx2("span", { children: part.content }, index);
+        }),
+        options.length > 0 && /* @__PURE__ */ jsx2(
+          motion2.div,
+          {
+            initial: { scale: 0.95 },
+            animate: { scale: 1 },
+            transition: { duration: 0.2 },
+            style: { marginTop: 16 },
+            children: /* @__PURE__ */ jsxs(FormControl, { size: "small", sx: { minWidth: 200 }, children: [
+              /* @__PURE__ */ jsx2(InputLabel, { children: "Choose an option" }),
+              /* @__PURE__ */ jsx2(
+                Select,
+                {
+                  value: selectedValue,
+                  onChange: handleChange,
+                  label: "Choose an option",
+                  sx: {
+                    backgroundColor: "grey.100",
+                    "&:hover": {
+                      backgroundColor: "primary.100"
                     },
-                    children: options.map((option, optionIndex) => /* @__PURE__ */ jsx2(MenuItem, { value: option.value, children: option.text }, optionIndex))
-                  }
-                )
-              ] })
-            },
-            index
-          );
-        }
-        return /* @__PURE__ */ jsx2("span", { children: part.content }, index);
-      }) })
+                    "&.Mui-focused": {
+                      backgroundColor: "primary.50"
+                    }
+                  },
+                  children: options.map((option, optionIndex) => /* @__PURE__ */ jsx2(MenuItem, { value: option.value, children: option.text }, optionIndex))
+                }
+              )
+            ] })
+          }
+        )
+      ] })
     }
   );
 };
@@ -359,75 +362,78 @@ var ClozeAndMultipleChoiceRenderer = ({
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ jsx4(Typography4, { variant: "body1", component: "div", children: parsedParts.map((part, index) => {
-        if (part.type === "cloze") {
-          return /* @__PURE__ */ jsx4(
-            motion4.span,
-            {
-              initial: { scale: 0.95 },
-              animate: { scale: 1 },
-              transition: { duration: 0.2 },
-              children: /* @__PURE__ */ jsx4(
-                TextField2,
-                {
-                  value: clozeValue,
-                  onChange: handleClozeChange,
-                  placeholder: part.placeholder,
-                  variant: "outlined",
-                  size: "small",
-                  sx: {
-                    mx: 1,
-                    minWidth: 120,
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "grey.100",
-                      "&:hover": {
-                        backgroundColor: "primary.100"
-                      },
-                      "&.Mui-focused": {
-                        backgroundColor: "primary.50",
-                        boxShadow: "0 0 0 2px rgba(25, 118, 210, 0.2)"
+      children: /* @__PURE__ */ jsxs2(Typography4, { variant: "body1", component: "div", children: [
+        parsedParts.map((part, index) => {
+          if (part.type === "cloze") {
+            return /* @__PURE__ */ jsx4(
+              motion4.span,
+              {
+                initial: { scale: 0.95 },
+                animate: { scale: 1 },
+                transition: { duration: 0.2 },
+                children: /* @__PURE__ */ jsx4(
+                  TextField2,
+                  {
+                    value: clozeValue,
+                    onChange: handleClozeChange,
+                    placeholder: part.placeholder,
+                    variant: "outlined",
+                    size: "small",
+                    sx: {
+                      mx: 1,
+                      minWidth: 120,
+                      "& .MuiOutlinedInput-root": {
+                        backgroundColor: "grey.100",
+                        "&:hover": {
+                          backgroundColor: "primary.100"
+                        },
+                        "&.Mui-focused": {
+                          backgroundColor: "primary.50",
+                          boxShadow: "0 0 0 2px rgba(25, 118, 210, 0.2)"
+                        }
                       }
                     }
                   }
+                )
+              },
+              index
+            );
+          } else if (part.type === "option") {
+            return null;
+          }
+          return /* @__PURE__ */ jsx4("span", { children: part.content }, index);
+        }),
+        options.length > 0 && /* @__PURE__ */ jsx4(
+          motion4.div,
+          {
+            initial: { scale: 0.95 },
+            animate: { scale: 1 },
+            transition: { duration: 0.2 },
+            style: { marginTop: 16 },
+            children: /* @__PURE__ */ jsxs2(FormControl2, { size: "small", sx: { minWidth: 200 }, children: [
+              /* @__PURE__ */ jsx4(InputLabel2, { children: "Choose an option" }),
+              /* @__PURE__ */ jsx4(
+                Select2,
+                {
+                  value: selectedValue,
+                  onChange: handleSelectChange,
+                  label: "Choose an option",
+                  sx: {
+                    backgroundColor: "grey.100",
+                    "&:hover": {
+                      backgroundColor: "primary.100"
+                    },
+                    "&.Mui-focused": {
+                      backgroundColor: "primary.50"
+                    }
+                  },
+                  children: options.map((option, optionIndex) => /* @__PURE__ */ jsx4(MenuItem2, { value: option.value, children: option.text }, optionIndex))
                 }
               )
-            },
-            index
-          );
-        } else if (part.type === "option") {
-          return /* @__PURE__ */ jsx4(
-            motion4.span,
-            {
-              initial: { scale: 0.95 },
-              animate: { scale: 1 },
-              transition: { duration: 0.2 },
-              children: /* @__PURE__ */ jsxs2(FormControl2, { size: "small", sx: { mx: 1, minWidth: 120 }, children: [
-                /* @__PURE__ */ jsx4(InputLabel2, { children: "Choose" }),
-                /* @__PURE__ */ jsx4(
-                  Select2,
-                  {
-                    value: selectedValue,
-                    onChange: handleSelectChange,
-                    label: "Choose",
-                    sx: {
-                      backgroundColor: "grey.100",
-                      "&:hover": {
-                        backgroundColor: "primary.100"
-                      },
-                      "&.Mui-focused": {
-                        backgroundColor: "primary.50"
-                      }
-                    },
-                    children: options.map((option, optionIndex) => /* @__PURE__ */ jsx4(MenuItem2, { value: option.value, children: option.text }, optionIndex))
-                  }
-                )
-              ] })
-            },
-            index
-          );
-        }
-        return /* @__PURE__ */ jsx4("span", { children: part.content }, index);
-      }) })
+            ] })
+          }
+        )
+      ] })
     }
   );
 };

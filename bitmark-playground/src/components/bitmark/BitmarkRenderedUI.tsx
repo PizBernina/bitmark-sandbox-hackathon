@@ -28,26 +28,123 @@ export const BitmarkRenderedUI: React.FC = () => {
 
       // eslint-disable-next-line no-console
       console.log('Parsed JSON for renderer:', parsedJson);
-
-      // Handle different bitmark structures
-      let bits = [];
-
-      if (Array.isArray(parsedJson)) {
-        bits = parsedJson;
-      } else if (parsedJson.bit) {
-        // If it has a 'bit' property, use that
-        bits = [parsedJson.bit];
-      } else if (parsedJson.bits && Array.isArray(parsedJson.bits)) {
-        // If it has a 'bits' array property
-        bits = parsedJson.bits;
-      } else if (typeof parsedJson === 'object') {
-        // If it's a single object, wrap it
-        bits = [parsedJson];
+      // eslint-disable-next-line no-console
+      console.log('First wrapper:', parsedJson[0]);
+      if (parsedJson[0] && parsedJson[0].bit) {
+        // eslint-disable-next-line no-console
+        console.log('First bit:', parsedJson[0].bit);
+        // eslint-disable-next-line no-console
+        console.log('First bit body:', parsedJson[0].bit.body);
       }
 
+      // Handle different bitmark structures - extract bits from BitWrapperJson format
+      let bitWrappers = [];
+
+      if (Array.isArray(parsedJson)) {
+        bitWrappers = parsedJson;
+      } else if (parsedJson.bit) {
+        // If it has a 'bit' property, use that
+        bitWrappers = [parsedJson];
+      } else if (parsedJson.bits && Array.isArray(parsedJson.bits)) {
+        // If it has a 'bits' array property
+        bitWrappers = parsedJson.bits;
+      } else if (typeof parsedJson === 'object') {
+        // If it's a single object, wrap it
+        bitWrappers = [parsedJson];
+      }
+
+      // Convert BitWrapperJson to BitmarkNode format
+      const convertedBits = bitWrappers.map((wrapper: any) => {
+        const bit = wrapper.bit || wrapper;
+
+        // Extract content from body
+        let content = '';
+        // eslint-disable-next-line no-console
+        console.log('Processing bit:', bit.type, 'body:', bit.body);
+        if (bit.body && Array.isArray(bit.body)) {
+          content = bit.body
+            .map((item: any) => {
+              if (item.type === 'paragraph' && item.content) {
+                return item.content
+                  .map((textItem: any) => {
+                    if (textItem.type === 'text') {
+                      return textItem.text;
+                    } else if (textItem.type === 'gap') {
+                      return `[_${textItem.attrs?.solutions?.[0] || ''}]`;
+                    } else if (textItem.type === 'select') {
+                      const options = textItem.attrs?.options || [];
+                      const correctOptions = options
+                        .filter((opt: any) => opt.isCorrect)
+                        .map((opt: any) => `[+${opt.text}]`);
+                      const wrongOptions = options
+                        .filter((opt: any) => !opt.isCorrect)
+                        .map((opt: any) => `[-${opt.text}]`);
+                      return [...correctOptions, ...wrongOptions].join('');
+                    } else if (textItem.type === 'hardBreak') {
+                      return '\n';
+                    }
+                    return '';
+                  })
+                  .join('');
+              } else if (item.type === 'select' && item.attrs?.options) {
+                // Handle standalone select items (multiple choice options)
+                const options = item.attrs.options;
+                const correctOptions = options.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
+                const wrongOptions = options.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
+                return [...correctOptions, ...wrongOptions].join('\n');
+              }
+              return '';
+            })
+            .join('\n');
+        }
+
+        // Handle the case where content might be empty but we have instruction/lead text
+        if (!content || content.trim() === '') {
+          if (bit.instruction && Array.isArray(bit.instruction)) {
+            content = bit.instruction
+              .map((item: any) => {
+                if (item.type === 'paragraph' && item.content) {
+                  return item.content.map((textItem: any) => (textItem.type === 'text' ? textItem.text : '')).join('');
+                }
+                return '';
+              })
+              .join('\n');
+          } else if (bit.lead && Array.isArray(bit.lead)) {
+            content = bit.lead
+              .map((item: any) => {
+                if (item.type === 'paragraph' && item.content) {
+                  return item.content.map((textItem: any) => (textItem.type === 'text' ? textItem.text : '')).join('');
+                }
+                return '';
+              })
+              .join('\n');
+          }
+        }
+
+        // Map bit types to UI renderer types
+        let mappedType = bit.type;
+        if (bit.type === 'cloze-and-multiple-choice-text') {
+          mappedType = 'cloze-and-multiple-choice-text';
+        } else if (bit.type === 'multiple-choice') {
+          mappedType = 'multiple-choice';
+        } else if (bit.type === 'cloze') {
+          mappedType = 'cloze';
+        }
+
+        // eslint-disable-next-line no-console
+        console.log('Final content for', bit.type, ':', content.trim());
+        return {
+          type: mappedType,
+          content: content.trim(),
+          originalBit: bit, // Keep original for debugging
+        };
+      });
+
       // eslint-disable-next-line no-console
-      console.log('Extracted bits for renderer:', bits);
-      return bits;
+      console.log('Extracted bits for renderer:', convertedBits);
+      // eslint-disable-next-line no-console
+      console.log('First bit details:', convertedBits[0]);
+      return convertedBits;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error parsing JSON for renderer:', error);
