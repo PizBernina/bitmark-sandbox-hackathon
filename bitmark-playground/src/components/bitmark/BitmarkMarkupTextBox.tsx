@@ -177,18 +177,19 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
       // eslint-disable-next-line no-console
       console.log('DEBUG: using simple breakscaping implementation');
 
-      // Simple unbreakscape: remove all carets
-      const un = text.replace(/\^/g, '');
+      // Breakscaping rules: only add carets for unescaped brackets with trigger characters
+      // that are followed by text content (not other brackets or structural elements)
+      // Trigger characters: . @ # ▼ ► % ! ? + - $ _ = &
+      // Find brackets that need breakscaping (have trigger chars, no caret, followed by text)
+      const needsBreakscaping = /\[(?![^[\]]*\^)([.@#\u25BC\u25BA%!?+\-$_=&][^[\]]*)\](?=\s*[^[\s])/g;
 
-      // Simple breakscape: add carets before special characters in brackets
-      // This is a basic implementation - in practice, you'd want more sophisticated logic
-      const br = un.replace(/\[([.@#\u25BC\u25BA%!?+\-$_=&][^[\]]*)\]/g, '[^$1]');
+      // Apply breakscaping: add caret only to brackets that need it
+      const br = text.replace(needsBreakscaping, '[^$1]');
 
-      normalized = br ?? text;
+      normalized = br;
       // eslint-disable-next-line no-console
       console.log('DEBUG: breakscaping computation', {
         original: text.substring(0, 50),
-        unbreakscaped: un.substring(0, 50),
         breakscaped: br.substring(0, 50),
         normalized: normalized.substring(0, 50),
         changed: normalized !== text,
