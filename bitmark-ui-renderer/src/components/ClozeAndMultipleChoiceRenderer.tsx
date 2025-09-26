@@ -78,7 +78,7 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
         mb: 2,
       }}
     >
-      <Typography variant="body1" component="div">
+      <Typography variant="body1" component="div" sx={{ lineHeight: 2.5 }}>
         {parsedParts.map((part, index) => {
           if (part.type === 'cloze') {
             return (
@@ -87,6 +87,7 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
                 initial={{ scale: 0.95 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.2 }}
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
               >
                 <TextField
                   value={clozeValue}
@@ -95,7 +96,7 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
                   variant="outlined"
                   size="small"
                   sx={{
-                    mx: 1,
+                    mx: 0.5,
                     minWidth: 120,
                     '& .MuiOutlinedInput-root': {
                       backgroundColor: 'grey.100',
@@ -116,24 +117,24 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
             return null;
           }
           return (
-            <span key={index}>
+            <span key={index} style={{ display: 'inline' }}>
               {part.content}
             </span>
           );
         })}
         {options.length > 0 && (
-          <motion.div
+          <motion.span
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.2 }}
-            style={{ marginTop: 16 }}
+            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: 8 }}
           >
-            <FormControl size="small" sx={{ minWidth: 200 }}>
-              <InputLabel>Choose an option</InputLabel>
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel>Choose</InputLabel>
               <Select
                 value={selectedValue}
                 onChange={handleSelectChange}
-                label="Choose an option"
+                label="Choose"
                 sx={{
                   backgroundColor: 'grey.100',
                   '&:hover': {
@@ -151,7 +152,7 @@ export const ClozeAndMultipleChoiceRenderer: React.FC<ClozeAndMultipleChoiceRend
                 ))}
               </Select>
             </FormControl>
-          </motion.div>
+          </motion.span>
         )}
       </Typography>
     </Box>

@@ -61,11 +61,25 @@ export const BitmarkRenderedUI: React.FC = () => {
         let content = '';
         // eslint-disable-next-line no-console
         console.log('Processing bit:', bit.type, 'body:', bit.body);
+        if (bit.type === 'multiple-choice') {
+          // eslint-disable-next-line no-console
+          console.log('Multiple choice bit details:', JSON.stringify(bit, null, 2));
+        }
         if (bit.body && Array.isArray(bit.body)) {
+          // eslint-disable-next-line no-console
+          console.log(
+            'Body items:',
+            bit.body.map((item: any) => ({ type: item.type, hasContent: !!item.content, hasAttrs: !!item.attrs })),
+          );
+
+          // For multiple choice, we need to collect all options from all body items
+          const allOptions: any[] = [];
+          let questionText = '';
+
           content = bit.body
             .map((item: any) => {
               if (item.type === 'paragraph' && item.content) {
-                return item.content
+                const paragraphContent = item.content
                   .map((textItem: any) => {
                     if (textItem.type === 'text') {
                       return textItem.text;
@@ -73,6 +87,7 @@ export const BitmarkRenderedUI: React.FC = () => {
                       return `[_${textItem.attrs?.solutions?.[0] || ''}]`;
                     } else if (textItem.type === 'select') {
                       const options = textItem.attrs?.options || [];
+                      allOptions.push(...options);
                       const correctOptions = options
                         .filter((opt: any) => opt.isCorrect)
                         .map((opt: any) => `[+${opt.text}]`);
@@ -86,9 +101,19 @@ export const BitmarkRenderedUI: React.FC = () => {
                     return '';
                   })
                   .join('');
+
+                // If this is the first paragraph and it's a question, store it
+                if (!questionText && paragraphContent.trim() && !paragraphContent.includes('[')) {
+                  questionText = paragraphContent.trim();
+                }
+
+                return paragraphContent;
               } else if (item.type === 'select' && item.attrs?.options) {
                 // Handle standalone select items (multiple choice options)
                 const options = item.attrs.options;
+                allOptions.push(...options);
+                // eslint-disable-next-line no-console
+                console.log('Found select item with options:', options);
                 const correctOptions = options.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
                 const wrongOptions = options.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
                 return [...correctOptions, ...wrongOptions].join('\n');
@@ -96,6 +121,15 @@ export const BitmarkRenderedUI: React.FC = () => {
               return '';
             })
             .join('\n');
+
+          // For multiple choice, if we have options but no content, create the content
+          if (bit.type === 'multiple-choice' && allOptions.length > 0 && !content.includes('[')) {
+            const correctOptions = allOptions.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
+            const wrongOptions = allOptions.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
+            content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+            // eslint-disable-next-line no-console
+            console.log('Created multiple choice content:', content);
+          }
         }
 
         // Handle the case where content might be empty but we have instruction/lead text

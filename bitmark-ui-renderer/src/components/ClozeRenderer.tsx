@@ -62,7 +62,7 @@ export const ClozeRenderer: React.FC<ClozeRendererProps> = ({ bit, onInteraction
         mb: 2,
       }}
     >
-      <Typography variant="body1" component="div">
+      <Typography variant="body1" component="div" sx={{ lineHeight: 2.5 }}>
         {parsedParts.map((part, index) => {
           if (part.type === 'cloze') {
             return (
@@ -71,6 +71,7 @@ export const ClozeRenderer: React.FC<ClozeRendererProps> = ({ bit, onInteraction
                 initial={{ scale: 0.95 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.2 }}
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
               >
                 <TextField
                   value={value}
@@ -81,7 +82,7 @@ export const ClozeRenderer: React.FC<ClozeRendererProps> = ({ bit, onInteraction
                   variant="outlined"
                   size="small"
                   sx={{
-                    mx: 1,
+                    mx: 0.5,
                     minWidth: 120,
                     '& .MuiOutlinedInput-root': {
                       backgroundColor: isFocused ? 'primary.50' : 'grey.100',
@@ -100,7 +101,7 @@ export const ClozeRenderer: React.FC<ClozeRendererProps> = ({ bit, onInteraction
             );
           }
           return (
-            <span key={index}>
+            <span key={index} style={{ display: 'inline' }}>
               {part.content}
             </span>
           );

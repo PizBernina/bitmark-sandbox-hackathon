@@ -54,7 +54,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ jsx(Typography, { variant: "body1", component: "div", children: parsedParts.map((part, index) => {
+      children: /* @__PURE__ */ jsx(Typography, { variant: "body1", component: "div", sx: { lineHeight: 2.5 }, children: parsedParts.map((part, index) => {
         if (part.type === "cloze") {
           return /* @__PURE__ */ jsx(
             motion.span,
@@ -62,6 +62,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
               initial: { scale: 0.95 },
               animate: { scale: 1 },
               transition: { duration: 0.2 },
+              style: { display: "inline-block", verticalAlign: "middle" },
               children: /* @__PURE__ */ jsx(
                 TextField,
                 {
@@ -73,7 +74,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
                   variant: "outlined",
                   size: "small",
                   sx: {
-                    mx: 1,
+                    mx: 0.5,
                     minWidth: 120,
                     "& .MuiOutlinedInput-root": {
                       backgroundColor: isFocused ? "primary.50" : "grey.100",
@@ -93,7 +94,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
             index
           );
         }
-        return /* @__PURE__ */ jsx("span", { children: part.content }, index);
+        return /* @__PURE__ */ jsx("span", { style: { display: "inline" }, children: part.content }, index);
       }) })
     }
   );
@@ -362,7 +363,7 @@ var ClozeAndMultipleChoiceRenderer = ({
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ jsxs2(Typography4, { variant: "body1", component: "div", children: [
+      children: /* @__PURE__ */ jsxs2(Typography4, { variant: "body1", component: "div", sx: { lineHeight: 2.5 }, children: [
         parsedParts.map((part, index) => {
           if (part.type === "cloze") {
             return /* @__PURE__ */ jsx4(
@@ -371,6 +372,7 @@ var ClozeAndMultipleChoiceRenderer = ({
                 initial: { scale: 0.95 },
                 animate: { scale: 1 },
                 transition: { duration: 0.2 },
+                style: { display: "inline-block", verticalAlign: "middle" },
                 children: /* @__PURE__ */ jsx4(
                   TextField2,
                   {
@@ -380,7 +382,7 @@ var ClozeAndMultipleChoiceRenderer = ({
                     variant: "outlined",
                     size: "small",
                     sx: {
-                      mx: 1,
+                      mx: 0.5,
                       minWidth: 120,
                       "& .MuiOutlinedInput-root": {
                         backgroundColor: "grey.100",
@@ -401,23 +403,23 @@ var ClozeAndMultipleChoiceRenderer = ({
           } else if (part.type === "option") {
             return null;
           }
-          return /* @__PURE__ */ jsx4("span", { children: part.content }, index);
+          return /* @__PURE__ */ jsx4("span", { style: { display: "inline" }, children: part.content }, index);
         }),
         options.length > 0 && /* @__PURE__ */ jsx4(
-          motion4.div,
+          motion4.span,
           {
             initial: { scale: 0.95 },
             animate: { scale: 1 },
             transition: { duration: 0.2 },
-            style: { marginTop: 16 },
-            children: /* @__PURE__ */ jsxs2(FormControl2, { size: "small", sx: { minWidth: 200 }, children: [
-              /* @__PURE__ */ jsx4(InputLabel2, { children: "Choose an option" }),
+            style: { display: "inline-block", verticalAlign: "middle", marginLeft: 8 },
+            children: /* @__PURE__ */ jsxs2(FormControl2, { size: "small", sx: { minWidth: 150 }, children: [
+              /* @__PURE__ */ jsx4(InputLabel2, { children: "Choose" }),
               /* @__PURE__ */ jsx4(
                 Select2,
                 {
                   value: selectedValue,
                   onChange: handleSelectChange,
-                  label: "Choose an option",
+                  label: "Choose",
                   sx: {
                     backgroundColor: "grey.100",
                     "&:hover": {

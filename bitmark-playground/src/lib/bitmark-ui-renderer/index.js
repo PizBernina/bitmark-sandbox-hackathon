@@ -86,7 +86,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_material.Typography, { variant: "body1", component: "div", children: parsedParts.map((part, index) => {
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_material.Typography, { variant: "body1", component: "div", sx: { lineHeight: 2.5 }, children: parsedParts.map((part, index) => {
         if (part.type === "cloze") {
           return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             import_framer_motion.motion.span,
@@ -94,6 +94,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
               initial: { scale: 0.95 },
               animate: { scale: 1 },
               transition: { duration: 0.2 },
+              style: { display: "inline-block", verticalAlign: "middle" },
               children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
                 import_material.TextField,
                 {
@@ -105,7 +106,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
                   variant: "outlined",
                   size: "small",
                   sx: {
-                    mx: 1,
+                    mx: 0.5,
                     minWidth: 120,
                     "& .MuiOutlinedInput-root": {
                       backgroundColor: isFocused ? "primary.50" : "grey.100",
@@ -125,7 +126,7 @@ var ClozeRenderer = ({ bit, onInteraction }) => {
             index
           );
         }
-        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: part.content }, index);
+        return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { display: "inline" }, children: part.content }, index);
       }) })
     }
   );
@@ -394,7 +395,7 @@ var ClozeAndMultipleChoiceRenderer = ({
         boxShadow: 1,
         mb: 2
       },
-      children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_material4.Typography, { variant: "body1", component: "div", children: [
+      children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_material4.Typography, { variant: "body1", component: "div", sx: { lineHeight: 2.5 }, children: [
         parsedParts.map((part, index) => {
           if (part.type === "cloze") {
             return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
@@ -403,6 +404,7 @@ var ClozeAndMultipleChoiceRenderer = ({
                 initial: { scale: 0.95 },
                 animate: { scale: 1 },
                 transition: { duration: 0.2 },
+                style: { display: "inline-block", verticalAlign: "middle" },
                 children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
                   import_material4.TextField,
                   {
@@ -412,7 +414,7 @@ var ClozeAndMultipleChoiceRenderer = ({
                     variant: "outlined",
                     size: "small",
                     sx: {
-                      mx: 1,
+                      mx: 0.5,
                       minWidth: 120,
                       "& .MuiOutlinedInput-root": {
                         backgroundColor: "grey.100",
@@ -433,23 +435,23 @@ var ClozeAndMultipleChoiceRenderer = ({
           } else if (part.type === "option") {
             return null;
           }
-          return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: part.content }, index);
+          return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { style: { display: "inline" }, children: part.content }, index);
         }),
         options.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          import_framer_motion4.motion.div,
+          import_framer_motion4.motion.span,
           {
             initial: { scale: 0.95 },
             animate: { scale: 1 },
             transition: { duration: 0.2 },
-            style: { marginTop: 16 },
-            children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_material4.FormControl, { size: "small", sx: { minWidth: 200 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_material4.InputLabel, { children: "Choose an option" }),
+            style: { display: "inline-block", verticalAlign: "middle", marginLeft: 8 },
+            children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_material4.FormControl, { size: "small", sx: { minWidth: 150 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_material4.InputLabel, { children: "Choose" }),
               /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
                 import_material4.Select,
                 {
                   value: selectedValue,
                   onChange: handleSelectChange,
-                  label: "Choose an option",
+                  label: "Choose",
                   sx: {
                     backgroundColor: "grey.100",
                     "&:hover": {

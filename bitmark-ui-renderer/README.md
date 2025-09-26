@@ -287,6 +287,32 @@ The library provides comprehensive error handling:
 
 Errors are displayed with user-friendly messages and can be customized through the error renderer.
 
+## Troubleshooting
+
+### Multiple Choice Questions Not Showing Options
+
+If multiple choice questions display only the question text without options:
+
+1. **Check data format**: Ensure your bitmark data includes options in the body structure
+2. **Verify separator**: Options should be separated by `====` in the original bitmark text
+3. **Check console logs**: Enable debug logging to see content extraction details
+
+### Input Fields Not Aligned with Text
+
+If input fields appear misaligned with surrounding text:
+
+1. **Check CSS conflicts**: Ensure no conflicting styles are applied to the container
+2. **Verify line height**: The component uses `lineHeight: 2.5` for proper alignment
+3. **Check Material-UI theme**: Ensure Material-UI theme is properly configured
+
+### Content Not Rendering
+
+If content shows "No content available":
+
+1. **Check data structure**: Ensure data follows the expected BitWrapperJson format
+2. **Verify bit types**: Supported types are 'cloze', 'multiple-choice', 'cloze-and-multiple-choice-text'
+3. **Check console logs**: Look for content extraction errors in the browser console
+
 ## Performance
 
 - **Lazy Loading**: Components are loaded only when needed
@@ -329,6 +355,14 @@ npm run type-check
 MIT License - see LICENSE file for details
 
 ## Changelog
+
+### v1.0.1
+- **Fixed multiple choice rendering**: Multiple choice questions now properly display options from separate lines with `====` separator
+- **Improved content extraction**: Enhanced data conversion from BitWrapperJson to BitmarkNode format
+- **Better formatting and alignment**: Input fields and dropdowns now properly align with surrounding text
+- **Enhanced debugging**: Added comprehensive logging for content extraction and data conversion
+- **Fixed TypeScript issues**: Resolved implicit type errors and improved type safety
+- **Code quality improvements**: Fixed all ESLint and Prettier formatting issues
 
 ### v1.0.0
 - Initial release
