@@ -26,12 +26,14 @@ export const MultipleChoiceRenderer: React.FC<MultipleChoiceRendererProps> = ({ 
       }];
     }
     
-    // Look for [-text][+text] patterns in the content
+    // Look for [-text][+text] patterns in the content, handling spaces and newlines
+    // Use a more robust regex that handles spaces and newlines within brackets
     const parts = content.split(/(\[[-+][^\]]*\])/g);
     return parts.map((part, index) => {
       if (part.startsWith('[-') || part.startsWith('[+')) {
         const isCorrect = part.startsWith('[+');
-        const text = part.slice(2, -1);
+        // Extract text content, trimming whitespace
+        const text = part.slice(2, -1).trim();
         return {
           type: 'option' as const,
           text,

@@ -123,7 +123,7 @@ var MultipleChoiceRenderer = ({ bit, onInteraction }) => {
     return parts.map((part, index) => {
       if (part.startsWith("[-") || part.startsWith("[+")) {
         const isCorrect = part.startsWith("[+");
-        const text = part.slice(2, -1);
+        const text = part.slice(2, -1).trim();
         return {
           type: "option",
           text,

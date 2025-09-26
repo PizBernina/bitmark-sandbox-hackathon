@@ -88,13 +88,8 @@ export const BitmarkRenderedUI: React.FC = () => {
                     } else if (textItem.type === 'select') {
                       const options = textItem.attrs?.options || [];
                       allOptions.push(...options);
-                      const correctOptions = options
-                        .filter((opt: any) => opt.isCorrect)
-                        .map((opt: any) => `[+${opt.text}]`);
-                      const wrongOptions = options
-                        .filter((opt: any) => !opt.isCorrect)
-                        .map((opt: any) => `[-${opt.text}]`);
-                      return [...correctOptions, ...wrongOptions].join('');
+                      // Don't render options inline, we'll handle them separately
+                      return '';
                     } else if (textItem.type === 'hardBreak') {
                       return '\n';
                     }
@@ -114,21 +109,65 @@ export const BitmarkRenderedUI: React.FC = () => {
                 allOptions.push(...options);
                 // eslint-disable-next-line no-console
                 console.log('Found select item with options:', options);
-                const correctOptions = options.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
-                const wrongOptions = options.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
-                return [...correctOptions, ...wrongOptions].join('\n');
+                // Don't render options inline, we'll handle them separately
+                return '';
               }
               return '';
             })
             .join('\n');
 
-          // For multiple choice, if we have options but no content, create the content
-          if (bit.type === 'multiple-choice' && allOptions.length > 0 && !content.includes('[')) {
+          // For multiple choice, if we have options, create the content
+          if (bit.type === 'multiple-choice' && allOptions.length > 0) {
             const correctOptions = allOptions.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
             const wrongOptions = allOptions.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
-            content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+            // If we don't have question text, use the first part of content that doesn't contain brackets
+            const question = questionText || content.split('\n')[0] || 'Choose an option:';
+            content = question + '\n' + [...correctOptions, ...wrongOptions].join('\n');
             // eslint-disable-next-line no-console
             console.log('Created multiple choice content:', content);
+          }
+        }
+
+        // Handle quizzes structure for multiple-choice (new format)
+        if (bit.type === 'multiple-choice' && bit.quizzes && Array.isArray(bit.quizzes)) {
+          const allQuizOptions: any[] = [];
+          let questionText = content || '';
+
+          // Extract question text from body if not already set
+          if (!questionText && bit.body && Array.isArray(bit.body)) {
+            questionText = bit.body
+              .map((item: any) => {
+                if (item.type === 'paragraph' && item.content) {
+                  return item.content.map((textItem: any) => (textItem.type === 'text' ? textItem.text : '')).join('');
+                }
+                return '';
+              })
+              .join('\n')
+              .trim();
+          }
+
+          // Extract options from quizzes
+          bit.quizzes.forEach((quiz: any) => {
+            if (quiz.choices && Array.isArray(quiz.choices)) {
+              allQuizOptions.push(
+                ...quiz.choices.map((choice: any) => ({
+                  text: choice.choice,
+                  isCorrect: choice.isCorrect,
+                })),
+              );
+            }
+          });
+
+          if (allQuizOptions.length > 0) {
+            const correctOptions = allQuizOptions
+              .filter((opt: any) => opt.isCorrect)
+              .map((opt: any) => `[+${opt.text}]`);
+            const wrongOptions = allQuizOptions
+              .filter((opt: any) => !opt.isCorrect)
+              .map((opt: any) => `[-${opt.text}]`);
+            content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+            // eslint-disable-next-line no-console
+            console.log('Created multiple choice content from quizzes:', content);
           }
         }
 

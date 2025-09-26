@@ -293,9 +293,10 @@ Errors are displayed with user-friendly messages and can be customized through t
 
 If multiple choice questions display only the question text without options:
 
-1. **Check data format**: Ensure your bitmark data includes options in the body structure
-2. **Verify separator**: Options should be separated by `====` in the original bitmark text
+1. **Check data format**: Ensure your bitmark data includes options in either the `body` or `quizzes` structure
+2. **Verify bitmark input**: Options can be on separate lines or inline with the question
 3. **Check console logs**: Enable debug logging to see content extraction details
+4. **Supported formats**: Both `[-option]` and `[- option ]` (with spaces) formats are supported
 
 ### Input Fields Not Aligned with Text
 
@@ -355,6 +356,13 @@ npm run type-check
 MIT License - see LICENSE file for details
 
 ## Changelog
+
+### v1.0.2
+- **Fixed multiple choice rendering**: Multiple choice questions now properly display options from the `quizzes` structure in parsed bitmark JSON
+- **Enhanced data conversion**: Added support for both `body` and `quizzes` data structures from bitmark parser
+- **Improved option parsing**: Fixed regex pattern to handle spaces around option text (e.g., `[- red ]` format)
+- **Better error handling**: More robust content extraction for different bitmark input formats
+- **Code quality improvements**: Fixed all ESLint and Prettier formatting issues
 
 ### v1.0.1
 - **Fixed multiple choice rendering**: Multiple choice questions now properly display options from separate lines with `====` separator

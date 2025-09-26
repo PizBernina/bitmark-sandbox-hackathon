@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Multiple Choice Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="src/lib/bitmark-ui-renderer/index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007acc;
+        }
+        .debug-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #007acc;
+        }
+        .debug-content {
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .test-result {
+            background: #e8f5e8;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #4caf50;
+        }
+        .test-error {
+            background: #ffebee;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Comprehensive Multiple Choice Test</h1>
+        
+        <div class="debug-section">
+            <div class="debug-title">Test Data:</div>
+            <div class="debug-content" id="test-data"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Console Logs:</div>
+            <div class="debug-content" id="console-logs"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Rendered Output:</div>
+            <div id="root"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Test Results:</div>
+            <div id="test-results"></div>
+        </div>
+    </div>
+    
+    <script>
+        const { BitmarkRenderer, ThemeProvider } = window.BitmarkUIRenderer;
+        const { createElement: h } = React;
+        
+        // Capture console logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const logs = [];
+        
+        console.log = function(...args) {
+            logs.push('LOG: ' + args.join(' '));
+            originalLog.apply(console, args);
+            updateConsoleLogs();
+        };
+        
+        console.error = function(...args) {
+            logs.push('ERROR: ' + args.join(' '));
+            originalError.apply(console, args);
+            updateConsoleLogs();
+        };
+        
+        function updateConsoleLogs() {
+            document.getElementById('console-logs').textContent = logs.join('\n');
+        }
+        
+        // Test data
+        const testData = [
+            {
+                type: 'multiple-choice',
+                content: 'What color are violets?\n[- red ]\n[+ blue ]\n[- green ]'
+            }
+        ];
+        
+        // Display test data
+        document.getElementById('test-data').textContent = JSON.stringify(testData, null, 2);
+        
+        function App() {
+            console.log('App component rendering with data:', testData);
+            
+            return h(ThemeProvider, null,
+                h(BitmarkRenderer, {
+                    data: testData,
+                    onInteraction: (interaction) => {
+                        console.log('User interaction received:', interaction);
+                        addTestResult('User interaction: ' + JSON.stringify(interaction), 'success');
+                    }
+                })
+            );
+        }
+        
+        function addTestResult(message, type) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = type === 'success' ? 'test-result' : 'test-error';
+            resultDiv.textContent = message;
+            resultsDiv.appendChild(resultDiv);
+        }
+        
+        // Test the parsing logic directly
+        function testParsingLogic() {
+            console.log('Testing parsing logic...');
+            
+            const content = 'What color are violets?\n[- red ]\n[+ blue ]\n[- green ]';
+            console.log('Content to parse:', content);
+            
+            const parts = content.split(/(\[[-+][^\]]*\])/g);
+            console.log('Split parts:', parts);
+            
+            const options = parts
+                .filter(part => part.startsWith('[-') || part.startsWith('[+'))
+                .map(part => {
+                    const isCorrect = part.startsWith('[+');
+                    const text = part.slice(2, -1).trim();
+                    return {
+                        text,
+                        correct: isCorrect,
+                        value: text.toLowerCase().replace(/\s+/g, '-')
+                    };
+                });
+            
+            console.log('Parsed options:', options);
+            
+            if (options.length > 0) {
+                addTestResult(`Successfully parsed ${options.length} options: ${options.map(o => o.text).join(', ')}`, 'success');
+            } else {
+                addTestResult('No options parsed - this is the problem!', 'error');
+            }
+        }
+        
+        // Run tests
+        testParsingLogic();
+        
+        console.log('Starting React render...');
+        ReactDOM.render(h(App), document.getElementById('root'));
+        console.log('React render complete');
+        
+        // Check if dropdown is rendered after a short delay
+        setTimeout(() => {
+            const selectElement = document.querySelector('select, [role="combobox"]');
+            if (selectElement) {
+                addTestResult('Dropdown element found in DOM', 'success');
+            } else {
+                addTestResult('No dropdown element found in DOM - this is the problem!', 'error');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

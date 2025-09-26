@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dropdown Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Simple Material-UI Dropdown Test</h1>
+        <div id="root"></div>
+    </div>
+    
+    <script>
+        const { createElement: h } = React;
+        const { ThemeProvider, createTheme } = MaterialUI;
+        const { Box, FormControl, InputLabel, Select, MenuItem, Typography } = MaterialUI;
+        
+        const theme = createTheme();
+        
+        function App() {
+            const [selectedValue, setSelectedValue] = React.useState('');
+            
+            const handleChange = (event) => {
+                setSelectedValue(event.target.value);
+                console.log('Selected:', event.target.value);
+            };
+            
+            const options = [
+                { text: 'red', correct: false, value: 'red' },
+                { text: 'blue', correct: true, value: 'blue' },
+                { text: 'green', correct: false, value: 'green' }
+            ];
+            
+            return h(ThemeProvider, { theme },
+                h(Box, { sx: { p: 2 } },
+                    h(Typography, { variant: 'body1', sx: { mb: 2 } }, 'What color are violets?'),
+                    h(FormControl, { size: 'small', sx: { minWidth: 200 } },
+                        h(InputLabel, null, 'Choose an option'),
+                        h(Select, {
+                            value: selectedValue,
+                            onChange: handleChange,
+                            label: 'Choose an option'
+                        },
+                            options.map((option, index) =>
+                                h(MenuItem, { key: index, value: option.value }, option.text)
+                            )
+                        )
+                    )
+                )
+            );
+        }
+        
+        ReactDOM.render(h(App), document.getElementById('root'));
+    </script>
+</body>
+</html>

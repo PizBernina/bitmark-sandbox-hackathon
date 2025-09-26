@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice Test - Simple</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="src/lib/bitmark-ui-renderer/index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-title {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">Multiple Choice Rendering Test</h1>
+        <div id="root"></div>
+    </div>
+    
+    <script>
+        const { BitmarkRenderer, ThemeProvider } = window.BitmarkUIRenderer;
+        const { createElement: h } = React;
+        
+        // Test data - multiple choice question with the exact format from the user's input
+        const testData = [
+            {
+                type: 'multiple-choice',
+                content: 'What color are violets?\n[- red ]\n[+ blue ]\n[- green ]'
+            }
+        ];
+        
+        function App() {
+            return h(ThemeProvider, null,
+                h(BitmarkRenderer, {
+                    data: testData,
+                    onInteraction: (interaction) => {
+                        console.log('User interaction:', interaction);
+                        alert('Selected: ' + interaction.value);
+                    }
+                })
+            );
+        }
+        
+        ReactDOM.render(h(App), document.getElementById('root'));
+    </script>
+</body>
+</html>
