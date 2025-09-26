@@ -14,17 +14,7 @@ import { bitmarkState } from './state/bitmarkState';
 import { theme } from './theme/theme';
 import './App.css';
 
-const initialMarkup = `[.app-code-editor][@id:ex1][@computerLanguage:json]
-[
-  {"type":"article","body":{"bodyText":"Hello code!","bodyType":"text"}}
-]
-
-[.sandbox-output-bitmark][@fromId:ex1][@prettify:true]
-
-[.app-code-editor][@id:ex2][@computerLanguage:bitmark]
-[.article] Hello from bitmark!
-
-[.sandbox-output-json][@fromId:ex2][@prettify:2]`;
+const initialMarkup = '';
 // const initialMarkup = `
 // [.article:bitmark++&video]
 
