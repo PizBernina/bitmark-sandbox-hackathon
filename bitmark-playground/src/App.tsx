@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { Flex, Text, ThemeUIProvider } from 'theme-ui';
+import { useSnapshot } from 'valtio';
 
 import { BitmarkJsonDuration } from './components/bitmark/BitmarkJsonDuration';
 import { BitmarkJsonTextBox } from './components/bitmark/BitmarkJsonTextBox';
@@ -9,10 +10,11 @@ import { SandboxAutoViewer } from './components/sandbox/SandboxAutoViewer';
 import { Copyright } from './components/version/Copyright';
 import { Version } from './components/version/Version';
 import { BitmarkParserGeneratorProvider } from './services/BitmarkParserGenerator';
+import { bitmarkState } from './state/bitmarkState';
 import { theme } from './theme/theme';
 import './App.css';
 
-const initialMarkup = '[.article] Hello World!';
+const initialMarkup = '';
 // const initialMarkup = `
 // [.article:bitmark++&video]
 
@@ -43,6 +45,7 @@ const initialMarkup = '[.article] Hello World!';
 // `.trim();
 
 function App() {
+  const snap = useSnapshot(bitmarkState);
   return (
     <ThemeUIProvider theme={theme}>
       <BitmarkParserGeneratorProvider>
@@ -71,20 +74,31 @@ function App() {
               <Flex
                 sx={{
                   alignItems: 'flex-end',
+                  justifyContent: 'space-between',
                 }}
               >
-                <Text
-                  sx={{
-                    variant: 'header.code',
-                  }}
-                >
-                  bitmark
-                </Text>
-                <BitmarkMarkupDuration
-                  sx={{
-                    variant: 'text.parserDuration',
-                  }}
-                />
+                <Flex sx={{ alignItems: 'flex-end', gap: 2 }}>
+                  <Text
+                    sx={{
+                      variant: 'header.code',
+                    }}
+                  >
+                    bitmark
+                  </Text>
+                  <BitmarkMarkupDuration
+                    sx={{
+                      variant: 'text.parserDuration',
+                    }}
+                  />
+                </Flex>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
+                  <input
+                    type="checkbox"
+                    checked={snap.breakscapeWarningsEnabled}
+                    onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
+                  />
+                  <span>Breakscaping warnings</span>
+                </label>
               </Flex>
               <Flex
                 sx={{

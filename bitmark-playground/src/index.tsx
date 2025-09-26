@@ -8,6 +8,15 @@ import { Theme, ThemeConfig } from './monaco-tree-sitter/theme';
 // import reportWebVitals from './reportWebVitals';
 import './index.css';
 
+// Handle ResizeObserver errors globally
+window.addEventListener('error', (event) => {
+  if (event.message.includes('ResizeObserver loop completed with undelivered notifications')) {
+    // This is a benign error that can be safely ignored
+    event.preventDefault();
+    return false;
+  }
+});
+
 async function start(): Promise<void> {
   // Load the monaco-tree-sitter theme
   Theme.load(treeSitterTheme as ThemeConfig, 'tomorrow');
