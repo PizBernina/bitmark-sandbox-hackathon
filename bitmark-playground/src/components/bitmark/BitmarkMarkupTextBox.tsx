@@ -173,49 +173,16 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
         globalKeys: Object.keys(global).filter((k) => k.includes('breakscape') || k.includes('Breakscape')),
       });
 
-      // Try different approaches for breakscaping
-      let un: string;
-      let br: string;
+      // Simple breakscaping implementation since parser methods are not available
+      // eslint-disable-next-line no-console
+      console.log('DEBUG: using simple breakscaping implementation');
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const bpg = bitmarkParserGenerator as any;
+      // Simple unbreakscape: remove all carets
+      const un = text.replace(/\^/g, '');
 
-      // Try global breakscaping functions first
-      if (typeof global.unbreakscapeText === 'function') {
-        un = global.unbreakscapeText(text) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using global unbreakscapeText');
-      } else if (typeof global.unbreakscape === 'function') {
-        un = global.unbreakscape(text) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using global unbreakscape');
-      } else if (typeof bpg.unbreakscapeText === 'function') {
-        un = bpg.unbreakscapeText(text) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using bpg unbreakscapeText');
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: no unbreakscape method found, using original text');
-        un = text;
-      }
-
-      if (typeof global.breakscapeText === 'function') {
-        br = global.breakscapeText(un) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using global breakscapeText');
-      } else if (typeof global.breakscape === 'function') {
-        br = global.breakscape(un) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using global breakscape');
-      } else if (typeof bpg.breakscapeText === 'function') {
-        br = bpg.breakscapeText(un) as string;
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: using bpg breakscapeText');
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('DEBUG: no breakscape method found, using unbreakscaped text');
-        br = un;
-      }
+      // Simple breakscape: add carets before special characters in brackets
+      // This is a basic implementation - in practice, you'd want more sophisticated logic
+      const br = un.replace(/\[([.@#\u25BC\u25BA%!?+\-$_=&][^[\]]*)\]/g, '[^$1]');
 
       normalized = br ?? text;
       // eslint-disable-next-line no-console
