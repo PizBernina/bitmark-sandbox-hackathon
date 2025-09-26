@@ -24,22 +24,6 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
     onInteraction?.(interaction);
   }, [onInteraction]);
 
-  // Parse and validate the input data
-  const parseData = useCallback((inputData: BitmarkNode | BitmarkNode[]): BitmarkNode[] => {
-    try {
-      if (Array.isArray(inputData)) {
-        return inputData;
-      }
-      return [inputData];
-    } catch (error) {
-      setErrors(prev => [...prev, {
-        type: 'parsing',
-        message: 'Failed to parse bitmark data',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      }]);
-      return [];
-    }
-  }, []);
 
   // Render a single bit
   const renderBit = useCallback((bit: BitmarkNode, index: number) => {
@@ -108,11 +92,6 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
           );
         
         default:
-          setErrors(prev => [...prev, {
-            type: 'unsupported',
-            message: `Unsupported bit type: ${bitType}`,
-            bitType: bitType
-          }]);
           return (
             <ErrorRenderer
               key={bitId}
@@ -125,12 +104,6 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
           );
       }
     } catch (error) {
-      setErrors(prev => [...prev, {
-        type: 'validation',
-        message: `Error rendering ${bit.type} bit`,
-        bitType: bit.type,
-        details: error instanceof Error ? error.message : 'Unknown error'
-      }]);
       return (
         <ErrorRenderer
           key={bitId}
@@ -145,23 +118,67 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
     }
   }, [handleInteraction]);
 
+  // Validate data and collect errors
+  const validateData = useCallback((inputData: BitmarkNode | BitmarkNode[]): { data: BitmarkNode[], errors: RendererError[] } => {
+    const errors: RendererError[] = [];
+    let parsedData: BitmarkNode[] = [];
+    
+    try {
+      if (Array.isArray(inputData)) {
+        parsedData = inputData;
+      } else {
+        parsedData = [inputData];
+      }
+      
+      // Validate each bit
+      parsedData.forEach((bit, index) => {
+        const bitType = bit.type || bit.bit?.type || 'unknown';
+        
+        // Check for unsupported bit types
+        const supportedTypes = ['cloze', 'multiple-choice', 'cloze-and-multiple-choice-text', 'text', 'paragraph', 'header'];
+        if (!supportedTypes.includes(bitType)) {
+          errors.push({
+            type: 'unsupported',
+            message: `Unsupported bit type: ${bitType}`,
+            bitType: bitType
+          });
+        }
+      });
+      
+    } catch (error) {
+      errors.push({
+        type: 'parsing',
+        message: 'Failed to parse bitmark data',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+    
+    return { data: parsedData, errors };
+  }, []);
+
   // Process data when it changes
   useEffect(() => {
     setIsLoading(true);
-    setErrors([]);
     
     try {
-      const parsedData = parseData(data);
+      const { data: parsedData, errors: validationErrors } = validateData(data);
+      setErrors(validationErrors);
+      
       // Simulate a small delay for better UX
       setTimeout(() => {
         setIsLoading(false);
       }, 100);
     } catch (error) {
+      setErrors([{
+        type: 'parsing',
+        message: 'Failed to process bitmark data',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      }]);
       setIsLoading(false);
     }
-  }, [data, parseData]);
+  }, [data, validateData]);
 
-  const parsedData = parseData(data);
+  const { data: parsedData } = validateData(data);
 
   if (isLoading) {
     return (

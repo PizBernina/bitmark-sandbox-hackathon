@@ -546,21 +546,6 @@ var BitmarkRenderer = ({
     setInteractions((prev) => [...prev, interaction]);
     onInteraction?.(interaction);
   }, [onInteraction]);
-  const parseData = useCallback((inputData) => {
-    try {
-      if (Array.isArray(inputData)) {
-        return inputData;
-      }
-      return [inputData];
-    } catch (error) {
-      setErrors((prev) => [...prev, {
-        type: "parsing",
-        message: "Failed to parse bitmark data",
-        details: error instanceof Error ? error.message : "Unknown error"
-      }]);
-      return [];
-    }
-  }, []);
   const renderBit = useCallback((bit, index) => {
     const bitId = `bit-${index}-${bit.type}`;
     try {
@@ -619,11 +604,6 @@ var BitmarkRenderer = ({
             bitId
           );
         default:
-          setErrors((prev) => [...prev, {
-            type: "unsupported",
-            message: `Unsupported bit type: ${bitType}`,
-            bitType
-          }]);
           return /* @__PURE__ */ jsx6(
             ErrorRenderer,
             {
@@ -637,12 +617,6 @@ var BitmarkRenderer = ({
           );
       }
     } catch (error) {
-      setErrors((prev) => [...prev, {
-        type: "validation",
-        message: `Error rendering ${bit.type} bit`,
-        bitType: bit.type,
-        details: error instanceof Error ? error.message : "Unknown error"
-      }]);
       return /* @__PURE__ */ jsx6(
         ErrorRenderer,
         {
@@ -657,19 +631,53 @@ var BitmarkRenderer = ({
       );
     }
   }, [handleInteraction]);
+  const validateData = useCallback((inputData) => {
+    const errors2 = [];
+    let parsedData2 = [];
+    try {
+      if (Array.isArray(inputData)) {
+        parsedData2 = inputData;
+      } else {
+        parsedData2 = [inputData];
+      }
+      parsedData2.forEach((bit, index) => {
+        const bitType = bit.type || bit.bit?.type || "unknown";
+        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header"];
+        if (!supportedTypes.includes(bitType)) {
+          errors2.push({
+            type: "unsupported",
+            message: `Unsupported bit type: ${bitType}`,
+            bitType
+          });
+        }
+      });
+    } catch (error) {
+      errors2.push({
+        type: "parsing",
+        message: "Failed to parse bitmark data",
+        details: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+    return { data: parsedData2, errors: errors2 };
+  }, []);
   useEffect(() => {
     setIsLoading(true);
-    setErrors([]);
     try {
-      const parsedData2 = parseData(data);
+      const { data: parsedData2, errors: validationErrors } = validateData(data);
+      setErrors(validationErrors);
       setTimeout(() => {
         setIsLoading(false);
       }, 100);
     } catch (error) {
+      setErrors([{
+        type: "parsing",
+        message: "Failed to process bitmark data",
+        details: error instanceof Error ? error.message : "Unknown error"
+      }]);
       setIsLoading(false);
     }
-  }, [data, parseData]);
-  const parsedData = parseData(data);
+  }, [data, validateData]);
+  const { data: parsedData } = validateData(data);
   if (isLoading) {
     return /* @__PURE__ */ jsx6(
       Box6,

@@ -5,6 +5,22 @@
 - Render output so others can display it
 - Add tests
 
+## Recent Updates
+
+### Bitmark UI Renderer - Infinite Render Loop Fix (v1.0.3)
+
+**Issue**: The BitmarkRenderer component was causing infinite re-render loops when processing certain input types, particularly unsupported bit types like "article".
+
+**Root Cause**: The `renderBit` function was calling `setErrors` during the render phase, which triggered state updates that caused re-renders, creating an infinite loop.
+
+**Solution**: 
+- Removed `setErrors` calls from the `renderBit` function
+- Created a `validateData` function that safely collects validation errors without causing re-renders
+- Moved error handling to the `useEffect` lifecycle method
+- Maintained all existing functionality while fixing the infinite loop
+
+**Impact**: The playground no longer crashes when processing inputs with unsupported bit types, and the UI renderer now handles all input types gracefully without performance issues.
+
 
 ## Context and design options
 
