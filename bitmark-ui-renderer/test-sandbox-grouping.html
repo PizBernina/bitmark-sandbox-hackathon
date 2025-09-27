@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandbox Integration Phase 1 Test</title>
+    <title>Sandbox Grouping Test</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
@@ -16,7 +16,7 @@
             background-color: #f5f5f5;
         }
         .test-container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -52,7 +52,7 @@
             },
         });
 
-        // Test data with sandbox bits - now showing grouping
+        // Test data with sandbox grouping
         const testData = [
             {
                 type: 'text',
@@ -62,7 +62,7 @@
                 type: 'cloze',
                 content: 'Complete the sentence: The sky is [_blue].'
             },
-            // Sandbox group: JSON editor with outputs
+            // Sandbox group 1: JSON editor with outputs
             {
                 type: 'app-code-editor',
                 id: 'ex1',
@@ -81,19 +81,27 @@
                 prettify: 2,
                 content: '[\n  {\n    "type": "article",\n    "body": {\n      "bodyText": "Hello code!",\n      "bodyType": "text"\n    }\n  }\n]'
             },
-            // Standalone editor
+            // Sandbox group 2: Bitmark editor with output
             {
                 type: 'app-code-editor',
                 id: 'ex2',
                 computerLanguage: 'bitmark',
                 content: '[.article] Hello from bitmark!'
             },
-            // Standalone outputs (no matching editor)
             {
                 type: 'sandbox-output-json',
-                fromId: 'nonexistent',
-                content: 'This should show as a placeholder'
+                fromId: 'ex2',
+                prettify: 2,
+                content: '[\n  {\n    "type": "article",\n    "body": {\n      "bodyText": "Hello from bitmark!",\n      "bodyType": "text"\n    }\n  }\n]'
             },
+            // Standalone editor (no outputs)
+            {
+                type: 'app-code-editor',
+                id: 'ex3',
+                computerLanguage: 'json',
+                content: '{"standalone": "editor"}'
+            },
+            // Standalone output (no matching editor)
             {
                 type: 'sandbox-output-bitmark',
                 fromId: 'nonexistent',
@@ -102,10 +110,6 @@
             {
                 type: 'multiple-choice',
                 content: 'What is 2 + 2? [-3][+4][-5]'
-            },
-            {
-                type: 'unsupported-type',
-                content: 'This should show an error for unsupported type'
             }
         ];
 
@@ -114,28 +118,26 @@
 
             const handleInteraction = (interaction) => {
                 setInteractions(prev => [...prev, interaction]);
-                console.log('User interaction:', interaction);
+                console.log('Interaction:', interaction);
             };
 
-            return h(ThemeProvider, { theme },
-                h('div', { className: 'test-container' },
-                    h('h1', null, 'Sandbox Integration Phase 1 Test'),
-                    h('p', null, 'This test verifies that sandbox bit types show placeholder messages instead of "unsupported type" errors.'),
-                    
-                    h('div', { className: 'test-section' },
-                        h('div', { className: 'test-title' }, 'Test Data with Sandbox Bits'),
+            return h('div', { className: 'test-container' },
+                h('h1', null, 'Sandbox Grouping Test'),
+                h('p', null, 'This test demonstrates how app-code-editor bits are grouped with their related sandbox outputs.'),
+                
+                h('div', { className: 'test-section' },
+                    h('div', { className: 'test-title' }, 'Grouped Sandbox Rendering'),
+                    h(ThemeProvider, { theme },
                         h(BitmarkRenderer, {
                             data: testData,
                             onInteraction: handleInteraction
                         })
-                    ),
-                    
-                    h('div', { className: 'test-section' },
-                        h('div', { className: 'test-title' }, 'Interactions Log'),
-                        h('pre', { style: { fontSize: '12px', background: '#f5f5f5', padding: '10px', borderRadius: '4px' } },
-                            JSON.stringify(interactions, null, 2)
-                        )
                     )
+                ),
+                
+                h('div', { className: 'test-section' },
+                    h('div', { className: 'test-title' }, 'Interactions'),
+                    h('pre', null, JSON.stringify(interactions, null, 2))
                 )
             );
         }

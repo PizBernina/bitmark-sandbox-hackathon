@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Box, Alert, AlertTitle, CircularProgress } from '@mui/material';
 import { motion } from 'framer-motion';
 import { BitmarkNode, BitmarkRendererProps, UserInteraction, RendererError, ClozeBit, MultipleChoiceBit, TextBit, ClozeAndMultipleChoiceBit } from '../types';
@@ -6,6 +6,8 @@ import { ClozeRenderer } from './ClozeRenderer';
 import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
 import { TextRenderer } from './TextRenderer';
 import { ClozeAndMultipleChoiceRenderer } from './ClozeAndMultipleChoiceRenderer';
+import { AppCodeEditorRenderer } from './AppCodeEditorRenderer';
+import { SandboxOutputGroupRenderer } from './SandboxOutputGroupRenderer';
 import { SandboxPlaceholderRenderer } from './SandboxPlaceholderRenderer';
 import { ErrorRenderer } from './ErrorRenderer';
 
@@ -25,6 +27,47 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
     onInteraction?.(interaction);
   }, [onInteraction]);
 
+  // Group related sandbox bits
+  const groupSandboxBits = useCallback((bits: BitmarkNode[]) => {
+    const groups = new Map<string, {
+      editor?: BitmarkNode;
+      outputs: Array<{ bit: BitmarkNode; index: number }>;
+    }>();
+    const standaloneBits: Array<{ bit: BitmarkNode; index: number }> = [];
+
+    bits.forEach((bit, index) => {
+      const bitType = bit.type || bit.bit?.type || 'unknown';
+      
+      if (bitType === 'app-code-editor') {
+        // Handle ID which might be an array or string
+        let id = bit.id || bit.bit?.id || `editor-${index}`;
+        if (Array.isArray(id)) {
+          id = id[0] || `editor-${index}`;
+        }
+        if (!groups.has(id)) {
+          groups.set(id, { editor: bit, outputs: [] });
+        } else {
+          groups.get(id)!.editor = bit;
+        }
+      } else if (bitType === 'sandbox-output-json' || bitType === 'sandbox-output-bitmark') {
+        // Handle fromId which might be an array or string
+        let fromId = bit.fromId || bit.bit?.fromId || bit.properties?.fromId;
+        if (Array.isArray(fromId)) {
+          fromId = fromId[0];
+        }
+        if (fromId && groups.has(fromId)) {
+          groups.get(fromId)!.outputs.push({ bit, index });
+        } else {
+          // If no matching editor found, treat as standalone
+          standaloneBits.push({ bit, index });
+        }
+      } else {
+        standaloneBits.push({ bit, index });
+      }
+    });
+
+    return { groups, standaloneBits };
+  }, []);
 
   // Render a single bit
   const renderBit = useCallback((bit: BitmarkNode, index: number) => {
@@ -93,6 +136,13 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
           );
         
         case 'app-code-editor':
+          return (
+            <AppCodeEditorRenderer
+              key={bitId}
+              bit={bit}
+            />
+          );
+        
         case 'sandbox-output-json':
         case 'sandbox-output-bitmark':
           return (
@@ -191,6 +241,11 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
 
   const { data: parsedData } = validateData(data);
 
+  // Group sandbox bits using useMemo to avoid hook order issues
+  const groupedData = useMemo(() => {
+    return groupSandboxBits(parsedData);
+  }, [parsedData, groupSandboxBits]);
+
   if (isLoading) {
     return (
       <Box
@@ -245,7 +300,44 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {parsedData.map((bit, index) => renderBit(bit, index))}
+        {(() => {
+          const { groups, standaloneBits } = groupedData;
+          const elements: React.ReactNode[] = [];
+
+          // Render grouped sandbox bits
+          groups.forEach((group, groupId) => {
+            if (group.editor && group.outputs.length > 0) {
+              // Render as a group
+              const outputs = group.outputs.map(({ bit }) => ({
+                type: bit.type as 'sandbox-output-json' | 'sandbox-output-bitmark',
+                fromId: bit.fromId || bit.bit?.fromId || bit.properties?.fromId || '',
+                prettify: bit.prettify || bit.bit?.prettify || bit.properties?.prettify,
+                content: bit.content || bit.bit?.content || bit.body?.bodyText || bit.body?.text || '',
+              }));
+              
+              elements.push(
+                <SandboxOutputGroupRenderer
+                  key={`group-${groupId}`}
+                  editor={group.editor}
+                  outputs={outputs}
+                />
+              );
+            } else if (group.editor) {
+              // Render standalone editor
+              const editorIndex = groupId.startsWith('editor-') 
+                ? parseInt(groupId.replace('editor-', '')) 
+                : 0;
+              elements.push(renderBit(group.editor, editorIndex));
+            }
+          });
+
+          // Render standalone bits
+          standaloneBits.forEach(({ bit, index }) => {
+            elements.push(renderBit(bit, index));
+          });
+
+          return elements;
+        })()}
       </motion.div>
 
       {/* Debug info in development */}

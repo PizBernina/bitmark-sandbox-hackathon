@@ -62,7 +62,14 @@ export const BitmarkRenderedUI: React.FC = () => {
         const bit = wrapper.bit || wrapper;
         // Only include bits that are meant for the main renderer
         // Exclude bits that are results of parsing bitmark content
-        return bit.type !== 'article' && bit.type !== 'paragraph' && bit.type !== 'text';
+        // Exclude sandbox output bits (they should be handled by sandbox viewer)
+        return (
+          bit.type !== 'article' &&
+          bit.type !== 'paragraph' &&
+          bit.type !== 'text' &&
+          bit.type !== 'sandbox-output-json' &&
+          bit.type !== 'sandbox-output-bitmark'
+        );
       });
 
       // Convert BitWrapperJson to BitmarkNode format
@@ -77,7 +84,29 @@ export const BitmarkRenderedUI: React.FC = () => {
           // eslint-disable-next-line no-console
           console.log('Multiple choice bit details:', JSON.stringify(bit, null, 2));
         }
-        if (bit.body && Array.isArray(bit.body)) {
+
+        // Handle app-code-editor content extraction
+        if (bit.type === 'app-code-editor') {
+          if (bit.body && Array.isArray(bit.body)) {
+            // For app-code-editor, the body contains the actual code content
+            content = bit.body
+              .map((item: any) => {
+                if (typeof item === 'string') {
+                  return item;
+                } else if (item && typeof item === 'object') {
+                  // Handle different body structures
+                  if (item.bodyText) return item.bodyText;
+                  if (item.text) return item.text;
+                  if (item.content) return item.content;
+                  if (typeof item === 'string') return item;
+                }
+                return '';
+              })
+              .join('\n');
+          } else if (typeof bit.body === 'string') {
+            content = bit.body;
+          }
+        } else if (bit.body && Array.isArray(bit.body)) {
           // eslint-disable-next-line no-console
           console.log(
             'Body items:',
@@ -214,18 +243,42 @@ export const BitmarkRenderedUI: React.FC = () => {
           mappedType = 'multiple-choice';
         } else if (bit.type === 'cloze') {
           mappedType = 'cloze';
-        } else if (bit.type === 'sandbox-output-json' || bit.type === 'sandbox-output-bitmark') {
-          // Preserve sandbox bit types for placeholder rendering
+        } else if (bit.type === 'app-code-editor') {
+          // Preserve app-code-editor type for proper rendering
           mappedType = bit.type;
         }
 
         // eslint-disable-next-line no-console
         console.log('Final content for', bit.type, ':', content.trim());
-        return {
+
+        const result: any = {
           type: mappedType,
           content: content.trim(),
           originalBit: bit, // Keep original for debugging
         };
+
+        // Add properties needed for grouping
+        if (bit.type === 'app-code-editor') {
+          // Handle ID which might be an array
+          let id = bit.id || bit.bit?.id;
+          if (Array.isArray(id)) {
+            id = id[0];
+          }
+          result.id = id;
+          result.computerLanguage = bit.computerLanguage || bit.bit?.computerLanguage;
+
+          // Debug logging
+          // eslint-disable-next-line no-console
+          console.log(`App code editor ${bit.type}:`, {
+            id: result.id,
+            computerLanguage: result.computerLanguage,
+            bitId: bit.id,
+            bitBitId: bit.bit?.id,
+            originalBit: bit,
+          });
+        }
+
+        return result;
       });
 
       // eslint-disable-next-line no-console

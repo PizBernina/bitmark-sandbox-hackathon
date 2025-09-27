@@ -32,8 +32,8 @@ module.exports = __toCommonJS(index_exports);
 
 // src/components/BitmarkRenderer.tsx
 var import_react4 = require("react");
-var import_material7 = require("@mui/material");
-var import_framer_motion7 = require("framer-motion");
+var import_material9 = require("@mui/material");
+var import_framer_motion9 = require("framer-motion");
 
 // src/components/ClozeRenderer.tsx
 var import_react = require("react");
@@ -472,22 +472,257 @@ var ClozeAndMultipleChoiceRenderer = ({
   );
 };
 
-// src/components/SandboxPlaceholderRenderer.tsx
+// src/components/AppCodeEditorRenderer.tsx
 var import_material5 = require("@mui/material");
 var import_framer_motion5 = require("framer-motion");
 var import_icons_material = require("@mui/icons-material");
 var import_jsx_runtime5 = require("react/jsx-runtime");
+var AppCodeEditorRenderer = ({ bit }) => {
+  const getContent = () => {
+    if (bit.content) return bit.content;
+    if (bit.body) {
+      if (typeof bit.body === "string") return bit.body;
+      if (bit.body.bodyText) return bit.body.bodyText;
+      if (bit.body.text) return bit.body.text;
+    }
+    return "";
+  };
+  const content = getContent();
+  const language = bit.computerLanguage || "bitmark";
+  const id = bit.id;
+  const getLanguageIcon = () => {
+    switch (language) {
+      case "json":
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.DataObject, { sx: { fontSize: "1rem" } });
+      case "bitmark":
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.PlayArrow, { sx: { fontSize: "1rem" } });
+      default:
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1rem" } });
+    }
+  };
+  const getLanguageColor = () => {
+    switch (language) {
+      case "json":
+        return "primary";
+      case "bitmark":
+        return "secondary";
+      default:
+        return "default";
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+    import_framer_motion5.motion.div,
+    {
+      initial: { opacity: 0, y: 10 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+        import_material5.Paper,
+        {
+          elevation: 1,
+          sx: {
+            p: 2,
+            mb: 2,
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 2
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.Box, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 2 }, children: [
+              getLanguageIcon(),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600 }, children: "Code Editor" }),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                import_material5.Chip,
+                {
+                  label: language.toUpperCase(),
+                  size: "small",
+                  color: getLanguageColor(),
+                  variant: "outlined"
+                }
+              ),
+              id && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                import_material5.Chip,
+                {
+                  label: `ID: ${id}`,
+                  size: "small",
+                  variant: "outlined",
+                  sx: { ml: "auto" }
+                }
+              )
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+              import_material5.Box,
+              {
+                component: "pre",
+                sx: {
+                  backgroundColor: "grey.50",
+                  p: 2,
+                  borderRadius: 1,
+                  border: "1px solid",
+                  borderColor: "grey.200",
+                  fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                  fontSize: "0.875rem",
+                  lineHeight: 1.5,
+                  overflow: "auto",
+                  maxHeight: "300px",
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-word"
+                },
+                children: content || "No content available"
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+};
+
+// src/components/SandboxOutputGroupRenderer.tsx
+var import_material6 = require("@mui/material");
+var import_framer_motion6 = require("framer-motion");
+var import_icons_material2 = require("@mui/icons-material");
+var import_jsx_runtime6 = require("react/jsx-runtime");
+var SandboxOutputGroupRenderer = ({
+  editor,
+  outputs
+}) => {
+  const getOutputIcon = (type) => {
+    switch (type) {
+      case "sandbox-output-json":
+        return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_icons_material2.DataObject, { sx: { fontSize: "1rem" } });
+      case "sandbox-output-bitmark":
+        return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_icons_material2.PlayArrow, { sx: { fontSize: "1rem" } });
+      default:
+        return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_icons_material2.Code, { sx: { fontSize: "1rem" } });
+    }
+  };
+  const getOutputTitle = (type) => {
+    switch (type) {
+      case "sandbox-output-json":
+        return "JSON Output";
+      case "sandbox-output-bitmark":
+        return "Bitmark Output";
+      default:
+        return "Output";
+    }
+  };
+  const getOutputColor = (type) => {
+    switch (type) {
+      case "sandbox-output-json":
+        return "primary";
+      case "sandbox-output-bitmark":
+        return "secondary";
+      default:
+        return "default";
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    import_framer_motion6.motion.div,
+    {
+      initial: { opacity: 0, y: 10 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+        import_material6.Paper,
+        {
+          elevation: 2,
+          sx: {
+            p: 0,
+            mb: 3,
+            border: "1px solid",
+            borderColor: "primary.main",
+            borderRadius: 2,
+            overflow: "hidden"
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { sx: { p: 2, backgroundColor: "primary.50" }, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_icons_material2.Transform, { sx: { fontSize: "1.2rem", color: "primary.main" } }),
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600, color: "primary.main" }, children: "Sandbox Group" }),
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                import_material6.Chip,
+                {
+                  label: `${outputs.length} output${outputs.length !== 1 ? "s" : ""}`,
+                  size: "small",
+                  color: "primary",
+                  variant: "outlined"
+                }
+              )
+            ] }) }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { sx: { p: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(AppCodeEditorRenderer, { bit: editor }) }),
+            outputs.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Divider, {}),
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { sx: { p: 2 }, children: [
+                /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "subtitle2", sx: { mb: 2, fontWeight: 600, color: "text.secondary" }, children: "Generated Outputs:" }),
+                outputs.map((output, index) => /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { sx: { mb: 2 }, children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
+                    getOutputIcon(output.type),
+                    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "subtitle2", sx: { fontWeight: 600 }, children: getOutputTitle(output.type) }),
+                    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                      import_material6.Chip,
+                      {
+                        label: output.type.replace("sandbox-output-", "").toUpperCase(),
+                        size: "small",
+                        color: getOutputColor(output.type),
+                        variant: "outlined"
+                      }
+                    ),
+                    output.prettify && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                      import_material6.Chip,
+                      {
+                        label: `Prettify: ${output.prettify}`,
+                        size: "small",
+                        variant: "outlined"
+                      }
+                    )
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+                    import_material6.Box,
+                    {
+                      component: "pre",
+                      sx: {
+                        backgroundColor: "grey.50",
+                        p: 2,
+                        borderRadius: 1,
+                        border: "1px solid",
+                        borderColor: "grey.200",
+                        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                        fontSize: "0.875rem",
+                        lineHeight: 1.5,
+                        overflow: "auto",
+                        maxHeight: "200px",
+                        whiteSpace: "pre-wrap",
+                        wordBreak: "break-word"
+                      },
+                      children: output.content || `[Generated ${output.type.replace("sandbox-output-", "")} output would appear here]`
+                    }
+                  )
+                ] }, `${output.type}-${index}`))
+              ] })
+            ] })
+          ]
+        }
+      )
+    }
+  );
+};
+
+// src/components/SandboxPlaceholderRenderer.tsx
+var import_material7 = require("@mui/material");
+var import_framer_motion7 = require("framer-motion");
+var import_icons_material3 = require("@mui/icons-material");
+var import_jsx_runtime7 = require("react/jsx-runtime");
 var SandboxPlaceholderRenderer = ({ bitType }) => {
   const getSandboxIcon = () => {
     switch (bitType) {
       case "app-code-editor":
-        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_icons_material3.Code, { sx: { fontSize: "1.2rem" } });
       case "sandbox-output-json":
-        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_icons_material3.Code, { sx: { fontSize: "1.2rem" } });
       case "sandbox-output-bitmark":
-        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.PlayArrow, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_icons_material3.PlayArrow, { sx: { fontSize: "1.2rem" } });
       default:
-        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_icons_material3.Code, { sx: { fontSize: "1.2rem" } });
     }
   };
   const getSandboxTitle = () => {
@@ -514,14 +749,14 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
         return "This sandbox content is rendered from the JSON pane.";
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-    import_framer_motion5.motion.div,
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+    import_framer_motion7.motion.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
-        import_material5.Alert,
+      children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+        import_material7.Alert,
         {
           severity: "info",
           sx: {
@@ -534,14 +769,14 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
             }
           },
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
               getSandboxIcon(),
               getSandboxTitle()
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.Box, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-                import_material5.Chip,
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Typography, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
+            /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Box, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+                import_material7.Chip,
                 {
                   label: "Sandbox Integration",
                   size: "small",
@@ -549,7 +784,7 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
                   variant: "outlined"
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
+              /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Typography, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
             ] })
           ]
         }
@@ -559,9 +794,9 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
 };
 
 // src/components/ErrorRenderer.tsx
-var import_material6 = require("@mui/material");
-var import_framer_motion6 = require("framer-motion");
-var import_jsx_runtime6 = require("react/jsx-runtime");
+var import_material8 = require("@mui/material");
+var import_framer_motion8 = require("framer-motion");
+var import_jsx_runtime8 = require("react/jsx-runtime");
 var ErrorRenderer = ({ error }) => {
   const getErrorIcon = () => {
     switch (error.type) {
@@ -599,14 +834,14 @@ var ErrorRenderer = ({ error }) => {
         return "info";
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-    import_framer_motion6.motion.div,
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+    import_framer_motion8.motion.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
-        import_material6.Alert,
+      children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_material8.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(
+        import_material8.Alert,
         {
           severity: getErrorColor(),
           sx: {
@@ -616,17 +851,17 @@ var ErrorRenderer = ({ error }) => {
             }
           },
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: getErrorIcon() }),
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_material8.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("span", { children: getErrorIcon() }),
               getErrorTitle()
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "body2", sx: { mt: 1 }, children: error.message }),
-            error.bitType && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Typography, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_material8.Typography, { variant: "body2", sx: { mt: 1 }, children: error.message }),
+            error.bitType && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_material8.Typography, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
               "Bit type: ",
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("code", { children: error.bitType })
+              /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("code", { children: error.bitType })
             ] }),
-            error.details && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-              import_material6.Box,
+            error.details && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(
+              import_material8.Box,
               {
                 component: "pre",
                 sx: {
@@ -650,7 +885,7 @@ var ErrorRenderer = ({ error }) => {
 };
 
 // src/components/BitmarkRenderer.tsx
-var import_jsx_runtime7 = require("react/jsx-runtime");
+var import_jsx_runtime9 = require("react/jsx-runtime");
 var BitmarkRenderer = ({
   data,
   onInteraction,
@@ -664,13 +899,44 @@ var BitmarkRenderer = ({
     setInteractions((prev) => [...prev, interaction]);
     onInteraction?.(interaction);
   }, [onInteraction]);
+  const groupSandboxBits = (0, import_react4.useCallback)((bits) => {
+    const groups = /* @__PURE__ */ new Map();
+    const standaloneBits = [];
+    bits.forEach((bit, index) => {
+      const bitType = bit.type || bit.bit?.type || "unknown";
+      if (bitType === "app-code-editor") {
+        let id = bit.id || bit.bit?.id || `editor-${index}`;
+        if (Array.isArray(id)) {
+          id = id[0] || `editor-${index}`;
+        }
+        if (!groups.has(id)) {
+          groups.set(id, { editor: bit, outputs: [] });
+        } else {
+          groups.get(id).editor = bit;
+        }
+      } else if (bitType === "sandbox-output-json" || bitType === "sandbox-output-bitmark") {
+        let fromId = bit.fromId || bit.bit?.fromId || bit.properties?.fromId;
+        if (Array.isArray(fromId)) {
+          fromId = fromId[0];
+        }
+        if (fromId && groups.has(fromId)) {
+          groups.get(fromId).outputs.push({ bit, index });
+        } else {
+          standaloneBits.push({ bit, index });
+        }
+      } else {
+        standaloneBits.push({ bit, index });
+      }
+    });
+    return { groups, standaloneBits };
+  }, []);
   const renderBit = (0, import_react4.useCallback)((bit, index) => {
     const bitId = `bit-${index}-${bit.type}`;
     try {
       const bitType = bit.type || bit.bit?.type || "unknown";
       switch (bitType) {
         case "cloze":
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             ClozeRenderer,
             {
               bit,
@@ -684,7 +950,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "multiple-choice":
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             MultipleChoiceRenderer,
             {
               bit,
@@ -698,7 +964,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "cloze-and-multiple-choice-text":
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             ClozeAndMultipleChoiceRenderer,
             {
               bit,
@@ -714,7 +980,7 @@ var BitmarkRenderer = ({
         case "text":
         case "paragraph":
         case "header":
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             TextRenderer,
             {
               bit
@@ -722,9 +988,16 @@ var BitmarkRenderer = ({
             bitId
           );
         case "app-code-editor":
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            AppCodeEditorRenderer,
+            {
+              bit
+            },
+            bitId
+          );
         case "sandbox-output-json":
         case "sandbox-output-bitmark":
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             SandboxPlaceholderRenderer,
             {
               bitType
@@ -732,7 +1005,7 @@ var BitmarkRenderer = ({
             bitId
           );
         default:
-          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
             ErrorRenderer,
             {
               error: {
@@ -745,7 +1018,7 @@ var BitmarkRenderer = ({
           );
       }
     } catch (error) {
-      return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
         ErrorRenderer,
         {
           error: {
@@ -806,9 +1079,12 @@ var BitmarkRenderer = ({
     }
   }, [data, validateData]);
   const { data: parsedData } = validateData(data);
+  const groupedData = (0, import_react4.useMemo)(() => {
+    return groupSandboxBits(parsedData);
+  }, [parsedData, groupSandboxBits]);
   if (isLoading) {
-    return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
-      import_material7.Box,
+    return /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+      import_material9.Box,
       {
         className,
         style,
@@ -816,12 +1092,12 @@ var BitmarkRenderer = ({
         justifyContent: "center",
         alignItems: "center",
         minHeight: "200px",
-        children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.CircularProgress, {})
+        children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.CircularProgress, {})
       }
     );
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
-    import_material7.Box,
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+    import_material9.Box,
     {
       className,
       style,
@@ -834,24 +1110,54 @@ var BitmarkRenderer = ({
         maxHeight: "100%"
       },
       children: [
-        errors.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Alert, { severity: "warning", sx: { mb: 1 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.AlertTitle, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
+        errors.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.Box, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_material9.Alert, { severity: "warning", sx: { mb: 1 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.AlertTitle, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
           error.message,
-          error.details && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
+          error.details && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.Box, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
         ] }, index)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
-          import_framer_motion7.motion.div,
+        /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+          import_framer_motion9.motion.div,
           {
             initial: { opacity: 0, y: 20 },
             animate: { opacity: 1, y: 0 },
             transition: { duration: 0.3 },
-            children: parsedData.map((bit, index) => renderBit(bit, index))
+            children: (() => {
+              const { groups, standaloneBits } = groupedData;
+              const elements = [];
+              groups.forEach((group, groupId) => {
+                if (group.editor && group.outputs.length > 0) {
+                  const outputs = group.outputs.map(({ bit }) => ({
+                    type: bit.type,
+                    fromId: bit.fromId || bit.bit?.fromId || bit.properties?.fromId || "",
+                    prettify: bit.prettify || bit.bit?.prettify || bit.properties?.prettify,
+                    content: bit.content || bit.bit?.content || bit.body?.bodyText || bit.body?.text || ""
+                  }));
+                  elements.push(
+                    /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                      SandboxOutputGroupRenderer,
+                      {
+                        editor: group.editor,
+                        outputs
+                      },
+                      `group-${groupId}`
+                    )
+                  );
+                } else if (group.editor) {
+                  const editorIndex = groupId.startsWith("editor-") ? parseInt(groupId.replace("editor-", "")) : 0;
+                  elements.push(renderBit(group.editor, editorIndex));
+                }
+              });
+              standaloneBits.forEach(({ bit, index }) => {
+                elements.push(renderBit(bit, index));
+              });
+              return elements;
+            })()
           }
         ),
-        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Box, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
+        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.Box, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_material9.Box, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
           "Interactions: ",
           interactions.length,
-          interactions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Box, { component: "div", children: [
+          interactions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(import_material9.Box, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(import_material9.Box, { component: "div", children: [
             interaction.type,
             ": ",
             interaction.value
@@ -865,8 +1171,8 @@ var BitmarkRenderer_default = BitmarkRenderer;
 
 // src/components/ThemeProvider.tsx
 var import_styles = require("@mui/material/styles");
-var import_material8 = require("@mui/material");
-var import_jsx_runtime8 = require("react/jsx-runtime");
+var import_material10 = require("@mui/material");
+var import_jsx_runtime10 = require("react/jsx-runtime");
 var theme = (0, import_styles.createTheme)({
   palette: {
     mode: "light",
@@ -913,8 +1219,8 @@ var theme = (0, import_styles.createTheme)({
   }
 });
 var ThemeProvider = ({ children }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_styles.ThemeProvider, { theme, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_material8.CssBaseline, {}),
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_styles.ThemeProvider, { theme, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_material10.CssBaseline, {}),
     children
   ] });
 };
