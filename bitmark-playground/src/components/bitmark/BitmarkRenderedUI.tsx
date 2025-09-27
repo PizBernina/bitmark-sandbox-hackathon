@@ -87,6 +87,10 @@ export const BitmarkRenderedUI: React.FC = () => {
 
         // Handle app-code-editor content extraction
         if (bit.type === 'app-code-editor') {
+          // Debug: Log the full bit structure for app-code-editor (temporary)
+          // eslint-disable-next-line no-console
+          console.log('App-code-editor bit structure:', JSON.stringify(bit, null, 2));
+
           if (bit.body && Array.isArray(bit.body)) {
             // For app-code-editor, the body contains the actual code content
             content = bit.body
@@ -105,6 +109,29 @@ export const BitmarkRenderedUI: React.FC = () => {
               .join('\n');
           } else if (typeof bit.body === 'string') {
             content = bit.body;
+          } else {
+            // Try to find content in other locations
+            if (bit.bitmark) {
+              content = bit.bitmark;
+            } else if (bit.originalBit && bit.originalBit.bitmark) {
+              content = bit.originalBit.bitmark;
+            } else if (bit.originalBit && bit.originalBit.body) {
+              if (typeof bit.originalBit.body === 'string') {
+                content = bit.originalBit.body;
+              } else if (Array.isArray(bit.originalBit.body)) {
+                content = bit.originalBit.body
+                  .map((item: any) => {
+                    if (typeof item === 'string') return item;
+                    if (item && typeof item === 'object') {
+                      if (item.bodyText) return item.bodyText;
+                      if (item.text) return item.text;
+                      if (item.content) return item.content;
+                    }
+                    return '';
+                  })
+                  .join('\n');
+              }
+            }
           }
         } else if (bit.body && Array.isArray(bit.body)) {
           // eslint-disable-next-line no-console

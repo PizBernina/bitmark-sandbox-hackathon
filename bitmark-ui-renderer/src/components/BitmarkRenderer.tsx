@@ -72,7 +72,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
   // Render a single bit
   const renderBit = useCallback((bit: BitmarkNode, index: number) => {
     const bitId = `bit-${index}-${bit.type}`;
-    
+
     try {
       // Handle different bitmark structures
       const bitType = bit.type || bit.bit?.type || 'unknown';
