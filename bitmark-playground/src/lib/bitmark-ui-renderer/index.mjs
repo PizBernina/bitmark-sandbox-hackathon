@@ -1,7 +1,7 @@
 // src/components/BitmarkRenderer.tsx
 import { useState as useState4, useEffect, useCallback } from "react";
-import { Box as Box6, Alert as Alert2, AlertTitle as AlertTitle2, CircularProgress } from "@mui/material";
-import { motion as motion6 } from "framer-motion";
+import { Box as Box7, Alert as Alert3, AlertTitle as AlertTitle3, CircularProgress } from "@mui/material";
+import { motion as motion7 } from "framer-motion";
 
 // src/components/ClozeRenderer.tsx
 import { useState } from "react";
@@ -440,10 +440,96 @@ var ClozeAndMultipleChoiceRenderer = ({
   );
 };
 
-// src/components/ErrorRenderer.tsx
-import { Box as Box5, Alert, AlertTitle, Typography as Typography5 } from "@mui/material";
+// src/components/SandboxPlaceholderRenderer.tsx
+import { Box as Box5, Alert, AlertTitle, Typography as Typography5, Chip } from "@mui/material";
 import { motion as motion5 } from "framer-motion";
+import { Code, PlayArrow } from "@mui/icons-material";
 import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+var SandboxPlaceholderRenderer = ({ bitType }) => {
+  const getSandboxIcon = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return /* @__PURE__ */ jsx5(Code, { sx: { fontSize: "1.2rem" } });
+      case "sandbox-output-json":
+        return /* @__PURE__ */ jsx5(Code, { sx: { fontSize: "1.2rem" } });
+      case "sandbox-output-bitmark":
+        return /* @__PURE__ */ jsx5(PlayArrow, { sx: { fontSize: "1.2rem" } });
+      default:
+        return /* @__PURE__ */ jsx5(Code, { sx: { fontSize: "1.2rem" } });
+    }
+  };
+  const getSandboxTitle = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return "Code Editor";
+      case "sandbox-output-json":
+        return "Sandbox JSON Output";
+      case "sandbox-output-bitmark":
+        return "Sandbox Bitmark Output";
+      default:
+        return "Sandbox Content";
+    }
+  };
+  const getSandboxDescription = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return "This code editor content is rendered from the JSON pane.";
+      case "sandbox-output-json":
+        return "This JSON output content is rendered from the JSON pane.";
+      case "sandbox-output-bitmark":
+        return "This bitmark output content is rendered from the JSON pane.";
+      default:
+        return "This sandbox content is rendered from the JSON pane.";
+    }
+  };
+  return /* @__PURE__ */ jsx5(
+    motion5.div,
+    {
+      initial: { opacity: 0, scale: 0.95 },
+      animate: { opacity: 1, scale: 1 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ jsx5(Box5, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs3(
+        Alert,
+        {
+          severity: "info",
+          sx: {
+            borderRadius: 2,
+            border: "2px dashed",
+            borderColor: "primary.main",
+            backgroundColor: "primary.50",
+            "& .MuiAlert-icon": {
+              fontSize: "1.2rem"
+            }
+          },
+          children: [
+            /* @__PURE__ */ jsxs3(AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              getSandboxIcon(),
+              getSandboxTitle()
+            ] }),
+            /* @__PURE__ */ jsx5(Typography5, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
+            /* @__PURE__ */ jsxs3(Box5, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ jsx5(
+                Chip,
+                {
+                  label: "Sandbox Integration",
+                  size: "small",
+                  color: "primary",
+                  variant: "outlined"
+                }
+              ),
+              /* @__PURE__ */ jsx5(Typography5, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
+            ] })
+          ]
+        }
+      ) })
+    }
+  );
+};
+
+// src/components/ErrorRenderer.tsx
+import { Box as Box6, Alert as Alert2, AlertTitle as AlertTitle2, Typography as Typography6 } from "@mui/material";
+import { motion as motion6 } from "framer-motion";
+import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var ErrorRenderer = ({ error }) => {
   const getErrorIcon = () => {
     switch (error.type) {
@@ -481,14 +567,14 @@ var ErrorRenderer = ({ error }) => {
         return "info";
     }
   };
-  return /* @__PURE__ */ jsx5(
-    motion5.div,
+  return /* @__PURE__ */ jsx6(
+    motion6.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsx5(Box5, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs3(
-        Alert,
+      children: /* @__PURE__ */ jsx6(Box6, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs4(
+        Alert2,
         {
           severity: getErrorColor(),
           sx: {
@@ -498,17 +584,17 @@ var ErrorRenderer = ({ error }) => {
             }
           },
           children: [
-            /* @__PURE__ */ jsxs3(AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ jsx5("span", { children: getErrorIcon() }),
+            /* @__PURE__ */ jsxs4(AlertTitle2, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ jsx6("span", { children: getErrorIcon() }),
               getErrorTitle()
             ] }),
-            /* @__PURE__ */ jsx5(Typography5, { variant: "body2", sx: { mt: 1 }, children: error.message }),
-            error.bitType && /* @__PURE__ */ jsxs3(Typography5, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
+            /* @__PURE__ */ jsx6(Typography6, { variant: "body2", sx: { mt: 1 }, children: error.message }),
+            error.bitType && /* @__PURE__ */ jsxs4(Typography6, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
               "Bit type: ",
-              /* @__PURE__ */ jsx5("code", { children: error.bitType })
+              /* @__PURE__ */ jsx6("code", { children: error.bitType })
             ] }),
-            error.details && /* @__PURE__ */ jsx5(
-              Box5,
+            error.details && /* @__PURE__ */ jsx6(
+              Box6,
               {
                 component: "pre",
                 sx: {
@@ -532,7 +618,7 @@ var ErrorRenderer = ({ error }) => {
 };
 
 // src/components/BitmarkRenderer.tsx
-import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
 var BitmarkRenderer = ({
   data,
   onInteraction,
@@ -552,7 +638,7 @@ var BitmarkRenderer = ({
       const bitType = bit.type || bit.bit?.type || "unknown";
       switch (bitType) {
         case "cloze":
-          return /* @__PURE__ */ jsx6(
+          return /* @__PURE__ */ jsx7(
             ClozeRenderer,
             {
               bit,
@@ -566,7 +652,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "multiple-choice":
-          return /* @__PURE__ */ jsx6(
+          return /* @__PURE__ */ jsx7(
             MultipleChoiceRenderer,
             {
               bit,
@@ -580,7 +666,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "cloze-and-multiple-choice-text":
-          return /* @__PURE__ */ jsx6(
+          return /* @__PURE__ */ jsx7(
             ClozeAndMultipleChoiceRenderer,
             {
               bit,
@@ -596,15 +682,25 @@ var BitmarkRenderer = ({
         case "text":
         case "paragraph":
         case "header":
-          return /* @__PURE__ */ jsx6(
+          return /* @__PURE__ */ jsx7(
             TextRenderer,
             {
               bit
             },
             bitId
           );
+        case "app-code-editor":
+        case "sandbox-output-json":
+        case "sandbox-output-bitmark":
+          return /* @__PURE__ */ jsx7(
+            SandboxPlaceholderRenderer,
+            {
+              bitType
+            },
+            bitId
+          );
         default:
-          return /* @__PURE__ */ jsx6(
+          return /* @__PURE__ */ jsx7(
             ErrorRenderer,
             {
               error: {
@@ -617,7 +713,7 @@ var BitmarkRenderer = ({
           );
       }
     } catch (error) {
-      return /* @__PURE__ */ jsx6(
+      return /* @__PURE__ */ jsx7(
         ErrorRenderer,
         {
           error: {
@@ -642,7 +738,7 @@ var BitmarkRenderer = ({
       }
       parsedData2.forEach((bit, index) => {
         const bitType = bit.type || bit.bit?.type || "unknown";
-        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header"];
+        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header", "app-code-editor", "sandbox-output-json", "sandbox-output-bitmark"];
         if (!supportedTypes.includes(bitType)) {
           errors2.push({
             type: "unsupported",
@@ -679,8 +775,8 @@ var BitmarkRenderer = ({
   }, [data, validateData]);
   const { data: parsedData } = validateData(data);
   if (isLoading) {
-    return /* @__PURE__ */ jsx6(
-      Box6,
+    return /* @__PURE__ */ jsx7(
+      Box7,
       {
         className,
         style,
@@ -688,12 +784,12 @@ var BitmarkRenderer = ({
         justifyContent: "center",
         alignItems: "center",
         minHeight: "200px",
-        children: /* @__PURE__ */ jsx6(CircularProgress, {})
+        children: /* @__PURE__ */ jsx7(CircularProgress, {})
       }
     );
   }
-  return /* @__PURE__ */ jsxs4(
-    Box6,
+  return /* @__PURE__ */ jsxs5(
+    Box7,
     {
       className,
       style,
@@ -706,13 +802,13 @@ var BitmarkRenderer = ({
         maxHeight: "100%"
       },
       children: [
-        errors.length > 0 && /* @__PURE__ */ jsx6(Box6, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ jsxs4(Alert2, { severity: "warning", sx: { mb: 1 }, children: [
-          /* @__PURE__ */ jsx6(AlertTitle2, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
+        errors.length > 0 && /* @__PURE__ */ jsx7(Box7, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ jsxs5(Alert3, { severity: "warning", sx: { mb: 1 }, children: [
+          /* @__PURE__ */ jsx7(AlertTitle3, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
           error.message,
-          error.details && /* @__PURE__ */ jsx6(Box6, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
+          error.details && /* @__PURE__ */ jsx7(Box7, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
         ] }, index)) }),
-        /* @__PURE__ */ jsx6(
-          motion6.div,
+        /* @__PURE__ */ jsx7(
+          motion7.div,
           {
             initial: { opacity: 0, y: 20 },
             animate: { opacity: 1, y: 0 },
@@ -720,10 +816,10 @@ var BitmarkRenderer = ({
             children: parsedData.map((bit, index) => renderBit(bit, index))
           }
         ),
-        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ jsx6(Box6, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ jsxs4(Box6, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
+        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ jsx7(Box7, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ jsxs5(Box7, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
           "Interactions: ",
           interactions.length,
-          interactions.length > 0 && /* @__PURE__ */ jsx6(Box6, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ jsxs4(Box6, { component: "div", children: [
+          interactions.length > 0 && /* @__PURE__ */ jsx7(Box7, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ jsxs5(Box7, { component: "div", children: [
             interaction.type,
             ": ",
             interaction.value
@@ -738,7 +834,7 @@ var BitmarkRenderer_default = BitmarkRenderer;
 // src/components/ThemeProvider.tsx
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
+import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
 var theme = createTheme({
   palette: {
     mode: "light",
@@ -785,8 +881,8 @@ var theme = createTheme({
   }
 });
 var ThemeProvider = ({ children }) => {
-  return /* @__PURE__ */ jsxs5(MuiThemeProvider, { theme, children: [
-    /* @__PURE__ */ jsx7(CssBaseline, {}),
+  return /* @__PURE__ */ jsxs6(MuiThemeProvider, { theme, children: [
+    /* @__PURE__ */ jsx8(CssBaseline, {}),
     children
   ] });
 };

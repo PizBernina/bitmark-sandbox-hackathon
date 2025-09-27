@@ -5,6 +5,10 @@ import { useSnapshot } from 'valtio';
 import { BitmarkRenderer, ThemeProvider } from '../../lib/bitmark-ui-renderer/index.js';
 import { bitmarkState } from '../../state/bitmarkState';
 
+// Debug: Check if we're using the updated library
+// eslint-disable-next-line no-console
+console.log('BitmarkRenderer version check:', BitmarkRenderer.toString().includes('SandboxPlaceholderRenderer'));
+
 export const BitmarkRenderedUI: React.FC = () => {
   const snap = useSnapshot(bitmarkState);
 
@@ -53,8 +57,16 @@ export const BitmarkRenderedUI: React.FC = () => {
         bitWrappers = [parsedJson];
       }
 
+      // Filter out bits that shouldn't be rendered in the main UI
+      const filteredBitWrappers = bitWrappers.filter((wrapper: any) => {
+        const bit = wrapper.bit || wrapper;
+        // Only include bits that are meant for the main renderer
+        // Exclude bits that are results of parsing bitmark content
+        return bit.type !== 'article' && bit.type !== 'paragraph' && bit.type !== 'text';
+      });
+
       // Convert BitWrapperJson to BitmarkNode format
-      const convertedBits = bitWrappers.map((wrapper: any) => {
+      const convertedBits = filteredBitWrappers.map((wrapper: any) => {
         const bit = wrapper.bit || wrapper;
 
         // Extract content from body
@@ -202,6 +214,9 @@ export const BitmarkRenderedUI: React.FC = () => {
           mappedType = 'multiple-choice';
         } else if (bit.type === 'cloze') {
           mappedType = 'cloze';
+        } else if (bit.type === 'sandbox-output-json' || bit.type === 'sandbox-output-bitmark') {
+          // Preserve sandbox bit types for placeholder rendering
+          mappedType = bit.type;
         }
 
         // eslint-disable-next-line no-console
@@ -217,6 +232,13 @@ export const BitmarkRenderedUI: React.FC = () => {
       console.log('Extracted bits for renderer:', convertedBits);
       // eslint-disable-next-line no-console
       console.log('First bit details:', convertedBits[0]);
+
+      // Debug: Log each bit type to see what's being processed
+      convertedBits.forEach((bit: any, index: number) => {
+        // eslint-disable-next-line no-console
+        console.log(`Bit ${index}: type="${bit.type}", content="${bit.content?.substring(0, 50)}..."`);
+      });
+
       return convertedBits;
     } catch (error) {
       // eslint-disable-next-line no-console

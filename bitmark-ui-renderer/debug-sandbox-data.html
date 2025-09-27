@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Sandbox Data Structure</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="dist/index.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .debug-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        const { createElement: h, useState } = React;
+        const { ThemeProvider, createTheme, Box, Typography, Paper } = MaterialUI;
+        const { BitmarkRenderer } = window.BitmarkUIRenderer;
+
+        // Create a Material-UI theme
+        const theme = createTheme({
+            palette: {
+                mode: 'light',
+            },
+        });
+
+        // Simulate the data structure that would come from the playground
+        // This is what the playground would generate when you add those sandbox bits
+        const simulatedPlaygroundData = [
+            {
+                "bit": {
+                    "type": "app-code-editor",
+                    "id": ["ex1"],
+                    "computerLanguage": ["json"],
+                    "body": [
+                        {
+                            "text": "[\n  {\"type\":\"article\",\"body\":{\"bodyText\":\"Hello code!\",\"bodyType\":\"text\"}}\n]",
+                            "type": "text"
+                        }
+                    ]
+                }
+            },
+            {
+                "bit": {
+                    "type": "sandbox-output-bitmark",
+                    "fromId": ["ex1"],
+                    "prettify": [true]
+                }
+            },
+            {
+                "bit": {
+                    "type": "app-code-editor",
+                    "id": ["ex2"],
+                    "computerLanguage": ["bitmark"],
+                    "body": [
+                        {
+                            "text": "[^.article] Hello from bitmark!",
+                            "type": "text"
+                        }
+                    ]
+                }
+            },
+            {
+                "bit": {
+                    "type": "sandbox-output-json",
+                    "fromId": ["ex2"],
+                    "prettify": [2]
+                }
+            }
+        ];
+
+        // Convert to the format that BitmarkRenderer expects
+        const convertedData = simulatedPlaygroundData.map(wrapper => {
+            const bit = wrapper.bit;
+            return {
+                type: bit.type,
+                content: bit.body ? bit.body.map(b => b.text).join('') : '',
+                // Add other properties that might be relevant
+                id: bit.id,
+                computerLanguage: bit.computerLanguage,
+                fromId: bit.fromId,
+                prettify: bit.prettify
+            };
+        });
+
+        function DebugApp() {
+            const [interactions, setInteractions] = useState([]);
+
+            const handleInteraction = (interaction) => {
+                setInteractions(prev => [...prev, interaction]);
+                console.log('User interaction:', interaction);
+            };
+
+            return h(ThemeProvider, { theme },
+                h('div', { className: 'debug-container' },
+                    h('h1', null, 'Debug Sandbox Data Structure'),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Original Playground Data Structure'),
+                        h('pre', null, JSON.stringify(simulatedPlaygroundData, null, 2))
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Converted Data for BitmarkRenderer'),
+                        h('pre', null, JSON.stringify(convertedData, null, 2))
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Rendered Output'),
+                        h(BitmarkRenderer, {
+                            data: convertedData,
+                            onInteraction: handleInteraction
+                        })
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Interactions Log'),
+                        h('pre', null, JSON.stringify(interactions, null, 2))
+                    )
+                )
+            );
+        }
+
+        ReactDOM.render(h(DebugApp), document.getElementById('root'));
+    </script>
+</body>
+</html>

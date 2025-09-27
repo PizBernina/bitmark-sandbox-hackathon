@@ -6,6 +6,7 @@ import { ClozeRenderer } from './ClozeRenderer';
 import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
 import { TextRenderer } from './TextRenderer';
 import { ClozeAndMultipleChoiceRenderer } from './ClozeAndMultipleChoiceRenderer';
+import { SandboxPlaceholderRenderer } from './SandboxPlaceholderRenderer';
 import { ErrorRenderer } from './ErrorRenderer';
 
 const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
@@ -91,6 +92,16 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
             />
           );
         
+        case 'app-code-editor':
+        case 'sandbox-output-json':
+        case 'sandbox-output-bitmark':
+          return (
+            <SandboxPlaceholderRenderer
+              key={bitId}
+              bitType={bitType}
+            />
+          );
+        
         default:
           return (
             <ErrorRenderer
@@ -135,7 +146,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
         const bitType = bit.type || bit.bit?.type || 'unknown';
         
         // Check for unsupported bit types
-        const supportedTypes = ['cloze', 'multiple-choice', 'cloze-and-multiple-choice-text', 'text', 'paragraph', 'header'];
+        const supportedTypes = ['cloze', 'multiple-choice', 'cloze-and-multiple-choice-text', 'text', 'paragraph', 'header', 'app-code-editor', 'sandbox-output-json', 'sandbox-output-bitmark'];
         if (!supportedTypes.includes(bitType)) {
           errors.push({
             type: 'unsupported',

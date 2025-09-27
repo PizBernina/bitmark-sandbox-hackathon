@@ -32,8 +32,8 @@ module.exports = __toCommonJS(index_exports);
 
 // src/components/BitmarkRenderer.tsx
 var import_react4 = require("react");
-var import_material6 = require("@mui/material");
-var import_framer_motion6 = require("framer-motion");
+var import_material7 = require("@mui/material");
+var import_framer_motion7 = require("framer-motion");
 
 // src/components/ClozeRenderer.tsx
 var import_react = require("react");
@@ -472,10 +472,96 @@ var ClozeAndMultipleChoiceRenderer = ({
   );
 };
 
-// src/components/ErrorRenderer.tsx
+// src/components/SandboxPlaceholderRenderer.tsx
 var import_material5 = require("@mui/material");
 var import_framer_motion5 = require("framer-motion");
+var import_icons_material = require("@mui/icons-material");
 var import_jsx_runtime5 = require("react/jsx-runtime");
+var SandboxPlaceholderRenderer = ({ bitType }) => {
+  const getSandboxIcon = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+      case "sandbox-output-json":
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+      case "sandbox-output-bitmark":
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.PlayArrow, { sx: { fontSize: "1.2rem" } });
+      default:
+        return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_icons_material.Code, { sx: { fontSize: "1.2rem" } });
+    }
+  };
+  const getSandboxTitle = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return "Code Editor";
+      case "sandbox-output-json":
+        return "Sandbox JSON Output";
+      case "sandbox-output-bitmark":
+        return "Sandbox Bitmark Output";
+      default:
+        return "Sandbox Content";
+    }
+  };
+  const getSandboxDescription = () => {
+    switch (bitType) {
+      case "app-code-editor":
+        return "This code editor content is rendered from the JSON pane.";
+      case "sandbox-output-json":
+        return "This JSON output content is rendered from the JSON pane.";
+      case "sandbox-output-bitmark":
+        return "This bitmark output content is rendered from the JSON pane.";
+      default:
+        return "This sandbox content is rendered from the JSON pane.";
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+    import_framer_motion5.motion.div,
+    {
+      initial: { opacity: 0, scale: 0.95 },
+      animate: { opacity: 1, scale: 1 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+        import_material5.Alert,
+        {
+          severity: "info",
+          sx: {
+            borderRadius: 2,
+            border: "2px dashed",
+            borderColor: "primary.main",
+            backgroundColor: "primary.50",
+            "& .MuiAlert-icon": {
+              fontSize: "1.2rem"
+            }
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              getSandboxIcon(),
+              getSandboxTitle()
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
+            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.Box, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                import_material5.Chip,
+                {
+                  label: "Sandbox Integration",
+                  size: "small",
+                  color: "primary",
+                  variant: "outlined"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
+            ] })
+          ]
+        }
+      ) })
+    }
+  );
+};
+
+// src/components/ErrorRenderer.tsx
+var import_material6 = require("@mui/material");
+var import_framer_motion6 = require("framer-motion");
+var import_jsx_runtime6 = require("react/jsx-runtime");
 var ErrorRenderer = ({ error }) => {
   const getErrorIcon = () => {
     switch (error.type) {
@@ -513,14 +599,14 @@ var ErrorRenderer = ({ error }) => {
         return "info";
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-    import_framer_motion5.motion.div,
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    import_framer_motion6.motion.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
-        import_material5.Alert,
+      children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { sx: { mb: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+        import_material6.Alert,
         {
           severity: getErrorColor(),
           sx: {
@@ -530,17 +616,17 @@ var ErrorRenderer = ({ error }) => {
             }
           },
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { children: getErrorIcon() }),
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: getErrorIcon() }),
               getErrorTitle()
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "body2", sx: { mt: 1 }, children: error.message }),
-            error.bitType && /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.Typography, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "body2", sx: { mt: 1 }, children: error.message }),
+            error.bitType && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Typography, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
               "Bit type: ",
-              /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("code", { children: error.bitType })
+              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("code", { children: error.bitType })
             ] }),
-            error.details && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
-              import_material5.Box,
+            error.details && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+              import_material6.Box,
               {
                 component: "pre",
                 sx: {
@@ -564,7 +650,7 @@ var ErrorRenderer = ({ error }) => {
 };
 
 // src/components/BitmarkRenderer.tsx
-var import_jsx_runtime6 = require("react/jsx-runtime");
+var import_jsx_runtime7 = require("react/jsx-runtime");
 var BitmarkRenderer = ({
   data,
   onInteraction,
@@ -584,7 +670,7 @@ var BitmarkRenderer = ({
       const bitType = bit.type || bit.bit?.type || "unknown";
       switch (bitType) {
         case "cloze":
-          return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             ClozeRenderer,
             {
               bit,
@@ -598,7 +684,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "multiple-choice":
-          return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             MultipleChoiceRenderer,
             {
               bit,
@@ -612,7 +698,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "cloze-and-multiple-choice-text":
-          return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             ClozeAndMultipleChoiceRenderer,
             {
               bit,
@@ -628,15 +714,25 @@ var BitmarkRenderer = ({
         case "text":
         case "paragraph":
         case "header":
-          return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             TextRenderer,
             {
               bit
             },
             bitId
           );
+        case "app-code-editor":
+        case "sandbox-output-json":
+        case "sandbox-output-bitmark":
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+            SandboxPlaceholderRenderer,
+            {
+              bitType
+            },
+            bitId
+          );
         default:
-          return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+          return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
             ErrorRenderer,
             {
               error: {
@@ -649,7 +745,7 @@ var BitmarkRenderer = ({
           );
       }
     } catch (error) {
-      return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
         ErrorRenderer,
         {
           error: {
@@ -674,7 +770,7 @@ var BitmarkRenderer = ({
       }
       parsedData2.forEach((bit, index) => {
         const bitType = bit.type || bit.bit?.type || "unknown";
-        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header"];
+        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header", "app-code-editor", "sandbox-output-json", "sandbox-output-bitmark"];
         if (!supportedTypes.includes(bitType)) {
           errors2.push({
             type: "unsupported",
@@ -711,8 +807,8 @@ var BitmarkRenderer = ({
   }, [data, validateData]);
   const { data: parsedData } = validateData(data);
   if (isLoading) {
-    return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-      import_material6.Box,
+    return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+      import_material7.Box,
       {
         className,
         style,
@@ -720,12 +816,12 @@ var BitmarkRenderer = ({
         justifyContent: "center",
         alignItems: "center",
         minHeight: "200px",
-        children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.CircularProgress, {})
+        children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.CircularProgress, {})
       }
     );
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
-    import_material6.Box,
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
+    import_material7.Box,
     {
       className,
       style,
@@ -738,13 +834,13 @@ var BitmarkRenderer = ({
         maxHeight: "100%"
       },
       children: [
-        errors.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Alert, { severity: "warning", sx: { mb: 1 }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.AlertTitle, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
+        errors.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Alert, { severity: "warning", sx: { mb: 1 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.AlertTitle, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
           error.message,
-          error.details && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
+          error.details && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
         ] }, index)) }),
-        /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-          import_framer_motion6.motion.div,
+        /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
+          import_framer_motion7.motion.div,
           {
             initial: { opacity: 0, y: 20 },
             animate: { opacity: 1, y: 0 },
@@ -752,10 +848,10 @@ var BitmarkRenderer = ({
             children: parsedData.map((bit, index) => renderBit(bit, index))
           }
         ),
-        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
+        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Box, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
           "Interactions: ",
           interactions.length,
-          interactions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Box, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.Box, { component: "div", children: [
+          interactions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.Box, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_material7.Box, { component: "div", children: [
             interaction.type,
             ": ",
             interaction.value
@@ -769,8 +865,8 @@ var BitmarkRenderer_default = BitmarkRenderer;
 
 // src/components/ThemeProvider.tsx
 var import_styles = require("@mui/material/styles");
-var import_material7 = require("@mui/material");
-var import_jsx_runtime7 = require("react/jsx-runtime");
+var import_material8 = require("@mui/material");
+var import_jsx_runtime8 = require("react/jsx-runtime");
 var theme = (0, import_styles.createTheme)({
   palette: {
     mode: "light",
@@ -817,8 +913,8 @@ var theme = (0, import_styles.createTheme)({
   }
 });
 var ThemeProvider = ({ children }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(import_styles.ThemeProvider, { theme, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_material7.CssBaseline, {}),
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_styles.ThemeProvider, { theme, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_material8.CssBaseline, {}),
     children
   ] });
 };

@@ -200,7 +200,7 @@ function App() {
                 </Flex>
               </Flex>
 
-              {/* Bottom Right: Sandbox Outputs */}
+              {/* Bottom Right: Sandbox Outputs - Raw output only, no rendering in main UI */}
               <Flex
                 sx={{
                   flexDirection: 'column',
@@ -220,7 +220,7 @@ function App() {
                       variant: 'header.code',
                     }}
                   >
-                    Sandbox outputs
+                    Sandbox outputs (raw)
                   </Text>
                 </Flex>
                 <Flex

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Playground Data Structure</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="dist/index.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .debug-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .test-input {
+            width: 100%;
+            height: 100px;
+            font-family: monospace;
+            font-size: 12px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        const { createElement: h, useState } = React;
+        const { ThemeProvider, createTheme, Box, Typography, Paper, TextField, Button } = MaterialUI;
+        const { BitmarkRenderer } = window.BitmarkUIRenderer;
+
+        // Create a Material-UI theme
+        const theme = createTheme({
+            palette: {
+                mode: 'light',
+            },
+        });
+
+        // Simulate the playground's data conversion logic
+        function convertPlaygroundData(parsedJson) {
+            let bitWrappers = [];
+
+            if (Array.isArray(parsedJson)) {
+                bitWrappers = parsedJson;
+            } else if (parsedJson.bit) {
+                bitWrappers = [parsedJson];
+            } else if (parsedJson.bits && Array.isArray(parsedJson.bits)) {
+                bitWrappers = parsedJson.bits;
+            } else if (typeof parsedJson === 'object') {
+                bitWrappers = [parsedJson];
+            }
+
+            // Convert BitWrapperJson to BitmarkNode format (simplified version)
+            const convertedBits = bitWrappers.map((wrapper) => {
+                const bit = wrapper.bit || wrapper;
+                
+                // Extract content from body
+                let content = '';
+                if (bit.body && Array.isArray(bit.body)) {
+                    content = bit.body
+                        .map((item) => {
+                            if (item.type === 'paragraph' && item.content) {
+                                return item.content
+                                    .map((textItem) => {
+                                        if (textItem.type === 'text') {
+                                            return textItem.text;
+                                        }
+                                        return '';
+                                    })
+                                    .join('');
+                            }
+                            return '';
+                        })
+                        .join('\n');
+                }
+
+                // Map bit types to UI renderer types (this is where the issue might be)
+                let mappedType = bit.type;
+                if (bit.type === 'cloze-and-multiple-choice-text') {
+                    mappedType = 'cloze-and-multiple-choice-text';
+                } else if (bit.type === 'multiple-choice') {
+                    mappedType = 'multiple-choice';
+                } else if (bit.type === 'cloze') {
+                    mappedType = 'cloze';
+                }
+                // NOTE: sandbox types are NOT being mapped here!
+
+                return {
+                    type: mappedType,
+                    content: content.trim(),
+                    originalBit: bit,
+                };
+            });
+
+            return convertedBits;
+        }
+
+        function DebugApp() {
+            const [testInput, setTestInput] = useState(`[
+  {
+    "bit": {
+      "type": "app-code-editor",
+      "id": ["ex1"],
+      "computerLanguage": ["json"],
+      "body": [
+        {
+          "text": "[\\n  {\\"type\\":\\"article\\",\\"body\\":{\\"bodyText\\":\\"Hello code!\\",\\"bodyType\\":\\"text\\"}}\\n]",
+          "type": "text"
+        }
+      ]
+    }
+  },
+  {
+    "bit": {
+      "type": "sandbox-output-bitmark",
+      "fromId": ["ex1"],
+      "prettify": [true]
+    }
+  },
+  {
+    "bit": {
+      "type": "app-code-editor",
+      "id": ["ex2"],
+      "computerLanguage": ["bitmark"],
+      "body": [
+        {
+          "text": "[^.article] Hello from bitmark!",
+          "type": "text"
+        }
+      ]
+    }
+  },
+  {
+    "bit": {
+      "type": "sandbox-output-json",
+      "fromId": ["ex2"],
+      "prettify": [2]
+    }
+  }
+]`);
+
+            const [convertedData, setConvertedData] = useState([]);
+            const [interactions, setInteractions] = useState([]);
+
+            const handleTest = () => {
+                try {
+                    const parsed = JSON.parse(testInput);
+                    const converted = convertPlaygroundData(parsed);
+                    setConvertedData(converted);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            };
+
+            const handleInteraction = (interaction) => {
+                setInteractions(prev => [...prev, interaction]);
+                console.log('User interaction:', interaction);
+            };
+
+            return h(ThemeProvider, { theme },
+                h('div', { className: 'debug-container' },
+                    h('h1', null, 'Debug Playground Data Conversion'),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Test Input (JSON)'),
+                        h(TextField, {
+                            multiline: true,
+                            value: testInput,
+                            onChange: (e) => setTestInput(e.target.value),
+                            className: 'test-input',
+                            placeholder: 'Paste playground JSON here...'
+                        }),
+                        h(Button, {
+                            onClick: handleTest,
+                            variant: 'contained',
+                            sx: { mt: 2 }
+                        }, 'Convert and Test')
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Converted Data for BitmarkRenderer'),
+                        h('pre', null, JSON.stringify(convertedData, null, 2))
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Rendered Output'),
+                        convertedData.length > 0 ? h(BitmarkRenderer, {
+                            data: convertedData,
+                            onInteraction: handleInteraction
+                        }) : h('p', null, 'Click "Convert and Test" to see the rendered output')
+                    ),
+                    
+                    h('div', { className: 'debug-section' },
+                        h('div', { className: 'debug-title' }, 'Interactions Log'),
+                        h('pre', null, JSON.stringify(interactions, null, 2))
+                    )
+                )
+            );
+        }
+
+        ReactDOM.render(h(DebugApp), document.getElementById('root'));
+    </script>
+</body>
+</html>
