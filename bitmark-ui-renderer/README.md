@@ -1,6 +1,6 @@
 # Bitmark UI Renderer
 
-A React component library for rendering interactive bitmark content with  UI components. This library transforms structured bitmark data into engaging, interactive user interfaces with smooth animations and responsive design.
+A React component library for rendering interactive bitmark content with beautiful UI components. This library transforms structured bitmark data into engaging, interactive user interfaces with smooth animations and responsive design. Features include smart content detection, interactive app-code-editor rendering, and seamless integration with existing bitmark workflows.
 
 
 ## Supported Bit Types
@@ -10,7 +10,7 @@ A React component library for rendering interactive bitmark content with  UI com
 - **Cloze + Multiple Choice**: Combined interactive elements
 - **Text**: Basic text with formatting (`**bold**`, `__italic__`, `==underline==`)
 - **Headers**: Title formatting with `[!Title]` syntax
-- **App Code Editor**: Code editor with syntax highlighting for JSON, Bitmark, and other languages
+- **App Code Editor**: Interactive code editor that can render bitmark content as interactive UI components with toggle between code and interactive views
 
 ## Installation
 
@@ -68,7 +68,7 @@ The main component for rendering bitmark content.
 
 ```tsx
 interface UserInteraction {
-  type: 'cloze' | 'multiple-choice' | 'text-input';
+  type: 'cloze' | 'multiple-choice' | 'text-input' | 'app-code-editor';
   bitId: string;
   value: string;
   timestamp: number;
@@ -84,6 +84,34 @@ Provides Material-UI theming context for the renderer components.
 | Prop | Type | Description |
 |------|------|-------------|
 | `children` | `React.ReactNode` | Child components to wrap |
+
+### AppCodeEditorInteractiveRenderer
+
+A specialized renderer for `app-code-editor` bits that can display content as either interactive UI components or raw code.
+
+#### Props
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| `bit` | `AppCodeEditorBit` | The app-code-editor bit data | Required |
+| `onInteraction` | `(interaction: UserInteraction) => void` | Callback for user interactions | `undefined` |
+| `defaultView` | `'code' \| 'interactive'` | Default view mode | `'interactive'` |
+
+#### Features
+
+- **Smart Content Detection**: Automatically detects interactive elements in bitmark content
+- **Toggle View**: Switch between code view and interactive view
+- **Interactive Rendering**: Renders multiple choice, cloze, headers, and text formatting as interactive components
+- **Code View**: Shows raw content with syntax highlighting
+- **Language Support**: Supports both bitmark and JSON content
+
+#### Supported Interactive Elements
+
+- **Multiple Choice**: `[-wrong][+correct]` syntax
+- **Cloze (Fill-in-the-blank)**: `[_answer]` syntax
+- **Combined**: `[_answer] with [-wrong][+correct]` syntax
+- **Headers**: `[!Title]` syntax
+- **Text Formatting**: `**bold**`, `__italic__`, `==underline==` syntax
 
 ## Examples
 
@@ -138,17 +166,33 @@ const headerData = {
 <BitmarkRenderer data={headerData} />
 ```
 
-### App Code Editor
+### App Code Editor (Interactive)
 ```tsx
-const codeEditorData = {
+// Interactive bitmark content - renders as interactive UI components
+const interactiveCodeData = {
+  type: 'app-code-editor',
+  content: 'What color are roses? [-blue][+red][-green]',
+  id: 'interactive-1',
+  computerLanguage: 'bitmark'
+};
+
+// JSON content - shows as code editor
+const jsonCodeData = {
   type: 'app-code-editor',
   content: '{\n  "message": "Hello, World!"\n}',
-  id: 'example-1',
+  id: 'json-1',
   computerLanguage: 'json'
 };
 
-<BitmarkRenderer data={codeEditorData} />
+<BitmarkRenderer data={interactiveCodeData} />
+<BitmarkRenderer data={jsonCodeData} />
 ```
+
+**Features:**
+- **Toggle View**: Switch between code view and interactive view
+- **Smart Detection**: Automatically detects interactive elements in bitmark content
+- **Interactive Rendering**: Renders multiple choice, cloze, headers, and text formatting as interactive components
+- **Code View**: Shows raw content with syntax highlighting
 
 ### Array of Multiple Bits
 ```tsx
@@ -370,6 +414,15 @@ npm run type-check
 MIT License - see LICENSE file for details
 
 ## Changelog
+
+### v1.0.4
+- **Added AppCodeEditorInteractiveRenderer**: New interactive renderer for `app-code-editor` bits that can display content as interactive UI components
+- **Smart Content Detection**: Automatically detects and renders multiple choice, cloze, headers, and text formatting from bitmark content
+- **Toggle View Feature**: Switch between code view and interactive view for app-code-editor bits
+- **Enhanced User Interaction**: Added support for `app-code-editor` interaction type in UserInteraction interface
+- **Improved Import Ordering**: Fixed ESLint import ordering issues across all components
+- **Code Reuse**: Reuses existing renderer components to avoid code duplication
+- **Updated Documentation**: Added comprehensive documentation and examples for the new interactive features
 
 ### v1.0.3
 - **Added App Code Editor support**: New `app-code-editor` bit type with beautiful UI rendering

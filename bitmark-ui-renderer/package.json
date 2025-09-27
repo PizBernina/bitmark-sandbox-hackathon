@@ -1,6 +1,6 @@
 {
   "name": "bitmark-ui-renderer",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "UI renderer for bitmark content with interactive elements",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
