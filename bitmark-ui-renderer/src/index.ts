@@ -7,6 +7,8 @@ export { ClozeRenderer } from './components/ClozeRenderer';
 export { MultipleChoiceRenderer } from './components/MultipleChoiceRenderer';
 export { TextRenderer } from './components/TextRenderer';
 export { ClozeAndMultipleChoiceRenderer } from './components/ClozeAndMultipleChoiceRenderer';
+export { AppCodeEditorRenderer } from './components/AppCodeEditorRenderer';
+export { AppCodeEditorInteractiveRenderer } from './components/AppCodeEditorInteractiveRenderer';
 export { ErrorRenderer } from './components/ErrorRenderer';
 
 // Type exports

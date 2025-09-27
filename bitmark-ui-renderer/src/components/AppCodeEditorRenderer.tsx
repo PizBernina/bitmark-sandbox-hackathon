@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { Code, DataObject, PlayArrow } from '@mui/icons-material';
 import { Box, Typography, Chip, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Code, DataObject, PlayArrow } from '@mui/icons-material';
 
 interface AppCodeEditorRendererProps {
   bit: {

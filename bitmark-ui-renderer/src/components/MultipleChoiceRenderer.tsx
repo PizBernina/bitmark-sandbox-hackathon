@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import { Box, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+
 import { MultipleChoiceBit } from '../types';
 
 interface MultipleChoiceRendererProps {

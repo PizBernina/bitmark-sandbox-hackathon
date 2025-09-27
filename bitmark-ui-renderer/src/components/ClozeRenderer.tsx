@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import { Box, TextField, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+
 import { ClozeBit } from '../types';
 
 interface ClozeRendererProps {

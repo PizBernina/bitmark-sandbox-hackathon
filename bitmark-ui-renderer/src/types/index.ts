@@ -16,7 +16,7 @@ export interface BitmarkRendererProps {
 }
 
 export interface UserInteraction {
-  type: 'cloze' | 'multiple-choice' | 'text-input';
+  type: 'cloze' | 'multiple-choice' | 'text-input' | 'app-code-editor';
   bitId: string;
   value: string;
   timestamp: number;

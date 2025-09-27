@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Code Editor Interactive Renderer Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="dist/index.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .test-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        const { createElement: h, useState } = React;
+        const { ThemeProvider, createTheme } = MaterialUI;
+        const { BitmarkRenderer } = window.BitmarkUIRenderer;
+
+        // Create a Material-UI theme
+        const theme = createTheme({
+            palette: {
+                mode: 'light',
+            },
+        });
+
+        // Test data with different types of app-code-editor content
+        const testData = [
+            {
+                type: 'app-code-editor',
+                id: 'test-1',
+                computerLanguage: 'bitmark',
+                content: 'What color are roses? [-blue][+red][-green]'
+            },
+            {
+                type: 'app-code-editor',
+                id: 'test-2',
+                computerLanguage: 'bitmark',
+                content: 'Roses are [_red], violets are [_blue]'
+            },
+            {
+                type: 'app-code-editor',
+                id: 'test-3',
+                computerLanguage: 'bitmark',
+                content: 'Roses are [_red], violets are [-green][+blue][-yellow]'
+            },
+            {
+                type: 'app-code-editor',
+                id: 'test-4',
+                computerLanguage: 'bitmark',
+                content: '[!Introduction]\nThis is a **bold** text with __italic__ formatting.'
+            },
+            {
+                type: 'app-code-editor',
+                id: 'test-5',
+                computerLanguage: 'json',
+                content: '{"message": "This is JSON content"}'
+            }
+        ];
+
+        function App() {
+            const [interactions, setInteractions] = useState([]);
+
+            const handleInteraction = (interaction) => {
+                console.log('Interaction:', interaction);
+                setInteractions(prev => [...prev, interaction]);
+            };
+
+            return h(ThemeProvider, { theme },
+                h('div', { className: 'container' },
+                    h('h1', null, 'App Code Editor Interactive Renderer Test'),
+                    
+                    h('div', { className: 'instructions' },
+                        h('h3', null, 'Instructions:'),
+                        h('ul', null,
+                            h('li', null, 'Each app-code-editor bit below should render as interactive UI components'),
+                            h('li', null, 'Use the toggle switch to switch between code view and interactive view'),
+                            h('li', null, 'Try interacting with the multiple choice questions and fill-in-the-blank fields'),
+                            h('li', null, 'Check the browser console to see interaction events')
+                        )
+                    ),
+                    
+                    testData.map((bit, index) =>
+                        h('div', { key: index, className: 'test-section' },
+                            h('div', { className: 'test-title' }, `Test ${index + 1}: ${bit.computerLanguage.toUpperCase()}`),
+                            h(BitmarkRenderer, {
+                                data: bit,
+                                onInteraction: handleInteraction
+                            })
+                        )
+                    ),
+                    
+                    interactions.length > 0 && h('div', { className: 'test-section' },
+                        h('div', { className: 'test-title' }, 'Interaction History'),
+                        h('pre', { style: { fontSize: '12px', overflow: 'auto', maxHeight: '200px' } },
+                            JSON.stringify(interactions, null, 2)
+                        )
+                    )
+                )
+            );
+        }
+
+        ReactDOM.render(h(App), document.getElementById('root'));
+    </script>
+</body>
+</html>

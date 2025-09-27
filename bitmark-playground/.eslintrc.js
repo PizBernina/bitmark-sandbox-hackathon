@@ -4,6 +4,12 @@ module.exports = {
     node: true,
     es2021: true,
   },
+  ignorePatterns: [
+    'src/lib/**/*',
+    'node_modules/**/*',
+    'build/**/*',
+    'dist/**/*'
+  ],
   extends: [
     'react-app',
     'react-app/jest',

@@ -87,10 +87,6 @@ export const BitmarkRenderedUI: React.FC = () => {
 
         // Handle app-code-editor content extraction
         if (bit.type === 'app-code-editor') {
-          // Debug: Log the full bit structure for app-code-editor (temporary)
-          // eslint-disable-next-line no-console
-          console.log('App-code-editor bit structure:', JSON.stringify(bit, null, 2));
-
           if (bit.body && Array.isArray(bit.body)) {
             // For app-code-editor, the body contains the actual code content
             content = bit.body

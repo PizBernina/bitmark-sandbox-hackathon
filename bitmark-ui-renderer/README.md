@@ -10,6 +10,7 @@ A React component library for rendering interactive bitmark content with  UI com
 - **Cloze + Multiple Choice**: Combined interactive elements
 - **Text**: Basic text with formatting (`**bold**`, `__italic__`, `==underline==`)
 - **Headers**: Title formatting with `[!Title]` syntax
+- **App Code Editor**: Code editor with syntax highlighting for JSON, Bitmark, and other languages
 
 ## Installation
 
@@ -137,6 +138,18 @@ const headerData = {
 <BitmarkRenderer data={headerData} />
 ```
 
+### App Code Editor
+```tsx
+const codeEditorData = {
+  type: 'app-code-editor',
+  content: '{\n  "message": "Hello, World!"\n}',
+  id: 'example-1',
+  computerLanguage: 'json'
+};
+
+<BitmarkRenderer data={codeEditorData} />
+```
+
 ### Array of Multiple Bits
 ```tsx
 const multipleBits = [
@@ -231,6 +244,7 @@ BitmarkRenderer (Main Component)
 ├── MultipleChoiceRenderer (Dropdown selections)
 ├── ClozeAndMultipleChoiceRenderer (Combined elements)
 ├── TextRenderer (Formatted text and headers)
+├── AppCodeEditorRenderer (Code editor with syntax highlighting)
 └── ErrorRenderer (Error display)
 ```
 
@@ -356,6 +370,12 @@ npm run type-check
 MIT License - see LICENSE file for details
 
 ## Changelog
+
+### v1.0.3
+- **Added App Code Editor support**: New `app-code-editor` bit type with beautiful UI rendering
+- **Enhanced content extraction**: Improved content extraction for various bit structures
+- **Fixed React key warnings**: Resolved duplicate key issues for better React performance
+- **Updated documentation**: Added examples and documentation for app-code-editor bit type
 
 ### v1.0.2
 - **Fixed multiple choice rendering**: Multiple choice questions now properly display options from the `quizzes` structure in parsed bitmark JSON

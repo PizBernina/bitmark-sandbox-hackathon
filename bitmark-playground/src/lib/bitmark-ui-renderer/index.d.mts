@@ -14,7 +14,7 @@ interface BitmarkRendererProps {
     style?: React.CSSProperties;
 }
 interface UserInteraction {
-    type: 'cloze' | 'multiple-choice' | 'text-input';
+    type: 'cloze' | 'multiple-choice' | 'text-input' | 'app-code-editor';
     bitId: string;
     value: string;
     timestamp: number;
@@ -105,9 +105,33 @@ interface ClozeAndMultipleChoiceRendererProps {
 }
 declare const ClozeAndMultipleChoiceRenderer: React$1.FC<ClozeAndMultipleChoiceRendererProps>;
 
+interface AppCodeEditorRendererProps {
+    bit: {
+        type: string;
+        content?: string;
+        id?: string;
+        computerLanguage?: string;
+        body?: any;
+    };
+}
+declare const AppCodeEditorRenderer: React$1.FC<AppCodeEditorRendererProps>;
+
+interface AppCodeEditorInteractiveRendererProps {
+    bit: {
+        type: string;
+        content?: string;
+        computerLanguage?: string;
+        body?: any;
+        id?: string;
+    };
+    onInteraction?: (interaction: UserInteraction) => void;
+    defaultView?: 'code' | 'interactive';
+}
+declare const AppCodeEditorInteractiveRenderer: React$1.FC<AppCodeEditorInteractiveRendererProps>;
+
 interface ErrorRendererProps {
     error: RendererError;
 }
 declare const ErrorRenderer: React$1.FC<ErrorRendererProps>;
 
-export { type BitmarkNode, BitmarkRenderer, type BitmarkRendererProps, type BitmarkRendererState, type ClozeAndMultipleChoiceBit, ClozeAndMultipleChoiceRenderer, type ClozeBit, ClozeRenderer, ErrorRenderer, type MultipleChoiceBit, MultipleChoiceRenderer, type RendererError, type TextBit, TextRenderer, ThemeProvider, type UserInteraction };
+export { AppCodeEditorInteractiveRenderer, AppCodeEditorRenderer, type BitmarkNode, BitmarkRenderer, type BitmarkRendererProps, type BitmarkRendererState, type ClozeAndMultipleChoiceBit, ClozeAndMultipleChoiceRenderer, type ClozeBit, ClozeRenderer, ErrorRenderer, type MultipleChoiceBit, MultipleChoiceRenderer, type RendererError, type TextBit, TextRenderer, ThemeProvider, type UserInteraction };

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Box, Alert, AlertTitle, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+
 import { RendererError } from '../types';
 
 interface ErrorRendererProps {

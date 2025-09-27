@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import { Box, TextField, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+
 import { ClozeAndMultipleChoiceBit } from '../types';
 
 interface ClozeAndMultipleChoiceRendererProps {

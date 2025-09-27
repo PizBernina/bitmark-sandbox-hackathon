@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+
 import { Box, Alert, AlertTitle, CircularProgress } from '@mui/material';
 import { motion } from 'framer-motion';
-import { BitmarkNode, BitmarkRendererProps, UserInteraction, RendererError, ClozeBit, MultipleChoiceBit, TextBit, ClozeAndMultipleChoiceBit } from '../types';
-import { ClozeRenderer } from './ClozeRenderer';
-import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
-import { TextRenderer } from './TextRenderer';
-import { ClozeAndMultipleChoiceRenderer } from './ClozeAndMultipleChoiceRenderer';
+
+import { AppCodeEditorInteractiveRenderer } from './AppCodeEditorInteractiveRenderer';
 import { AppCodeEditorRenderer } from './AppCodeEditorRenderer';
+import { ClozeAndMultipleChoiceRenderer } from './ClozeAndMultipleChoiceRenderer';
+import { ClozeRenderer } from './ClozeRenderer';
+import { ErrorRenderer } from './ErrorRenderer';
+import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
 import { SandboxOutputGroupRenderer } from './SandboxOutputGroupRenderer';
 import { SandboxPlaceholderRenderer } from './SandboxPlaceholderRenderer';
-import { ErrorRenderer } from './ErrorRenderer';
+import { TextRenderer } from './TextRenderer';
+import { BitmarkNode, BitmarkRendererProps, UserInteraction, RendererError, ClozeBit, MultipleChoiceBit, TextBit, ClozeAndMultipleChoiceBit } from '../types';
 
 const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
   data,
@@ -71,7 +74,8 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
 
   // Render a single bit
   const renderBit = useCallback((bit: BitmarkNode, index: number) => {
-    const bitId = `bit-${index}-${bit.type}`;
+    // Create a more unique key that includes the bit's ID if available
+    const bitId = bit.id ? `bit-${bit.id}-${bit.type}` : `bit-${index}-${bit.type}`;
 
     try {
       // Handle different bitmark structures
@@ -88,7 +92,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
             <ClozeRenderer
               key={bitId}
               bit={bit as ClozeBit}
-              onInteraction={(value) => handleInteraction({
+              onInteraction={(value: string) => handleInteraction({
                 type: 'cloze',
                 bitId,
                 value,
@@ -102,7 +106,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
             <MultipleChoiceRenderer
               key={bitId}
               bit={bit as MultipleChoiceBit}
-              onInteraction={(value) => handleInteraction({
+              onInteraction={(value: string) => handleInteraction({
                 type: 'multiple-choice',
                 bitId,
                 value,
@@ -116,7 +120,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
             <ClozeAndMultipleChoiceRenderer
               key={bitId}
               bit={bit as ClozeAndMultipleChoiceBit}
-              onInteraction={(value) => handleInteraction({
+              onInteraction={(value: string) => handleInteraction({
                 type: 'cloze',
                 bitId,
                 value,
@@ -137,9 +141,10 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
         
         case 'app-code-editor':
           return (
-            <AppCodeEditorRenderer
+            <AppCodeEditorInteractiveRenderer
               key={bitId}
               bit={bit}
+              onInteraction={handleInteraction}
             />
           );
         
