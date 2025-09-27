@@ -663,11 +663,12 @@ function parseBitmarkContent(content) {
   let isArticle = false;
   let articleTitle = "Article";
   let articleContent = "";
-  if (bitmarkContent.trim().startsWith("[.article]")) {
+  const articleMatch = bitmarkContent.trim().match(/^(\^?\[\.article\])/);
+  if (articleMatch) {
     isArticle = true;
     const titleMatch = bitmarkContent.match(/\[@title:\s*([^\]]+)\]/);
     articleTitle = titleMatch ? titleMatch[1].trim() : "Article";
-    articleContent = bitmarkContent.replace(/\[\.article\].*?(?=\n|$)/, "").replace(/\[@title:\s*[^\]]+\]/g, "").replace(/\[@[^\]]+\]/g, "").trim();
+    articleContent = bitmarkContent.replace(/^\^?\[\.article\](.*)$/s, "$1").replace(/\[@title:\s*[^\]]+\]/g, "").replace(/\[@[^\]]+\]/g, "").trim();
   } else {
     try {
       const jsonData = JSON.parse(content);
@@ -773,7 +774,7 @@ function getPrimaryInteractiveType(content) {
   const hasCloze = /\[_[^\]]*\]/.test(content);
   const hasMultipleChoice = /\[[-+][^\]]*\]/.test(content);
   const hasHeader = /\[!.*?\]/.test(content);
-  const hasArticle = /\[\.article\]/.test(content);
+  const hasArticle = /\^?\[\.article\]/.test(content);
   if (hasArticle) {
     return "article";
   } else if (hasCloze && hasMultipleChoice) {

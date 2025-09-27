@@ -81,13 +81,15 @@ export function parseBitmarkContent(content: string | undefined): ParsedContent 
   let hasHeader = false;
   let hasArticle = false;
 
-  // Check if content starts with [.article] pattern OR if we have JSON with article type
+  // Check if content starts with [.article] or [^.article] pattern OR if we have JSON with article type
   let isArticle = false;
   let articleTitle = 'Article';
   let articleContent = '';
 
-  if (bitmarkContent.trim().startsWith('[.article]')) {
-    // Handle bitmark article syntax
+  // Check for both [.article] and [^.article] patterns (caret indicates escaped/modified article)
+  const articleMatch = bitmarkContent.trim().match(/^(\^?\[\.article\])/);
+  if (articleMatch) {
+    // Handle bitmark article syntax (both regular and escaped with caret)
     isArticle = true;
     
     // Extract title if present
@@ -95,9 +97,9 @@ export function parseBitmarkContent(content: string | undefined): ParsedContent 
     articleTitle = titleMatch ? titleMatch[1].trim() : 'Article';
     
     // Extract content after the article declaration and any attributes
-    // Remove [.article] and any attributes like [@title: ...] from the content
+    // Remove [.article] or [^.article] and any attributes like [@title: ...] from the content
     articleContent = bitmarkContent
-      .replace(/\[\.article\].*?(?=\n|$)/, '') // Remove [.article] and everything until newline or end
+      .replace(/^\^?\[\.article\](.*)$/s, '$1') // Extract content after [.article] or [^.article]
       .replace(/\[@title:\s*[^\]]+\]/g, '') // Remove [@title: ...] attributes
       .replace(/\[@[^\]]+\]/g, '') // Remove any other [@...] attributes
       .trim();
@@ -249,7 +251,7 @@ export function hasInteractiveContent(content: string | undefined): boolean {
     bitmarkContent = content;
   }
   
-  return /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/.test(bitmarkContent);
+  return /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\]|\^?\[\.article\])/.test(bitmarkContent);
 }
 
 /**
@@ -279,7 +281,7 @@ export function getPrimaryInteractiveType(content: string | undefined): 'cloze' 
   const hasCloze = /\[_[^\]]*\]/.test(content);
   const hasMultipleChoice = /\[[-+][^\]]*\]/.test(content);
   const hasHeader = /\[!.*?\]/.test(content);
-  const hasArticle = /\[\.article\]/.test(content);
+  const hasArticle = /\^?\[\.article\]/.test(content);
 
   if (hasArticle) {
     return 'article';
