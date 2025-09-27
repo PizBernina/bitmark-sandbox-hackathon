@@ -1,13 +1,13 @@
 // src/components/BitmarkRenderer.tsx
 import { useState as useState5, useEffect, useCallback as useCallback2, useMemo as useMemo2 } from "react";
-import { Box as Box10, Alert as Alert3, AlertTitle as AlertTitle3, CircularProgress } from "@mui/material";
-import { motion as motion10 } from "framer-motion";
+import { Box as Box11, Alert as Alert3, AlertTitle as AlertTitle3, CircularProgress } from "@mui/material";
+import { motion as motion11 } from "framer-motion";
 
 // src/components/AppCodeEditorInteractiveRenderer.tsx
 import { useState as useState4, useCallback, useMemo } from "react";
 import { Code, DataObject, PlayArrow, Visibility, CodeOff } from "@mui/icons-material";
-import { Box as Box5, Typography as Typography5, Chip, Paper, Switch, FormControlLabel } from "@mui/material";
-import { motion as motion5 } from "framer-motion";
+import { Box as Box6, Typography as Typography6, Chip, Paper as Paper2, Switch, FormControlLabel } from "@mui/material";
+import { motion as motion6 } from "framer-motion";
 
 // src/components/ClozeRenderer.tsx
 import { useState } from "react";
@@ -446,6 +446,140 @@ var TextRenderer = ({ bit }) => {
   );
 };
 
+// src/components/ArticleRenderer.tsx
+import { Box as Box5, Typography as Typography5, Paper } from "@mui/material";
+import { motion as motion5 } from "framer-motion";
+import { Article as ArticleIcon } from "@mui/icons-material";
+import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+var ArticleRenderer = ({ bit, onInteraction }) => {
+  const { content, title, level = 1 } = bit;
+  const handleInteraction = (value) => {
+    if (onInteraction) {
+      onInteraction(value);
+    }
+  };
+  return /* @__PURE__ */ jsx5(
+    motion5.div,
+    {
+      initial: { opacity: 0, y: 10 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.3 },
+      children: /* @__PURE__ */ jsxs3(
+        Paper,
+        {
+          elevation: 2,
+          sx: {
+            p: 3,
+            mb: 2,
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 2,
+            backgroundColor: "background.paper"
+          },
+          children: [
+            /* @__PURE__ */ jsxs3(
+              Box5,
+              {
+                sx: {
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  mb: 2,
+                  pb: 1,
+                  borderBottom: "2px solid",
+                  borderBottomColor: "primary.main"
+                },
+                children: [
+                  /* @__PURE__ */ jsx5(ArticleIcon, { color: "primary" }),
+                  /* @__PURE__ */ jsx5(
+                    Typography5,
+                    {
+                      variant: `h${Math.min(level, 6)}`,
+                      component: "h1",
+                      sx: {
+                        fontWeight: "bold",
+                        color: "primary.main",
+                        m: 0
+                      },
+                      children: title || "Article"
+                    }
+                  )
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsx5(
+              Box5,
+              {
+                sx: {
+                  "& p": {
+                    mb: 2,
+                    lineHeight: 1.6
+                  },
+                  "& h1, & h2, & h3, & h4, & h5, & h6": {
+                    mt: 3,
+                    mb: 1.5,
+                    fontWeight: "bold",
+                    color: "text.primary"
+                  },
+                  "& h1": { fontSize: "1.5rem" },
+                  "& h2": { fontSize: "1.3rem" },
+                  "& h3": { fontSize: "1.1rem" },
+                  "& h4": { fontSize: "1rem" },
+                  "& h5": { fontSize: "0.9rem" },
+                  "& h6": { fontSize: "0.8rem" },
+                  "& ul, & ol": {
+                    pl: 3,
+                    mb: 2
+                  },
+                  "& li": {
+                    mb: 0.5
+                  },
+                  "& blockquote": {
+                    borderLeft: "4px solid",
+                    borderLeftColor: "primary.main",
+                    pl: 2,
+                    ml: 0,
+                    fontStyle: "italic",
+                    color: "text.secondary",
+                    mb: 2
+                  },
+                  "& code": {
+                    backgroundColor: "grey.100",
+                    px: 0.5,
+                    py: 0.25,
+                    borderRadius: 0.5,
+                    fontFamily: "monospace",
+                    fontSize: "0.875rem"
+                  },
+                  "& pre": {
+                    backgroundColor: "grey.100",
+                    p: 2,
+                    borderRadius: 1,
+                    overflow: "auto",
+                    mb: 2
+                  },
+                  "& pre code": {
+                    backgroundColor: "transparent",
+                    p: 0
+                  }
+                },
+                children: content ? /* @__PURE__ */ jsx5(
+                  "div",
+                  {
+                    dangerouslySetInnerHTML: {
+                      __html: content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/__(.*?)__/g, "<em>$1</em>").replace(/==(.*?)==/g, "<u>$1</u>").replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>").replace(/^/, "<p>").replace(/$/, "</p>")
+                    }
+                  }
+                ) : /* @__PURE__ */ jsx5(Typography5, { color: "text.secondary", fontStyle: "italic", children: "No content available" })
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+};
+
 // src/utils/ContentParser.ts
 function parseBitmarkContent(content) {
   if (!content) {
@@ -454,7 +588,8 @@ function parseBitmarkContent(content) {
       hasInteractiveElements: false,
       hasCloze: false,
       hasMultipleChoice: false,
-      hasHeader: false
+      hasHeader: false,
+      hasArticle: false
     };
   }
   let bitmarkContent = content;
@@ -489,51 +624,98 @@ function parseBitmarkContent(content) {
   let hasCloze = false;
   let hasMultipleChoice = false;
   let hasHeader = false;
-  const regex = /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/g;
-  const splitParts = bitmarkContent.split(regex);
-  splitParts.forEach((part, index) => {
-    if (!part) return;
-    if (part.startsWith("[!") && part.endsWith("]")) {
-      const title = part.slice(2, -1);
-      const level = title.startsWith("#") ? title.split("#").length - 1 : 1;
-      parts.push({
-        type: "header",
-        content: title.replace(/^#+/, "").trim(),
-        level: Math.min(level, 6)
-        // Max level 6
-      });
-      hasHeader = true;
-    } else if (part.startsWith("[_") && part.endsWith("]")) {
-      const correctAnswer = part.slice(2, -1);
-      parts.push({
-        type: "cloze",
-        correctAnswer,
-        placeholder: "Fill in the blank"
-      });
-      hasCloze = true;
-    } else if (part.startsWith("[-") || part.startsWith("[+")) {
-      const isCorrect = part.startsWith("[+");
-      const text = part.slice(2, -1).trim();
-      parts.push({
-        type: "option",
-        text,
-        correct: isCorrect,
-        value: text.toLowerCase().replace(/\s+/g, "-")
-      });
-      hasMultipleChoice = true;
-    } else {
-      parts.push({
-        type: "text",
-        content: part
-      });
+  let hasArticle = false;
+  let isArticle = false;
+  let articleTitle = "Article";
+  let articleContent = "";
+  if (bitmarkContent.trim().startsWith("[.article]")) {
+    isArticle = true;
+    const titleMatch = bitmarkContent.match(/\[@title:\s*([^\]]+)\]/);
+    articleTitle = titleMatch ? titleMatch[1].trim() : "Article";
+    articleContent = bitmarkContent.replace(/\[\.article\].*?(?=\n|$)/, "").replace(/\[@title:\s*[^\]]+\]/g, "").replace(/\[@[^\]]+\]/g, "").trim();
+  } else {
+    try {
+      const jsonData = JSON.parse(content);
+      console.log("ContentParser: Parsed JSON data:", jsonData);
+      if (Array.isArray(jsonData) && jsonData.length > 0) {
+        const firstItem = jsonData[0];
+        console.log("ContentParser: First item:", firstItem);
+        if (firstItem && firstItem.type === "article") {
+          console.log("ContentParser: Found article in array");
+          isArticle = true;
+          articleTitle = firstItem.title || firstItem.body?.title || "Article";
+          articleContent = firstItem.body?.bodyText || firstItem.content || firstItem.text || "No content available";
+          console.log("ContentParser: Article content:", articleContent);
+        }
+      } else if (jsonData && jsonData.type === "article") {
+        console.log("ContentParser: Found article in object");
+        isArticle = true;
+        articleTitle = jsonData.title || jsonData.body?.title || "Article";
+        articleContent = jsonData.body?.bodyText || jsonData.content || jsonData.text || "No content available";
+        console.log("ContentParser: Article content:", articleContent);
+      }
+    } catch (error) {
+      console.log("ContentParser: JSON parse error:", error);
     }
-  });
+  }
+  if (isArticle) {
+    if (!articleContent) {
+      articleContent = "No content available";
+    }
+    parts.push({
+      type: "article",
+      content: articleContent,
+      title: articleTitle
+    });
+    hasArticle = true;
+  } else {
+    const regex = /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/g;
+    const splitParts = bitmarkContent.split(regex);
+    splitParts.forEach((part, index) => {
+      if (!part) return;
+      if (part.startsWith("[!") && part.endsWith("]")) {
+        const title = part.slice(2, -1);
+        const level = title.startsWith("#") ? title.split("#").length - 1 : 1;
+        parts.push({
+          type: "header",
+          content: title.replace(/^#+/, "").trim(),
+          level: Math.min(level, 6)
+          // Max level 6
+        });
+        hasHeader = true;
+      } else if (part.startsWith("[_") && part.endsWith("]")) {
+        const correctAnswer = part.slice(2, -1);
+        parts.push({
+          type: "cloze",
+          correctAnswer,
+          placeholder: "Fill in the blank"
+        });
+        hasCloze = true;
+      } else if (part.startsWith("[-") || part.startsWith("[+")) {
+        const isCorrect = part.startsWith("[+");
+        const text = part.slice(2, -1).trim();
+        parts.push({
+          type: "option",
+          text,
+          correct: isCorrect,
+          value: text.toLowerCase().replace(/\s+/g, "-")
+        });
+        hasMultipleChoice = true;
+      } else {
+        parts.push({
+          type: "text",
+          content: part
+        });
+      }
+    });
+  }
   return {
     parts,
-    hasInteractiveElements: hasCloze || hasMultipleChoice || hasHeader,
+    hasInteractiveElements: hasCloze || hasMultipleChoice || hasHeader || hasArticle,
     hasCloze,
     hasMultipleChoice,
-    hasHeader
+    hasHeader,
+    hasArticle
   };
 }
 function extractOptions(parts) {
@@ -541,38 +723,25 @@ function extractOptions(parts) {
 }
 function getPrimaryInteractiveType(content) {
   if (!content) return null;
-  let bitmarkContent = content;
   try {
     const parsed = JSON.parse(content);
     if (Array.isArray(parsed)) {
-      bitmarkContent = parsed.map((item) => {
-        if (typeof item === "string") return item;
-        if (item && typeof item === "object") {
-          if (item.body && item.body.bodyText) return item.body.bodyText;
-          if (item.body && typeof item.body === "string") return item.body;
-          if (item.content) return item.content;
-          if (item.text) return item.text;
-        }
-        return "";
-      }).filter(Boolean).join("\n");
-    } else if (parsed && typeof parsed === "object") {
-      if (parsed.body && parsed.body.bodyText) {
-        bitmarkContent = parsed.body.bodyText;
-      } else if (parsed.body && typeof parsed.body === "string") {
-        bitmarkContent = parsed.body;
-      } else if (parsed.content) {
-        bitmarkContent = parsed.content;
-      } else if (parsed.text) {
-        bitmarkContent = parsed.text;
+      const hasArticle2 = parsed.some((item) => item && typeof item === "object" && item.type === "article");
+      if (hasArticle2) {
+        return "article";
       }
+    } else if (parsed && typeof parsed === "object" && parsed.type === "article") {
+      return "article";
     }
   } catch {
-    bitmarkContent = content;
   }
-  const hasCloze = /\[_[^\]]*\]/.test(bitmarkContent);
-  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(bitmarkContent);
-  const hasHeader = /\[!.*?\]/.test(bitmarkContent);
-  if (hasCloze && hasMultipleChoice) {
+  const hasCloze = /\[_[^\]]*\]/.test(content);
+  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(content);
+  const hasHeader = /\[!.*?\]/.test(content);
+  const hasArticle = /\[\.article\]/.test(content);
+  if (hasArticle) {
+    return "article";
+  } else if (hasCloze && hasMultipleChoice) {
     return "cloze-and-multiple-choice";
   } else if (hasCloze) {
     return "cloze";
@@ -585,7 +754,7 @@ function getPrimaryInteractiveType(content) {
 }
 
 // src/components/AppCodeEditorInteractiveRenderer.tsx
-import { jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 var AppCodeEditorInteractiveRenderer = ({
   bit,
   onInteraction,
@@ -661,10 +830,14 @@ var AppCodeEditorInteractiveRenderer = ({
     };
     onInteraction?.(interaction);
   }, [id, onInteraction]);
-  const displayContent = useMemo(() => {
+  const { displayContent, shouldUseOriginalJson } = useMemo(() => {
     if (language === "json" && content) {
       try {
         const parsed = JSON.parse(content);
+        const hasStructuredData = Array.isArray(parsed) ? parsed.some((item) => item && typeof item === "object" && item.type) : parsed && typeof parsed === "object" && parsed.type;
+        if (hasStructuredData) {
+          return { displayContent: content, shouldUseOriginalJson: true };
+        }
         if (Array.isArray(parsed)) {
           const extractedContent = parsed.map((item) => {
             if (typeof item === "string") return item;
@@ -677,35 +850,39 @@ var AppCodeEditorInteractiveRenderer = ({
             return "";
           }).filter(Boolean).join("\n");
           if (extractedContent) {
-            return extractedContent;
+            return { displayContent: extractedContent, shouldUseOriginalJson: false };
           }
         } else if (parsed && typeof parsed === "object") {
           if (parsed.body && parsed.body.bodyText) {
-            return parsed.body.bodyText;
+            return { displayContent: parsed.body.bodyText, shouldUseOriginalJson: false };
           } else if (parsed.body && typeof parsed.body === "string") {
-            return parsed.body;
+            return { displayContent: parsed.body, shouldUseOriginalJson: false };
           } else if (parsed.content) {
-            return parsed.content;
+            return { displayContent: parsed.content, shouldUseOriginalJson: false };
           } else if (parsed.text) {
-            return parsed.text;
+            return { displayContent: parsed.text, shouldUseOriginalJson: false };
           }
         }
       } catch {
       }
     }
-    return content;
+    return { displayContent: content, shouldUseOriginalJson: false };
   }, [language, content]);
   const parsedContent = parseBitmarkContent(displayContent);
   const primaryType = getPrimaryInteractiveType(displayContent);
   const options = extractOptions(parsedContent.parts);
+  console.log("AppCodeEditorInteractiveRenderer: displayContent:", displayContent);
+  console.log("AppCodeEditorInteractiveRenderer: parsedContent:", parsedContent);
+  console.log("AppCodeEditorInteractiveRenderer: primaryType:", primaryType);
+  console.log("AppCodeEditorInteractiveRenderer: hasInteractiveElements:", parsedContent.hasInteractiveElements);
   const getLanguageIcon = () => {
     switch (language) {
       case "json":
-        return /* @__PURE__ */ jsx5(DataObject, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx6(DataObject, { sx: { fontSize: "1rem" } });
       case "bitmark":
-        return /* @__PURE__ */ jsx5(PlayArrow, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx6(PlayArrow, { sx: { fontSize: "1rem" } });
       default:
-        return /* @__PURE__ */ jsx5(Code, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx6(Code, { sx: { fontSize: "1rem" } });
     }
   };
   const getLanguageColor = () => {
@@ -720,7 +897,7 @@ var AppCodeEditorInteractiveRenderer = ({
   };
   const renderInteractiveContent = () => {
     if (!parsedContent.hasInteractiveElements) {
-      return /* @__PURE__ */ jsx5(Box5, { sx: { p: 2 }, children: /* @__PURE__ */ jsx5(
+      return /* @__PURE__ */ jsx6(Box6, { sx: { p: 2 }, children: /* @__PURE__ */ jsx6(
         TextRenderer,
         {
           bit: {
@@ -731,6 +908,30 @@ var AppCodeEditorInteractiveRenderer = ({
         }
       ) });
     }
+    if (primaryType === "article") {
+      console.log("AppCodeEditorInteractiveRenderer: Rendering article, looking for article part");
+      const articlePart = parsedContent.parts.find((part) => part.type === "article");
+      console.log("AppCodeEditorInteractiveRenderer: Found article part:", articlePart);
+      if (articlePart) {
+        const articleBit = {
+          type: "article",
+          content: articlePart.content,
+          title: articlePart.title,
+          level: articlePart.level || 1,
+          id
+        };
+        console.log("AppCodeEditorInteractiveRenderer: Created articleBit:", articleBit);
+        return /* @__PURE__ */ jsx6(
+          ArticleRenderer,
+          {
+            bit: articleBit,
+            onInteraction: handleInteraction
+          }
+        );
+      } else {
+        console.log("AppCodeEditorInteractiveRenderer: No article part found in parsedContent.parts:", parsedContent.parts);
+      }
+    }
     const mockBit = {
       type: primaryType || "text",
       content: displayContent,
@@ -738,7 +939,7 @@ var AppCodeEditorInteractiveRenderer = ({
     };
     switch (primaryType) {
       case "cloze":
-        return /* @__PURE__ */ jsx5(
+        return /* @__PURE__ */ jsx6(
           ClozeRenderer,
           {
             bit: mockBit,
@@ -746,7 +947,7 @@ var AppCodeEditorInteractiveRenderer = ({
           }
         );
       case "multiple-choice":
-        return /* @__PURE__ */ jsx5(
+        return /* @__PURE__ */ jsx6(
           MultipleChoiceRenderer,
           {
             bit: mockBit,
@@ -754,7 +955,7 @@ var AppCodeEditorInteractiveRenderer = ({
           }
         );
       case "cloze-and-multiple-choice":
-        return /* @__PURE__ */ jsx5(
+        return /* @__PURE__ */ jsx6(
           ClozeAndMultipleChoiceRenderer,
           {
             bit: mockBit,
@@ -762,14 +963,14 @@ var AppCodeEditorInteractiveRenderer = ({
           }
         );
       case "header":
-        return /* @__PURE__ */ jsx5(
+        return /* @__PURE__ */ jsx6(
           TextRenderer,
           {
             bit: mockBit
           }
         );
       default:
-        return /* @__PURE__ */ jsx5(
+        return /* @__PURE__ */ jsx6(
           TextRenderer,
           {
             bit: mockBit
@@ -777,8 +978,8 @@ var AppCodeEditorInteractiveRenderer = ({
         );
     }
   };
-  const renderCodeView = () => /* @__PURE__ */ jsx5(
-    Box5,
+  const renderCodeView = () => /* @__PURE__ */ jsx6(
+    Box6,
     {
       component: "pre",
       sx: {
@@ -798,14 +999,14 @@ var AppCodeEditorInteractiveRenderer = ({
       children: content || "No content available"
     }
   );
-  return /* @__PURE__ */ jsx5(
-    motion5.div,
+  return /* @__PURE__ */ jsx6(
+    motion6.div,
     {
       initial: { opacity: 0, y: 10 },
       animate: { opacity: 1, y: 0 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsxs3(
-        Paper,
+      children: /* @__PURE__ */ jsxs4(
+        Paper2,
         {
           elevation: 1,
           sx: {
@@ -816,10 +1017,10 @@ var AppCodeEditorInteractiveRenderer = ({
             borderRadius: 2
           },
           children: [
-            /* @__PURE__ */ jsxs3(Box5, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 2, flexWrap: "wrap" }, children: [
+            /* @__PURE__ */ jsxs4(Box6, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 2, flexWrap: "wrap" }, children: [
               getLanguageIcon(),
-              /* @__PURE__ */ jsx5(Typography5, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600 }, children: "Code Editor" }),
-              /* @__PURE__ */ jsx5(
+              /* @__PURE__ */ jsx6(Typography6, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600 }, children: "Code Editor" }),
+              /* @__PURE__ */ jsx6(
                 Chip,
                 {
                   label: language.toUpperCase(),
@@ -828,7 +1029,7 @@ var AppCodeEditorInteractiveRenderer = ({
                   variant: "outlined"
                 }
               ),
-              id && /* @__PURE__ */ jsx5(
+              id && /* @__PURE__ */ jsx6(
                 Chip,
                 {
                   label: `ID: ${id}`,
@@ -836,10 +1037,10 @@ var AppCodeEditorInteractiveRenderer = ({
                   variant: "outlined"
                 }
               ),
-              /* @__PURE__ */ jsx5(Box5, { sx: { ml: "auto", display: "flex", alignItems: "center", gap: 1 }, children: /* @__PURE__ */ jsx5(
+              /* @__PURE__ */ jsx6(Box6, { sx: { ml: "auto", display: "flex", alignItems: "center", gap: 1 }, children: /* @__PURE__ */ jsx6(
                 FormControlLabel,
                 {
-                  control: /* @__PURE__ */ jsx5(
+                  control: /* @__PURE__ */ jsx6(
                     Switch,
                     {
                       checked: viewMode === "interactive",
@@ -847,9 +1048,9 @@ var AppCodeEditorInteractiveRenderer = ({
                       size: "small"
                     }
                   ),
-                  label: /* @__PURE__ */ jsxs3(Box5, { sx: { display: "flex", alignItems: "center", gap: 0.5 }, children: [
-                    viewMode === "interactive" ? /* @__PURE__ */ jsx5(Visibility, { fontSize: "small" }) : /* @__PURE__ */ jsx5(CodeOff, { fontSize: "small" }),
-                    /* @__PURE__ */ jsx5(Typography5, { variant: "caption", children: viewMode === "interactive" ? "Interactive" : "Code" })
+                  label: /* @__PURE__ */ jsxs4(Box6, { sx: { display: "flex", alignItems: "center", gap: 0.5 }, children: [
+                    viewMode === "interactive" ? /* @__PURE__ */ jsx6(Visibility, { fontSize: "small" }) : /* @__PURE__ */ jsx6(CodeOff, { fontSize: "small" }),
+                    /* @__PURE__ */ jsx6(Typography6, { variant: "caption", children: viewMode === "interactive" ? "Interactive" : "Code" })
                   ] }),
                   sx: { m: 0 }
                 }
@@ -864,9 +1065,9 @@ var AppCodeEditorInteractiveRenderer = ({
 };
 
 // src/components/ErrorRenderer.tsx
-import { Box as Box6, Alert, AlertTitle, Typography as Typography6 } from "@mui/material";
-import { motion as motion6 } from "framer-motion";
-import { jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { Box as Box7, Alert, AlertTitle, Typography as Typography7 } from "@mui/material";
+import { motion as motion7 } from "framer-motion";
+import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
 var ErrorRenderer = ({ error }) => {
   const getErrorIcon = () => {
     return null;
@@ -895,13 +1096,13 @@ var ErrorRenderer = ({ error }) => {
         return "info";
     }
   };
-  return /* @__PURE__ */ jsx6(
-    motion6.div,
+  return /* @__PURE__ */ jsx7(
+    motion7.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsx6(Box6, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs4(
+      children: /* @__PURE__ */ jsx7(Box7, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs5(
         Alert,
         {
           severity: getErrorColor(),
@@ -912,17 +1113,17 @@ var ErrorRenderer = ({ error }) => {
             }
           },
           children: [
-            /* @__PURE__ */ jsxs4(AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
-              getErrorIcon() && /* @__PURE__ */ jsx6("span", { children: getErrorIcon() }),
+            /* @__PURE__ */ jsxs5(AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+              getErrorIcon() && /* @__PURE__ */ jsx7("span", { children: getErrorIcon() }),
               getErrorTitle()
             ] }),
-            /* @__PURE__ */ jsx6(Typography6, { variant: "body2", sx: { mt: 1 }, children: error.message }),
-            error.bitType && /* @__PURE__ */ jsxs4(Typography6, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
+            /* @__PURE__ */ jsx7(Typography7, { variant: "body2", sx: { mt: 1 }, children: error.message }),
+            error.bitType && /* @__PURE__ */ jsxs5(Typography7, { variant: "caption", sx: { display: "block", mt: 1, opacity: 0.8 }, children: [
               "Bit type: ",
-              /* @__PURE__ */ jsx6("code", { children: error.bitType })
+              /* @__PURE__ */ jsx7("code", { children: error.bitType })
             ] }),
-            error.details && /* @__PURE__ */ jsx6(
-              Box6,
+            error.details && /* @__PURE__ */ jsx7(
+              Box7,
               {
                 component: "pre",
                 sx: {
@@ -946,15 +1147,15 @@ var ErrorRenderer = ({ error }) => {
 };
 
 // src/components/SandboxOutputGroupRenderer.tsx
-import { Box as Box8, Typography as Typography8, Chip as Chip3, Paper as Paper3, Divider } from "@mui/material";
-import { motion as motion8 } from "framer-motion";
+import { Box as Box9, Typography as Typography9, Chip as Chip3, Paper as Paper4, Divider } from "@mui/material";
+import { motion as motion9 } from "framer-motion";
 import { Code as Code3, DataObject as DataObject3, PlayArrow as PlayArrow3, Transform } from "@mui/icons-material";
 
 // src/components/AppCodeEditorRenderer.tsx
 import { Code as Code2, DataObject as DataObject2, PlayArrow as PlayArrow2 } from "@mui/icons-material";
-import { Box as Box7, Typography as Typography7, Chip as Chip2, Paper as Paper2 } from "@mui/material";
-import { motion as motion7 } from "framer-motion";
-import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
+import { Box as Box8, Typography as Typography8, Chip as Chip2, Paper as Paper3 } from "@mui/material";
+import { motion as motion8 } from "framer-motion";
+import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
 var AppCodeEditorRenderer = ({ bit }) => {
   const getContent = () => {
     if (bit.content) return bit.content;
@@ -971,11 +1172,11 @@ var AppCodeEditorRenderer = ({ bit }) => {
   const getLanguageIcon = () => {
     switch (language) {
       case "json":
-        return /* @__PURE__ */ jsx7(DataObject2, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx8(DataObject2, { sx: { fontSize: "1rem" } });
       case "bitmark":
-        return /* @__PURE__ */ jsx7(PlayArrow2, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx8(PlayArrow2, { sx: { fontSize: "1rem" } });
       default:
-        return /* @__PURE__ */ jsx7(Code2, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx8(Code2, { sx: { fontSize: "1rem" } });
     }
   };
   const getLanguageColor = () => {
@@ -988,14 +1189,14 @@ var AppCodeEditorRenderer = ({ bit }) => {
         return "default";
     }
   };
-  return /* @__PURE__ */ jsx7(
-    motion7.div,
+  return /* @__PURE__ */ jsx8(
+    motion8.div,
     {
       initial: { opacity: 0, y: 10 },
       animate: { opacity: 1, y: 0 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsxs5(
-        Paper2,
+      children: /* @__PURE__ */ jsxs6(
+        Paper3,
         {
           elevation: 1,
           sx: {
@@ -1006,10 +1207,10 @@ var AppCodeEditorRenderer = ({ bit }) => {
             borderRadius: 2
           },
           children: [
-            /* @__PURE__ */ jsxs5(Box7, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 2 }, children: [
+            /* @__PURE__ */ jsxs6(Box8, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 2 }, children: [
               getLanguageIcon(),
-              /* @__PURE__ */ jsx7(Typography7, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600 }, children: "Code Editor" }),
-              /* @__PURE__ */ jsx7(
+              /* @__PURE__ */ jsx8(Typography8, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600 }, children: "Code Editor" }),
+              /* @__PURE__ */ jsx8(
                 Chip2,
                 {
                   label: language.toUpperCase(),
@@ -1018,7 +1219,7 @@ var AppCodeEditorRenderer = ({ bit }) => {
                   variant: "outlined"
                 }
               ),
-              id && /* @__PURE__ */ jsx7(
+              id && /* @__PURE__ */ jsx8(
                 Chip2,
                 {
                   label: `ID: ${id}`,
@@ -1028,8 +1229,8 @@ var AppCodeEditorRenderer = ({ bit }) => {
                 }
               )
             ] }),
-            /* @__PURE__ */ jsx7(
-              Box7,
+            /* @__PURE__ */ jsx8(
+              Box8,
               {
                 component: "pre",
                 sx: {
@@ -1057,7 +1258,7 @@ var AppCodeEditorRenderer = ({ bit }) => {
 };
 
 // src/components/SandboxOutputGroupRenderer.tsx
-import { Fragment, jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+import { Fragment, jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
 var SandboxOutputGroupRenderer = ({
   editor,
   outputs
@@ -1065,11 +1266,11 @@ var SandboxOutputGroupRenderer = ({
   const getOutputIcon = (type) => {
     switch (type) {
       case "sandbox-output-json":
-        return /* @__PURE__ */ jsx8(DataObject3, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx9(DataObject3, { sx: { fontSize: "1rem" } });
       case "sandbox-output-bitmark":
-        return /* @__PURE__ */ jsx8(PlayArrow3, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx9(PlayArrow3, { sx: { fontSize: "1rem" } });
       default:
-        return /* @__PURE__ */ jsx8(Code3, { sx: { fontSize: "1rem" } });
+        return /* @__PURE__ */ jsx9(Code3, { sx: { fontSize: "1rem" } });
     }
   };
   const getOutputTitle = (type) => {
@@ -1092,14 +1293,14 @@ var SandboxOutputGroupRenderer = ({
         return "default";
     }
   };
-  return /* @__PURE__ */ jsx8(
-    motion8.div,
+  return /* @__PURE__ */ jsx9(
+    motion9.div,
     {
       initial: { opacity: 0, y: 10 },
       animate: { opacity: 1, y: 0 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsxs6(
-        Paper3,
+      children: /* @__PURE__ */ jsxs7(
+        Paper4,
         {
           elevation: 2,
           sx: {
@@ -1111,10 +1312,10 @@ var SandboxOutputGroupRenderer = ({
             overflow: "hidden"
           },
           children: [
-            /* @__PURE__ */ jsx8(Box8, { sx: { p: 2, backgroundColor: "primary.50" }, children: /* @__PURE__ */ jsxs6(Box8, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
-              /* @__PURE__ */ jsx8(Transform, { sx: { fontSize: "1.2rem", color: "primary.main" } }),
-              /* @__PURE__ */ jsx8(Typography8, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600, color: "primary.main" }, children: "Sandbox Group" }),
-              /* @__PURE__ */ jsx8(
+            /* @__PURE__ */ jsx9(Box9, { sx: { p: 2, backgroundColor: "primary.50" }, children: /* @__PURE__ */ jsxs7(Box9, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
+              /* @__PURE__ */ jsx9(Transform, { sx: { fontSize: "1.2rem", color: "primary.main" } }),
+              /* @__PURE__ */ jsx9(Typography9, { variant: "h6", sx: { fontSize: "1rem", fontWeight: 600, color: "primary.main" }, children: "Sandbox Group" }),
+              /* @__PURE__ */ jsx9(
                 Chip3,
                 {
                   label: `${outputs.length} output${outputs.length !== 1 ? "s" : ""}`,
@@ -1124,16 +1325,16 @@ var SandboxOutputGroupRenderer = ({
                 }
               )
             ] }) }),
-            /* @__PURE__ */ jsx8(Box8, { sx: { p: 2 }, children: /* @__PURE__ */ jsx8(AppCodeEditorRenderer, { bit: editor }) }),
-            outputs.length > 0 && /* @__PURE__ */ jsxs6(Fragment, { children: [
-              /* @__PURE__ */ jsx8(Divider, {}),
-              /* @__PURE__ */ jsxs6(Box8, { sx: { p: 2 }, children: [
-                /* @__PURE__ */ jsx8(Typography8, { variant: "subtitle2", sx: { mb: 2, fontWeight: 600, color: "text.secondary" }, children: "Generated Outputs:" }),
-                outputs.map((output, index) => /* @__PURE__ */ jsxs6(Box8, { sx: { mb: 2 }, children: [
-                  /* @__PURE__ */ jsxs6(Box8, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
+            /* @__PURE__ */ jsx9(Box9, { sx: { p: 2 }, children: /* @__PURE__ */ jsx9(AppCodeEditorRenderer, { bit: editor }) }),
+            outputs.length > 0 && /* @__PURE__ */ jsxs7(Fragment, { children: [
+              /* @__PURE__ */ jsx9(Divider, {}),
+              /* @__PURE__ */ jsxs7(Box9, { sx: { p: 2 }, children: [
+                /* @__PURE__ */ jsx9(Typography9, { variant: "subtitle2", sx: { mb: 2, fontWeight: 600, color: "text.secondary" }, children: "Generated Outputs:" }),
+                outputs.map((output, index) => /* @__PURE__ */ jsxs7(Box9, { sx: { mb: 2 }, children: [
+                  /* @__PURE__ */ jsxs7(Box9, { sx: { display: "flex", alignItems: "center", gap: 1, mb: 1 }, children: [
                     getOutputIcon(output.type),
-                    /* @__PURE__ */ jsx8(Typography8, { variant: "subtitle2", sx: { fontWeight: 600 }, children: getOutputTitle(output.type) }),
-                    /* @__PURE__ */ jsx8(
+                    /* @__PURE__ */ jsx9(Typography9, { variant: "subtitle2", sx: { fontWeight: 600 }, children: getOutputTitle(output.type) }),
+                    /* @__PURE__ */ jsx9(
                       Chip3,
                       {
                         label: output.type.replace("sandbox-output-", "").toUpperCase(),
@@ -1142,7 +1343,7 @@ var SandboxOutputGroupRenderer = ({
                         variant: "outlined"
                       }
                     ),
-                    output.prettify && /* @__PURE__ */ jsx8(
+                    output.prettify && /* @__PURE__ */ jsx9(
                       Chip3,
                       {
                         label: `Prettify: ${output.prettify}`,
@@ -1151,8 +1352,8 @@ var SandboxOutputGroupRenderer = ({
                       }
                     )
                   ] }),
-                  /* @__PURE__ */ jsx8(
-                    Box8,
+                  /* @__PURE__ */ jsx9(
+                    Box9,
                     {
                       component: "pre",
                       sx: {
@@ -1183,21 +1384,21 @@ var SandboxOutputGroupRenderer = ({
 };
 
 // src/components/SandboxPlaceholderRenderer.tsx
-import { Box as Box9, Alert as Alert2, AlertTitle as AlertTitle2, Typography as Typography9, Chip as Chip4 } from "@mui/material";
-import { motion as motion9 } from "framer-motion";
+import { Box as Box10, Alert as Alert2, AlertTitle as AlertTitle2, Typography as Typography10, Chip as Chip4 } from "@mui/material";
+import { motion as motion10 } from "framer-motion";
 import { Code as Code4, PlayArrow as PlayArrow4 } from "@mui/icons-material";
-import { jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
+import { jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
 var SandboxPlaceholderRenderer = ({ bitType }) => {
   const getSandboxIcon = () => {
     switch (bitType) {
       case "app-code-editor":
-        return /* @__PURE__ */ jsx9(Code4, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ jsx10(Code4, { sx: { fontSize: "1.2rem" } });
       case "sandbox-output-json":
-        return /* @__PURE__ */ jsx9(Code4, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ jsx10(Code4, { sx: { fontSize: "1.2rem" } });
       case "sandbox-output-bitmark":
-        return /* @__PURE__ */ jsx9(PlayArrow4, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ jsx10(PlayArrow4, { sx: { fontSize: "1.2rem" } });
       default:
-        return /* @__PURE__ */ jsx9(Code4, { sx: { fontSize: "1.2rem" } });
+        return /* @__PURE__ */ jsx10(Code4, { sx: { fontSize: "1.2rem" } });
     }
   };
   const getSandboxTitle = () => {
@@ -1224,13 +1425,13 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
         return "This sandbox content is rendered from the JSON pane.";
     }
   };
-  return /* @__PURE__ */ jsx9(
-    motion9.div,
+  return /* @__PURE__ */ jsx10(
+    motion10.div,
     {
       initial: { opacity: 0, scale: 0.95 },
       animate: { opacity: 1, scale: 1 },
       transition: { duration: 0.3 },
-      children: /* @__PURE__ */ jsx9(Box9, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs7(
+      children: /* @__PURE__ */ jsx10(Box10, { sx: { mb: 2 }, children: /* @__PURE__ */ jsxs8(
         Alert2,
         {
           severity: "info",
@@ -1244,13 +1445,13 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
             }
           },
           children: [
-            /* @__PURE__ */ jsxs7(AlertTitle2, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
+            /* @__PURE__ */ jsxs8(AlertTitle2, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
               getSandboxIcon(),
               getSandboxTitle()
             ] }),
-            /* @__PURE__ */ jsx9(Typography9, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
-            /* @__PURE__ */ jsxs7(Box9, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ jsx9(
+            /* @__PURE__ */ jsx10(Typography10, { variant: "body2", sx: { mt: 1 }, children: getSandboxDescription() }),
+            /* @__PURE__ */ jsxs8(Box10, { sx: { mt: 2, display: "flex", alignItems: "center", gap: 1 }, children: [
+              /* @__PURE__ */ jsx10(
                 Chip4,
                 {
                   label: "Sandbox Integration",
@@ -1259,7 +1460,7 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
                   variant: "outlined"
                 }
               ),
-              /* @__PURE__ */ jsx9(Typography9, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
+              /* @__PURE__ */ jsx10(Typography10, { variant: "caption", sx: { opacity: 0.8 }, children: "Rendering from JSON pane..." })
             ] })
           ]
         }
@@ -1269,7 +1470,7 @@ var SandboxPlaceholderRenderer = ({ bitType }) => {
 };
 
 // src/components/BitmarkRenderer.tsx
-import { jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
 var BitmarkRenderer = ({
   data,
   onInteraction,
@@ -1320,7 +1521,7 @@ var BitmarkRenderer = ({
       const bitType = bit.type || bit.bit?.type || "unknown";
       switch (bitType) {
         case "cloze":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             ClozeRenderer,
             {
               bit,
@@ -1334,7 +1535,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "multiple-choice":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             MultipleChoiceRenderer,
             {
               bit,
@@ -1348,7 +1549,7 @@ var BitmarkRenderer = ({
             bitId
           );
         case "cloze-and-multiple-choice-text":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             ClozeAndMultipleChoiceRenderer,
             {
               bit,
@@ -1364,15 +1565,29 @@ var BitmarkRenderer = ({
         case "text":
         case "paragraph":
         case "header":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             TextRenderer,
             {
               bit
             },
             bitId
           );
+        case "article":
+          return /* @__PURE__ */ jsx11(
+            ArticleRenderer,
+            {
+              bit,
+              onInteraction: (value) => handleInteraction({
+                type: "text-input",
+                bitId,
+                value,
+                timestamp: Date.now()
+              })
+            },
+            bitId
+          );
         case "app-code-editor":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             AppCodeEditorInteractiveRenderer,
             {
               bit,
@@ -1382,7 +1597,7 @@ var BitmarkRenderer = ({
           );
         case "sandbox-output-json":
         case "sandbox-output-bitmark":
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             SandboxPlaceholderRenderer,
             {
               bitType
@@ -1390,7 +1605,7 @@ var BitmarkRenderer = ({
             bitId
           );
         default:
-          return /* @__PURE__ */ jsx10(
+          return /* @__PURE__ */ jsx11(
             ErrorRenderer,
             {
               error: {
@@ -1403,7 +1618,7 @@ var BitmarkRenderer = ({
           );
       }
     } catch (error) {
-      return /* @__PURE__ */ jsx10(
+      return /* @__PURE__ */ jsx11(
         ErrorRenderer,
         {
           error: {
@@ -1457,8 +1672,8 @@ var BitmarkRenderer = ({
     return groupSandboxBits(parsedData);
   }, [parsedData, groupSandboxBits]);
   if (isLoading) {
-    return /* @__PURE__ */ jsx10(
-      Box10,
+    return /* @__PURE__ */ jsx11(
+      Box11,
       {
         className,
         style,
@@ -1466,12 +1681,12 @@ var BitmarkRenderer = ({
         justifyContent: "center",
         alignItems: "center",
         minHeight: "200px",
-        children: /* @__PURE__ */ jsx10(CircularProgress, {})
+        children: /* @__PURE__ */ jsx11(CircularProgress, {})
       }
     );
   }
-  return /* @__PURE__ */ jsxs8(
-    Box10,
+  return /* @__PURE__ */ jsxs9(
+    Box11,
     {
       className,
       style,
@@ -1484,13 +1699,13 @@ var BitmarkRenderer = ({
         maxHeight: "100%"
       },
       children: [
-        errors.length > 0 && /* @__PURE__ */ jsx10(Box10, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ jsxs8(Alert3, { severity: "warning", sx: { mb: 1 }, children: [
-          /* @__PURE__ */ jsx10(AlertTitle3, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
+        errors.length > 0 && /* @__PURE__ */ jsx11(Box11, { mb: 2, children: errors.map((error, index) => /* @__PURE__ */ jsxs9(Alert3, { severity: "warning", sx: { mb: 1 }, children: [
+          /* @__PURE__ */ jsx11(AlertTitle3, { children: error.type === "unsupported" ? "Unsupported Bit Type" : error.type === "parsing" ? "Parsing Error" : "Rendering Error" }),
           error.message,
-          error.details && /* @__PURE__ */ jsx10(Box10, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
+          error.details && /* @__PURE__ */ jsx11(Box11, { component: "pre", sx: { fontSize: "0.875rem", mt: 1, opacity: 0.8 }, children: error.details })
         ] }, index)) }),
-        /* @__PURE__ */ jsx10(
-          motion10.div,
+        /* @__PURE__ */ jsx11(
+          motion11.div,
           {
             initial: { opacity: 0, y: 20 },
             animate: { opacity: 1, y: 0 },
@@ -1507,7 +1722,7 @@ var BitmarkRenderer = ({
                     content: bit.content || bit.bit?.content || bit.body?.bodyText || bit.body?.text || ""
                   }));
                   elements.push(
-                    /* @__PURE__ */ jsx10(
+                    /* @__PURE__ */ jsx11(
                       SandboxOutputGroupRenderer,
                       {
                         editor: group.editor,
@@ -1528,10 +1743,10 @@ var BitmarkRenderer = ({
             })()
           }
         ),
-        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ jsx10(Box10, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ jsxs8(Box10, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
+        typeof process !== "undefined" && process.env?.NODE_ENV === "development" && /* @__PURE__ */ jsx11(Box11, { mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1, children: /* @__PURE__ */ jsxs9(Box11, { component: "pre", fontSize: "0.75rem", color: "text.secondary", children: [
           "Interactions: ",
           interactions.length,
-          interactions.length > 0 && /* @__PURE__ */ jsx10(Box10, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ jsxs8(Box10, { component: "div", children: [
+          interactions.length > 0 && /* @__PURE__ */ jsx11(Box11, { component: "div", mt: 1, children: interactions.map((interaction, i) => /* @__PURE__ */ jsxs9(Box11, { component: "div", children: [
             interaction.type,
             ": ",
             interaction.value
@@ -1546,7 +1761,7 @@ var BitmarkRenderer_default = BitmarkRenderer;
 // src/components/ThemeProvider.tsx
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
-import { jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
+import { jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
 var theme = createTheme({
   palette: {
     mode: "light",
@@ -1593,14 +1808,15 @@ var theme = createTheme({
   }
 });
 var ThemeProvider = ({ children }) => {
-  return /* @__PURE__ */ jsxs9(MuiThemeProvider, { theme, children: [
-    /* @__PURE__ */ jsx11(CssBaseline, {}),
+  return /* @__PURE__ */ jsxs10(MuiThemeProvider, { theme, children: [
+    /* @__PURE__ */ jsx12(CssBaseline, {}),
     children
   ] });
 };
 export {
   AppCodeEditorInteractiveRenderer,
   AppCodeEditorRenderer,
+  ArticleRenderer,
   BitmarkRenderer_default as BitmarkRenderer,
   ClozeAndMultipleChoiceRenderer,
   ClozeRenderer,

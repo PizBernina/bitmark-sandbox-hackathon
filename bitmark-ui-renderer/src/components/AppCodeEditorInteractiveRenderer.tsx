@@ -8,6 +8,7 @@ import { ClozeRenderer } from './ClozeRenderer';
 import { ClozeAndMultipleChoiceRenderer } from './ClozeAndMultipleChoiceRenderer';
 import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
 import { TextRenderer } from './TextRenderer';
+import { ArticleRenderer } from './ArticleRenderer';
 import { UserInteraction } from '../types';
 import { parseBitmarkContent, extractOptions, getPrimaryInteractiveType } from '../utils/ContentParser';
 
@@ -127,11 +128,23 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
     onInteraction?.(interaction);
   }, [id, onInteraction]);
 
-  // For JSON content, try to extract the actual content to display
-  const displayContent = useMemo(() => {
+  // For JSON content, determine if we should use original JSON or extracted text
+  const { displayContent, shouldUseOriginalJson } = useMemo(() => {
     if (language === 'json' && content) {
       try {
         const parsed = JSON.parse(content);
+        
+        // Check if this JSON contains structured data that should be parsed as-is
+        const hasStructuredData = Array.isArray(parsed) 
+          ? parsed.some((item: any) => item && typeof item === 'object' && item.type)
+          : parsed && typeof parsed === 'object' && parsed.type;
+        
+        if (hasStructuredData) {
+          // Use original JSON for structured data (like articles)
+          return { displayContent: content, shouldUseOriginalJson: true };
+        }
+        
+        // For simple JSON, extract text content
         if (Array.isArray(parsed)) {
           const extractedContent = parsed
             .map((item: any) => {
@@ -147,30 +160,35 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
             .filter(Boolean)
             .join('\n');
           if (extractedContent) {
-            return extractedContent;
+            return { displayContent: extractedContent, shouldUseOriginalJson: false };
           }
         } else if (parsed && typeof parsed === 'object') {
           if (parsed.body && parsed.body.bodyText) {
-            return parsed.body.bodyText;
+            return { displayContent: parsed.body.bodyText, shouldUseOriginalJson: false };
           } else if (parsed.body && typeof parsed.body === 'string') {
-            return parsed.body;
+            return { displayContent: parsed.body, shouldUseOriginalJson: false };
           } else if (parsed.content) {
-            return parsed.content;
+            return { displayContent: parsed.content, shouldUseOriginalJson: false };
           } else if (parsed.text) {
-            return parsed.text;
+            return { displayContent: parsed.text, shouldUseOriginalJson: false };
           }
         }
       } catch {
         // Not JSON, use content as-is
       }
     }
-    return content;
+    return { displayContent: content, shouldUseOriginalJson: false };
   }, [language, content]);
 
   // Parse the content to determine what to render
   const parsedContent = parseBitmarkContent(displayContent);
   const primaryType = getPrimaryInteractiveType(displayContent);
   const options = extractOptions(parsedContent.parts);
+
+  console.log('AppCodeEditorInteractiveRenderer: displayContent:', displayContent);
+  console.log('AppCodeEditorInteractiveRenderer: parsedContent:', parsedContent);
+  console.log('AppCodeEditorInteractiveRenderer: primaryType:', primaryType);
+  console.log('AppCodeEditorInteractiveRenderer: hasInteractiveElements:', parsedContent.hasInteractiveElements);
 
   const getLanguageIcon = () => {
     switch (language) {
@@ -211,7 +229,32 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
       );
     }
 
-    // Create a mock bit object for the renderers
+    // For article type, use the parsed content from ContentParser
+    if (primaryType === 'article') {
+      console.log('AppCodeEditorInteractiveRenderer: Rendering article, looking for article part');
+      const articlePart = parsedContent.parts.find(part => part.type === 'article');
+      console.log('AppCodeEditorInteractiveRenderer: Found article part:', articlePart);
+      if (articlePart) {
+        const articleBit = {
+          type: 'article' as const,
+          content: articlePart.content,
+          title: articlePart.title,
+          level: articlePart.level || 1,
+          id: id,
+        };
+        console.log('AppCodeEditorInteractiveRenderer: Created articleBit:', articleBit);
+        return (
+          <ArticleRenderer
+            bit={articleBit}
+            onInteraction={handleInteraction}
+          />
+        );
+      } else {
+        console.log('AppCodeEditorInteractiveRenderer: No article part found in parsedContent.parts:', parsedContent.parts);
+      }
+    }
+
+    // Create a mock bit object for other renderers
     const mockBit = {
       type: primaryType || 'text',
       content: displayContent,

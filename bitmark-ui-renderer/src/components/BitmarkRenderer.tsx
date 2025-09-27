@@ -12,7 +12,8 @@ import { MultipleChoiceRenderer } from './MultipleChoiceRenderer';
 import { SandboxOutputGroupRenderer } from './SandboxOutputGroupRenderer';
 import { SandboxPlaceholderRenderer } from './SandboxPlaceholderRenderer';
 import { TextRenderer } from './TextRenderer';
-import { BitmarkNode, BitmarkRendererProps, UserInteraction, RendererError, ClozeBit, MultipleChoiceBit, TextBit, ClozeAndMultipleChoiceBit } from '../types';
+import { ArticleRenderer } from './ArticleRenderer';
+import { BitmarkNode, BitmarkRendererProps, UserInteraction, RendererError, ClozeBit, MultipleChoiceBit, TextBit, ClozeAndMultipleChoiceBit, ArticleBit } from '../types';
 
 const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
   data,
@@ -136,6 +137,20 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
             <TextRenderer
               key={bitId}
               bit={bit as TextBit}
+            />
+          );
+        
+        case 'article':
+          return (
+            <ArticleRenderer
+              key={bitId}
+              bit={bit as ArticleBit}
+              onInteraction={(value: string) => handleInteraction({
+                type: 'text-input',
+                bitId,
+                value,
+                timestamp: Date.now()
+              })}
             />
           );
         
