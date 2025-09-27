@@ -422,56 +422,6 @@ npm run dev
 npm run type-check
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
 ## License
 
 MIT License - see LICENSE file for details
-
-## Changelog
-
-### v1.0.4
-- **Added AppCodeEditorInteractiveRenderer**: New interactive renderer for `app-code-editor` bits that can display content as interactive UI components
-- **Smart Content Detection**: Automatically detects and renders multiple choice, cloze, headers, and text formatting from bitmark content
-- **Toggle View Feature**: Switch between code view and interactive view for app-code-editor bits
-- **Enhanced User Interaction**: Added support for `app-code-editor` interaction type in UserInteraction interface
-- **Improved Import Ordering**: Fixed ESLint import ordering issues across all components
-- **Code Reuse**: Reuses existing renderer components to avoid code duplication
-- **Updated Documentation**: Added comprehensive documentation and examples for the new interactive features
-- **Fixed Content Extraction**: Enhanced content extraction to handle bitmark content without `.article` tags
-- **Improved JSON Rendering**: JSON content now displays extracted content in interactive mode and raw JSON in code mode
-- **Enhanced Markup Parsing**: Added fallback markup parsing for better content recognition across different bitmark formats
-
-### v1.0.3
-- **Added App Code Editor support**: New `app-code-editor` bit type with beautiful UI rendering
-- **Enhanced content extraction**: Improved content extraction for various bit structures
-- **Fixed React key warnings**: Resolved duplicate key issues for better React performance
-- **Updated documentation**: Added examples and documentation for app-code-editor bit type
-
-### v1.0.2
-- **Fixed multiple choice rendering**: Multiple choice questions now properly display options from the `quizzes` structure in parsed bitmark JSON
-- **Enhanced data conversion**: Added support for both `body` and `quizzes` data structures from bitmark parser
-- **Improved option parsing**: Fixed regex pattern to handle spaces around option text (e.g., `[- red ]` format)
-- **Better error handling**: More robust content extraction for different bitmark input formats
-- **Code quality improvements**: Fixed all ESLint and Prettier formatting issues
-
-### v1.0.1
-- **Fixed multiple choice rendering**: Multiple choice questions now properly display options from separate lines with `====` separator
-- **Improved content extraction**: Enhanced data conversion from BitWrapperJson to BitmarkNode format
-- **Better formatting and alignment**: Input fields and dropdowns now properly align with surrounding text
-- **Enhanced debugging**: Added comprehensive logging for content extraction and data conversion
-- **Fixed TypeScript issues**: Resolved implicit type errors and improved type safety
-- **Code quality improvements**: Fixed all ESLint and Prettier formatting issues
-
-### v1.0.0
-- Initial release
-- Support for cloze, multiple-choice, and text rendering
-- Material-UI theming integration
-- TypeScript support
-- Animation support with Framer Motion
