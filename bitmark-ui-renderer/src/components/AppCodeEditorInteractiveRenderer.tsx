@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 import { Code, DataObject, PlayArrow, Visibility, CodeOff } from '@mui/icons-material';
 import { Box, Typography, Chip, Paper, Switch, FormControlLabel } from '@mui/material';
@@ -35,10 +35,9 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
   defaultView = 'interactive'
 }) => {
   const [viewMode, setViewMode] = useState<'code' | 'interactive'>(defaultView);
-  const [interactions, setInteractions] = useState<Array<{ type: string; value: string; timestamp: number }>>([]);
 
   // Extract content from various possible structures
-  const getContent = () => {
+  const content = useMemo(() => {
     // First check if content is already extracted (from playground)
     if (bit.content) return bit.content;
     
@@ -112,9 +111,8 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
     }
     
     return '';
-  };
+  }, [bit.content, bit.body, bit.bitmark, bit.originalBit]);
 
-  const content = getContent();
   const language = bit.computerLanguage || 'bitmark';
   const id = bit.id || 'app-code-editor';
 
@@ -126,47 +124,48 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
       timestamp: Date.now()
     };
     
-    setInteractions(prev => [...prev, { type: 'app-code-editor', value, timestamp: Date.now() }]);
     onInteraction?.(interaction);
   }, [id, onInteraction]);
 
   // For JSON content, try to extract the actual content to display
-  let displayContent = content;
-  if (language === 'json' && content) {
-    try {
-      const parsed = JSON.parse(content);
-      if (Array.isArray(parsed)) {
-        const extractedContent = parsed
-          .map((item: any) => {
-            if (typeof item === 'string') return item;
-            if (item && typeof item === 'object') {
-              if (item.body && item.body.bodyText) return item.body.bodyText;
-              if (item.body && typeof item.body === 'string') return item.body;
-              if (item.content) return item.content;
-              if (item.text) return item.text;
-            }
-            return '';
-          })
-          .filter(Boolean)
-          .join('\n');
-        if (extractedContent) {
-          displayContent = extractedContent;
+  const displayContent = useMemo(() => {
+    if (language === 'json' && content) {
+      try {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed)) {
+          const extractedContent = parsed
+            .map((item: any) => {
+              if (typeof item === 'string') return item;
+              if (item && typeof item === 'object') {
+                if (item.body && item.body.bodyText) return item.body.bodyText;
+                if (item.body && typeof item.body === 'string') return item.body;
+                if (item.content) return item.content;
+                if (item.text) return item.text;
+              }
+              return '';
+            })
+            .filter(Boolean)
+            .join('\n');
+          if (extractedContent) {
+            return extractedContent;
+          }
+        } else if (parsed && typeof parsed === 'object') {
+          if (parsed.body && parsed.body.bodyText) {
+            return parsed.body.bodyText;
+          } else if (parsed.body && typeof parsed.body === 'string') {
+            return parsed.body;
+          } else if (parsed.content) {
+            return parsed.content;
+          } else if (parsed.text) {
+            return parsed.text;
+          }
         }
-      } else if (parsed && typeof parsed === 'object') {
-        if (parsed.body && parsed.body.bodyText) {
-          displayContent = parsed.body.bodyText;
-        } else if (parsed.body && typeof parsed.body === 'string') {
-          displayContent = parsed.body;
-        } else if (parsed.content) {
-          displayContent = parsed.content;
-        } else if (parsed.text) {
-          displayContent = parsed.text;
-        }
+      } catch {
+        // Not JSON, use content as-is
       }
-    } catch {
-      // Not JSON, use content as-is
     }
-  }
+    return content;
+  }, [language, content]);
 
   // Parse the content to determine what to render
   const parsedContent = parseBitmarkContent(displayContent);
@@ -342,15 +341,6 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
         </Box>
         
         {viewMode === 'code' ? renderCodeView() : renderInteractiveContent()}
-        
-        {/* Show interaction history if any */}
-        {interactions.length > 0 && (
-          <Box sx={{ mt: 2, p: 1, backgroundColor: 'grey.50', borderRadius: 1 }}>
-            <Typography variant="caption" color="text.secondary">
-              Interactions: {interactions.length}
-            </Typography>
-          </Box>
-        )}
       </Paper>
     </motion.div>
   );

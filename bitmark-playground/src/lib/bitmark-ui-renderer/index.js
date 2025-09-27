@@ -626,8 +626,7 @@ var AppCodeEditorInteractiveRenderer = ({
   defaultView = "interactive"
 }) => {
   const [viewMode, setViewMode] = (0, import_react4.useState)(defaultView);
-  const [interactions, setInteractions] = (0, import_react4.useState)([]);
-  const getContent = () => {
+  const content = (0, import_react4.useMemo)(() => {
     if (bit.content) return bit.content;
     if (bit.body) {
       if (typeof bit.body === "string") return bit.body;
@@ -684,8 +683,7 @@ var AppCodeEditorInteractiveRenderer = ({
       }
     }
     return "";
-  };
-  const content = getContent();
+  }, [bit.content, bit.body, bit.bitmark, bit.originalBit]);
   const language = bit.computerLanguage || "bitmark";
   const id = bit.id || "app-code-editor";
   const handleInteraction = (0, import_react4.useCallback)((value) => {
@@ -695,41 +693,42 @@ var AppCodeEditorInteractiveRenderer = ({
       value,
       timestamp: Date.now()
     };
-    setInteractions((prev) => [...prev, { type: "app-code-editor", value, timestamp: Date.now() }]);
     onInteraction?.(interaction);
   }, [id, onInteraction]);
-  let displayContent = content;
-  if (language === "json" && content) {
-    try {
-      const parsed = JSON.parse(content);
-      if (Array.isArray(parsed)) {
-        const extractedContent = parsed.map((item) => {
-          if (typeof item === "string") return item;
-          if (item && typeof item === "object") {
-            if (item.body && item.body.bodyText) return item.body.bodyText;
-            if (item.body && typeof item.body === "string") return item.body;
-            if (item.content) return item.content;
-            if (item.text) return item.text;
+  const displayContent = (0, import_react4.useMemo)(() => {
+    if (language === "json" && content) {
+      try {
+        const parsed = JSON.parse(content);
+        if (Array.isArray(parsed)) {
+          const extractedContent = parsed.map((item) => {
+            if (typeof item === "string") return item;
+            if (item && typeof item === "object") {
+              if (item.body && item.body.bodyText) return item.body.bodyText;
+              if (item.body && typeof item.body === "string") return item.body;
+              if (item.content) return item.content;
+              if (item.text) return item.text;
+            }
+            return "";
+          }).filter(Boolean).join("\n");
+          if (extractedContent) {
+            return extractedContent;
           }
-          return "";
-        }).filter(Boolean).join("\n");
-        if (extractedContent) {
-          displayContent = extractedContent;
+        } else if (parsed && typeof parsed === "object") {
+          if (parsed.body && parsed.body.bodyText) {
+            return parsed.body.bodyText;
+          } else if (parsed.body && typeof parsed.body === "string") {
+            return parsed.body;
+          } else if (parsed.content) {
+            return parsed.content;
+          } else if (parsed.text) {
+            return parsed.text;
+          }
         }
-      } else if (parsed && typeof parsed === "object") {
-        if (parsed.body && parsed.body.bodyText) {
-          displayContent = parsed.body.bodyText;
-        } else if (parsed.body && typeof parsed.body === "string") {
-          displayContent = parsed.body;
-        } else if (parsed.content) {
-          displayContent = parsed.content;
-        } else if (parsed.text) {
-          displayContent = parsed.text;
-        }
+      } catch {
       }
-    } catch {
     }
-  }
+    return content;
+  }, [language, content]);
   const parsedContent = parseBitmarkContent(displayContent);
   const primaryType = getPrimaryInteractiveType(displayContent);
   const options = extractOptions(parsedContent.parts);
@@ -890,11 +889,7 @@ var AppCodeEditorInteractiveRenderer = ({
                 }
               ) })
             ] }),
-            viewMode === "code" ? renderCodeView() : renderInteractiveContent(),
-            interactions.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { mt: 2, p: 1, backgroundColor: "grey.50", borderRadius: 1 }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_material5.Typography, { variant: "caption", color: "text.secondary", children: [
-              "Interactions: ",
-              interactions.length
-            ] }) })
+            viewMode === "code" ? renderCodeView() : renderInteractiveContent()
           ]
         }
       )
