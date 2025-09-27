@@ -11,16 +11,8 @@ interface ErrorRendererProps {
 
 export const ErrorRenderer: React.FC<ErrorRendererProps> = ({ error }) => {
   const getErrorIcon = () => {
-    switch (error.type) {
-      case 'unsupported':
-        return '⚠️';
-      case 'parsing':
-        return '🔍';
-      case 'validation':
-        return '❌';
-      default:
-        return '❓';
-    }
+    // Material-UI Alert component provides its own icons, so we don't need custom icons
+    return null;
   };
 
   const getErrorTitle = () => {
@@ -66,7 +58,7 @@ export const ErrorRenderer: React.FC<ErrorRendererProps> = ({ error }) => {
           }}
         >
           <AlertTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <span>{getErrorIcon()}</span>
+            {getErrorIcon() && <span>{getErrorIcon()}</span>}
             {getErrorTitle()}
           </AlertTitle>
           

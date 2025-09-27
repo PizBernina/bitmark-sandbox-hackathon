@@ -196,20 +196,7 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
         parsedData = [inputData];
       }
       
-      // Validate each bit
-      parsedData.forEach((bit, index) => {
-        const bitType = bit.type || bit.bit?.type || 'unknown';
-        
-        // Check for unsupported bit types
-        const supportedTypes = ['cloze', 'multiple-choice', 'cloze-and-multiple-choice-text', 'text', 'paragraph', 'header', 'app-code-editor', 'sandbox-output-json', 'sandbox-output-bitmark'];
-        if (!supportedTypes.includes(bitType)) {
-          errors.push({
-            type: 'unsupported',
-            message: `Unsupported bit type: ${bitType}`,
-            bitType: bitType
-          });
-        }
-      });
+      // Note: Unsupported bit types are now handled in renderBit() to avoid duplicate warnings
       
     } catch (error) {
       errors.push({

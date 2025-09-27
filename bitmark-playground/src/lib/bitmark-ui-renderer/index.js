@@ -903,16 +903,7 @@ var import_framer_motion6 = require("framer-motion");
 var import_jsx_runtime6 = require("react/jsx-runtime");
 var ErrorRenderer = ({ error }) => {
   const getErrorIcon = () => {
-    switch (error.type) {
-      case "unsupported":
-        return "\u26A0\uFE0F";
-      case "parsing":
-        return "\u{1F50D}";
-      case "validation":
-        return "\u274C";
-      default:
-        return "\u2753";
-    }
+    return null;
   };
   const getErrorTitle = () => {
     switch (error.type) {
@@ -956,7 +947,7 @@ var ErrorRenderer = ({ error }) => {
           },
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_material6.AlertTitle, { sx: { display: "flex", alignItems: "center", gap: 1 }, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: getErrorIcon() }),
+              getErrorIcon() && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("span", { children: getErrorIcon() }),
               getErrorTitle()
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_material6.Typography, { variant: "body2", sx: { mt: 1 }, children: error.message }),
@@ -1469,17 +1460,6 @@ var BitmarkRenderer = ({
       } else {
         parsedData2 = [inputData];
       }
-      parsedData2.forEach((bit, index) => {
-        const bitType = bit.type || bit.bit?.type || "unknown";
-        const supportedTypes = ["cloze", "multiple-choice", "cloze-and-multiple-choice-text", "text", "paragraph", "header", "app-code-editor", "sandbox-output-json", "sandbox-output-bitmark"];
-        if (!supportedTypes.includes(bitType)) {
-          errors2.push({
-            type: "unsupported",
-            message: `Unsupported bit type: ${bitType}`,
-            bitType
-          });
-        }
-      });
     } catch (error) {
       errors2.push({
         type: "parsing",
