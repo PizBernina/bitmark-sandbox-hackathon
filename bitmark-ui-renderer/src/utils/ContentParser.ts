@@ -36,6 +36,42 @@ export function parseBitmarkContent(content: string | undefined): ParsedContent 
     };
   }
 
+  // First, try to parse as JSON to extract bitmark content from JSON structures
+  let bitmarkContent = content;
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      // Look for bitmark content in the array
+      bitmarkContent = parsed
+        .map((item: any) => {
+          if (typeof item === 'string') return item;
+          if (item && typeof item === 'object') {
+            if (item.body && item.body.bodyText) return item.body.bodyText;
+            if (item.body && typeof item.body === 'string') return item.body;
+            if (item.content) return item.content;
+            if (item.text) return item.text;
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join('\n');
+    } else if (parsed && typeof parsed === 'object') {
+      // Look for bitmark content in the object
+      if (parsed.body && parsed.body.bodyText) {
+        bitmarkContent = parsed.body.bodyText;
+      } else if (parsed.body && typeof parsed.body === 'string') {
+        bitmarkContent = parsed.body;
+      } else if (parsed.content) {
+        bitmarkContent = parsed.content;
+      } else if (parsed.text) {
+        bitmarkContent = parsed.text;
+      }
+    }
+  } catch {
+    // Not JSON, use content as-is
+    bitmarkContent = content;
+  }
+
   const parts: ParsedContentPart[] = [];
   let hasCloze = false;
   let hasMultipleChoice = false;
@@ -43,7 +79,7 @@ export function parseBitmarkContent(content: string | undefined): ParsedContent 
 
   // Split content by various patterns
   const regex = /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/g;
-  const splitParts = content.split(regex);
+  const splitParts = bitmarkContent.split(regex);
 
   splitParts.forEach((part, index) => {
     if (!part) return;
@@ -112,7 +148,41 @@ export function extractOptions(parts: ParsedContentPart[]): ParsedContentPart[] 
 export function hasInteractiveContent(content: string | undefined): boolean {
   if (!content) return false;
   
-  return /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/.test(content);
+  // First, try to extract bitmark content from JSON
+  let bitmarkContent = content;
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      bitmarkContent = parsed
+        .map((item: any) => {
+          if (typeof item === 'string') return item;
+          if (item && typeof item === 'object') {
+            if (item.body && item.body.bodyText) return item.body.bodyText;
+            if (item.body && typeof item.body === 'string') return item.body;
+            if (item.content) return item.content;
+            if (item.text) return item.text;
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join('\n');
+    } else if (parsed && typeof parsed === 'object') {
+      if (parsed.body && parsed.body.bodyText) {
+        bitmarkContent = parsed.body.bodyText;
+      } else if (parsed.body && typeof parsed.body === 'string') {
+        bitmarkContent = parsed.body;
+      } else if (parsed.content) {
+        bitmarkContent = parsed.content;
+      } else if (parsed.text) {
+        bitmarkContent = parsed.text;
+      }
+    }
+  } catch {
+    // Not JSON, use content as-is
+    bitmarkContent = content;
+  }
+  
+  return /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/.test(bitmarkContent);
 }
 
 /**
@@ -121,9 +191,43 @@ export function hasInteractiveContent(content: string | undefined): boolean {
 export function getPrimaryInteractiveType(content: string | undefined): 'cloze' | 'multiple-choice' | 'cloze-and-multiple-choice' | 'header' | 'text' | null {
   if (!content) return null;
 
-  const hasCloze = /\[_[^\]]*\]/.test(content);
-  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(content);
-  const hasHeader = /\[!.*?\]/.test(content);
+  // First, try to extract bitmark content from JSON
+  let bitmarkContent = content;
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      bitmarkContent = parsed
+        .map((item: any) => {
+          if (typeof item === 'string') return item;
+          if (item && typeof item === 'object') {
+            if (item.body && item.body.bodyText) return item.body.bodyText;
+            if (item.body && typeof item.body === 'string') return item.body;
+            if (item.content) return item.content;
+            if (item.text) return item.text;
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join('\n');
+    } else if (parsed && typeof parsed === 'object') {
+      if (parsed.body && parsed.body.bodyText) {
+        bitmarkContent = parsed.body.bodyText;
+      } else if (parsed.body && typeof parsed.body === 'string') {
+        bitmarkContent = parsed.body;
+      } else if (parsed.content) {
+        bitmarkContent = parsed.content;
+      } else if (parsed.text) {
+        bitmarkContent = parsed.text;
+      }
+    }
+  } catch {
+    // Not JSON, use content as-is
+    bitmarkContent = content;
+  }
+
+  const hasCloze = /\[_[^\]]*\]/.test(bitmarkContent);
+  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(bitmarkContent);
+  const hasHeader = /\[!.*?\]/.test(bitmarkContent);
 
   if (hasCloze && hasMultipleChoice) {
     return 'cloze-and-multiple-choice';

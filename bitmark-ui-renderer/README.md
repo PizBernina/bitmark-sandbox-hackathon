@@ -176,23 +176,34 @@ const interactiveCodeData = {
   computerLanguage: 'bitmark'
 };
 
-// JSON content - shows as code editor
+// JSON content - shows extracted content in interactive mode, raw JSON in code mode
 const jsonCodeData = {
   type: 'app-code-editor',
-  content: '{\n  "message": "Hello, World!"\n}',
+  content: '[{"type":"article","body":{"bodyText":"Hello code!","bodyType":"text"}}]',
   id: 'json-1',
   computerLanguage: 'json'
 };
 
+// Simple bitmark content - renders as text
+const simpleBitmarkData = {
+  type: 'app-code-editor',
+  content: 'Hello from bitmark!',
+  id: 'simple-1',
+  computerLanguage: 'bitmark'
+};
+
 <BitmarkRenderer data={interactiveCodeData} />
 <BitmarkRenderer data={jsonCodeData} />
+<BitmarkRenderer data={simpleBitmarkData} />
 ```
 
 **Features:**
 - **Toggle View**: Switch between code view and interactive view
 - **Smart Detection**: Automatically detects interactive elements in bitmark content
 - **Interactive Rendering**: Renders multiple choice, cloze, headers, and text formatting as interactive components
-- **Code View**: Shows raw content with syntax highlighting
+- **Code View**: Shows raw content (JSON shows full JSON, bitmark shows raw bitmark)
+- **Content Extraction**: Handles both structured and unstructured bitmark content
+- **JSON Processing**: Extracts meaningful content from JSON structures for better display
 
 ### Array of Multiple Bits
 ```tsx
@@ -369,8 +380,18 @@ If input fields appear misaligned with surrounding text:
 If content shows "No content available":
 
 1. **Check data structure**: Ensure data follows the expected BitWrapperJson format
-2. **Verify bit types**: Supported types are 'cloze', 'multiple-choice', 'cloze-and-multiple-choice-text'
+2. **Verify bit types**: Supported types are 'cloze', 'multiple-choice', 'cloze-and-multiple-choice-text', 'app-code-editor'
 3. **Check console logs**: Look for content extraction errors in the browser console
+4. **App Code Editor**: For `app-code-editor` bits, ensure content is properly structured in the bitmark format
+
+### App Code Editor Issues
+
+If app code editor shows "No content available" in both modes:
+
+1. **Bitmark Content**: Ensure bitmark content is properly formatted (e.g., `[.app-code-editor][@id:test][@computerLanguage:bitmark]`)
+2. **Content Structure**: Content should be on separate lines after the app-code-editor tag
+3. **Language Support**: Both `bitmark` and `json` languages are supported
+4. **Fallback Parsing**: The renderer includes fallback markup parsing for better content recognition
 
 ## Performance
 
@@ -423,6 +444,9 @@ MIT License - see LICENSE file for details
 - **Improved Import Ordering**: Fixed ESLint import ordering issues across all components
 - **Code Reuse**: Reuses existing renderer components to avoid code duplication
 - **Updated Documentation**: Added comprehensive documentation and examples for the new interactive features
+- **Fixed Content Extraction**: Enhanced content extraction to handle bitmark content without `.article` tags
+- **Improved JSON Rendering**: JSON content now displays extracted content in interactive mode and raw JSON in code mode
+- **Enhanced Markup Parsing**: Added fallback markup parsing for better content recognition across different bitmark formats
 
 ### v1.0.3
 - **Added App Code Editor support**: New `app-code-editor` bit type with beautiful UI rendering

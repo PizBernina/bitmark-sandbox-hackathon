@@ -1,0 +1,33 @@
+[.app-code-editor@id:multiple-choice-example:bitmark++]
+What color are roses? [-blue][+red][-green]
+
+[.app-code-editor@id:cloze-example:bitmark++]
+Roses are [_red], violets are [_blue]
+
+[.app-code-editor@id:combined-example:bitmark++]
+Roses are [_red], violets are [-green][+blue][-yellow]
+
+[.app-code-editor@id:header-example:bitmark++]
+[!Introduction]
+This is **bold** text with __italic__ formatting and ==underlined== text.
+
+[.app-code-editor@id:complex-mc-example:bitmark++]
+What is the capital of France? [-London][+Paris][-Berlin][-Madrid]
+
+[.app-code-editor@id:json-simple:json]
+{
+  "message": "Hello, World!",
+  "type": "greeting"
+}
+
+[.app-code-editor@id:json-complex:json]
+{
+  "users": [
+    {"name": "Alice", "age": 30},
+    {"name": "Bob", "age": 25}
+  ],
+  "settings": {
+    "theme": "dark",
+    "notifications": true
+  }
+}

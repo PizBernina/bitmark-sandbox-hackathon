@@ -123,6 +123,12 @@ interface AppCodeEditorInteractiveRendererProps {
         computerLanguage?: string;
         body?: any;
         id?: string;
+        bitmark?: string;
+        originalBit?: {
+            bitmark?: string;
+            body?: string | any[];
+            markup?: string;
+        };
     };
     onInteraction?: (interaction: UserInteraction) => void;
     defaultView?: 'code' | 'interactive';

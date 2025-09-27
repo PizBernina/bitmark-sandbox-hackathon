@@ -18,6 +18,12 @@ interface AppCodeEditorInteractiveRendererProps {
     computerLanguage?: string;
     body?: any;
     id?: string;
+    bitmark?: string;
+    originalBit?: {
+      bitmark?: string;
+      body?: string | any[];
+      markup?: string;
+    };
   };
   onInteraction?: (interaction: UserInteraction) => void;
   defaultView?: 'code' | 'interactive';
@@ -33,12 +39,78 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
 
   // Extract content from various possible structures
   const getContent = () => {
+    // First check if content is already extracted (from playground)
     if (bit.content) return bit.content;
+    
+    // Then check body structures
     if (bit.body) {
       if (typeof bit.body === 'string') return bit.body;
+      if (Array.isArray(bit.body)) {
+        // For app-code-editor, the body contains the actual code content
+        return bit.body
+          .map((item: any) => {
+            if (typeof item === 'string') {
+              return item;
+            } else if (item && typeof item === 'object') {
+              // Handle different body structures
+              if (item.bodyText) return item.bodyText;
+              if (item.text) return item.text;
+              if (item.content) return item.content;
+              if (typeof item === 'string') return item;
+            }
+            return '';
+          })
+          .join('\n');
+      }
       if (bit.body.bodyText) return bit.body.bodyText;
       if (bit.body.text) return bit.body.text;
     }
+    
+    // Try to find content in other locations (for bitmark content)
+    if (bit.bitmark) return bit.bitmark;
+    if (bit.originalBit && bit.originalBit.bitmark) return bit.originalBit.bitmark;
+    if (bit.originalBit && bit.originalBit.body) {
+      if (typeof bit.originalBit.body === 'string') return bit.originalBit.body;
+      if (Array.isArray(bit.originalBit.body)) {
+        return bit.originalBit.body
+          .map((item: any) => {
+            if (typeof item === 'string') return item;
+            if (item && typeof item === 'object') {
+              if (item.bodyText) return item.bodyText;
+              if (item.text) return item.text;
+              if (item.content) return item.content;
+            }
+            return '';
+          })
+          .join('\n');
+      }
+    }
+    
+    // For app-code-editor bits, try to extract content from the markup
+    if (bit.originalBit && bit.originalBit.markup) {
+      const markup = bit.originalBit.markup;
+      // Extract content after the app-code-editor tag
+      const lines = markup.split('\n');
+      const contentLines = [];
+      let inContent = false;
+      
+      for (const line of lines) {
+        if (line.trim().startsWith('[.app-code-editor')) {
+          inContent = true;
+          continue;
+        }
+        if (inContent && line.trim() && !line.trim().startsWith('[')) {
+          contentLines.push(line);
+        } else if (inContent && line.trim().startsWith('[') && !line.trim().startsWith('[.app-code-editor')) {
+          break;
+        }
+      }
+      
+      if (contentLines.length > 0) {
+        return contentLines.join('\n').trim();
+      }
+    }
+    
     return '';
   };
 
@@ -58,9 +130,47 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
     onInteraction?.(interaction);
   }, [id, onInteraction]);
 
+  // For JSON content, try to extract the actual content to display
+  let displayContent = content;
+  if (language === 'json' && content) {
+    try {
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed)) {
+        const extractedContent = parsed
+          .map((item: any) => {
+            if (typeof item === 'string') return item;
+            if (item && typeof item === 'object') {
+              if (item.body && item.body.bodyText) return item.body.bodyText;
+              if (item.body && typeof item.body === 'string') return item.body;
+              if (item.content) return item.content;
+              if (item.text) return item.text;
+            }
+            return '';
+          })
+          .filter(Boolean)
+          .join('\n');
+        if (extractedContent) {
+          displayContent = extractedContent;
+        }
+      } else if (parsed && typeof parsed === 'object') {
+        if (parsed.body && parsed.body.bodyText) {
+          displayContent = parsed.body.bodyText;
+        } else if (parsed.body && typeof parsed.body === 'string') {
+          displayContent = parsed.body;
+        } else if (parsed.content) {
+          displayContent = parsed.content;
+        } else if (parsed.text) {
+          displayContent = parsed.text;
+        }
+      }
+    } catch {
+      // Not JSON, use content as-is
+    }
+  }
+
   // Parse the content to determine what to render
-  const parsedContent = parseBitmarkContent(content);
-  const primaryType = getPrimaryInteractiveType(content);
+  const parsedContent = parseBitmarkContent(displayContent);
+  const primaryType = getPrimaryInteractiveType(displayContent);
   const options = extractOptions(parsedContent.parts);
 
   const getLanguageIcon = () => {
@@ -88,11 +198,16 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
   // Render interactive content based on the primary type
   const renderInteractiveContent = () => {
     if (!parsedContent.hasInteractiveElements) {
+      // If no interactive elements, render as text content
       return (
-        <Box sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
-          <Typography variant="body2">
-            No interactive elements found in content
-          </Typography>
+        <Box sx={{ p: 2 }}>
+          <TextRenderer
+            bit={{
+              type: 'text',
+              content: displayContent,
+              id: id,
+            }}
+          />
         </Box>
       );
     }
@@ -100,7 +215,7 @@ export const AppCodeEditorInteractiveRenderer: React.FC<AppCodeEditorInteractive
     // Create a mock bit object for the renderers
     const mockBit = {
       type: primaryType || 'text',
-      content: content,
+      content: displayContent,
       id: id,
     };
 

@@ -491,12 +491,40 @@ function parseBitmarkContent(content) {
       hasHeader: false
     };
   }
+  let bitmarkContent = content;
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      bitmarkContent = parsed.map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object") {
+          if (item.body && item.body.bodyText) return item.body.bodyText;
+          if (item.body && typeof item.body === "string") return item.body;
+          if (item.content) return item.content;
+          if (item.text) return item.text;
+        }
+        return "";
+      }).filter(Boolean).join("\n");
+    } else if (parsed && typeof parsed === "object") {
+      if (parsed.body && parsed.body.bodyText) {
+        bitmarkContent = parsed.body.bodyText;
+      } else if (parsed.body && typeof parsed.body === "string") {
+        bitmarkContent = parsed.body;
+      } else if (parsed.content) {
+        bitmarkContent = parsed.content;
+      } else if (parsed.text) {
+        bitmarkContent = parsed.text;
+      }
+    }
+  } catch {
+    bitmarkContent = content;
+  }
   const parts = [];
   let hasCloze = false;
   let hasMultipleChoice = false;
   let hasHeader = false;
   const regex = /(\[!.*?\]|\[_[^\]]*\]|\[[-+][^\]]*\])/g;
-  const splitParts = content.split(regex);
+  const splitParts = bitmarkContent.split(regex);
   splitParts.forEach((part, index) => {
     if (!part) return;
     if (part.startsWith("[!") && part.endsWith("]")) {
@@ -547,9 +575,37 @@ function extractOptions(parts) {
 }
 function getPrimaryInteractiveType(content) {
   if (!content) return null;
-  const hasCloze = /\[_[^\]]*\]/.test(content);
-  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(content);
-  const hasHeader = /\[!.*?\]/.test(content);
+  let bitmarkContent = content;
+  try {
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      bitmarkContent = parsed.map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object") {
+          if (item.body && item.body.bodyText) return item.body.bodyText;
+          if (item.body && typeof item.body === "string") return item.body;
+          if (item.content) return item.content;
+          if (item.text) return item.text;
+        }
+        return "";
+      }).filter(Boolean).join("\n");
+    } else if (parsed && typeof parsed === "object") {
+      if (parsed.body && parsed.body.bodyText) {
+        bitmarkContent = parsed.body.bodyText;
+      } else if (parsed.body && typeof parsed.body === "string") {
+        bitmarkContent = parsed.body;
+      } else if (parsed.content) {
+        bitmarkContent = parsed.content;
+      } else if (parsed.text) {
+        bitmarkContent = parsed.text;
+      }
+    }
+  } catch {
+    bitmarkContent = content;
+  }
+  const hasCloze = /\[_[^\]]*\]/.test(bitmarkContent);
+  const hasMultipleChoice = /\[[-+][^\]]*\]/.test(bitmarkContent);
+  const hasHeader = /\[!.*?\]/.test(bitmarkContent);
   if (hasCloze && hasMultipleChoice) {
     return "cloze-and-multiple-choice";
   } else if (hasCloze) {
@@ -575,8 +631,57 @@ var AppCodeEditorInteractiveRenderer = ({
     if (bit.content) return bit.content;
     if (bit.body) {
       if (typeof bit.body === "string") return bit.body;
+      if (Array.isArray(bit.body)) {
+        return bit.body.map((item) => {
+          if (typeof item === "string") {
+            return item;
+          } else if (item && typeof item === "object") {
+            if (item.bodyText) return item.bodyText;
+            if (item.text) return item.text;
+            if (item.content) return item.content;
+            if (typeof item === "string") return item;
+          }
+          return "";
+        }).join("\n");
+      }
       if (bit.body.bodyText) return bit.body.bodyText;
       if (bit.body.text) return bit.body.text;
+    }
+    if (bit.bitmark) return bit.bitmark;
+    if (bit.originalBit && bit.originalBit.bitmark) return bit.originalBit.bitmark;
+    if (bit.originalBit && bit.originalBit.body) {
+      if (typeof bit.originalBit.body === "string") return bit.originalBit.body;
+      if (Array.isArray(bit.originalBit.body)) {
+        return bit.originalBit.body.map((item) => {
+          if (typeof item === "string") return item;
+          if (item && typeof item === "object") {
+            if (item.bodyText) return item.bodyText;
+            if (item.text) return item.text;
+            if (item.content) return item.content;
+          }
+          return "";
+        }).join("\n");
+      }
+    }
+    if (bit.originalBit && bit.originalBit.markup) {
+      const markup = bit.originalBit.markup;
+      const lines = markup.split("\n");
+      const contentLines = [];
+      let inContent = false;
+      for (const line of lines) {
+        if (line.trim().startsWith("[.app-code-editor")) {
+          inContent = true;
+          continue;
+        }
+        if (inContent && line.trim() && !line.trim().startsWith("[")) {
+          contentLines.push(line);
+        } else if (inContent && line.trim().startsWith("[") && !line.trim().startsWith("[.app-code-editor")) {
+          break;
+        }
+      }
+      if (contentLines.length > 0) {
+        return contentLines.join("\n").trim();
+      }
     }
     return "";
   };
@@ -593,8 +698,40 @@ var AppCodeEditorInteractiveRenderer = ({
     setInteractions((prev) => [...prev, { type: "app-code-editor", value, timestamp: Date.now() }]);
     onInteraction?.(interaction);
   }, [id, onInteraction]);
-  const parsedContent = parseBitmarkContent(content);
-  const primaryType = getPrimaryInteractiveType(content);
+  let displayContent = content;
+  if (language === "json" && content) {
+    try {
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed)) {
+        const extractedContent = parsed.map((item) => {
+          if (typeof item === "string") return item;
+          if (item && typeof item === "object") {
+            if (item.body && item.body.bodyText) return item.body.bodyText;
+            if (item.body && typeof item.body === "string") return item.body;
+            if (item.content) return item.content;
+            if (item.text) return item.text;
+          }
+          return "";
+        }).filter(Boolean).join("\n");
+        if (extractedContent) {
+          displayContent = extractedContent;
+        }
+      } else if (parsed && typeof parsed === "object") {
+        if (parsed.body && parsed.body.bodyText) {
+          displayContent = parsed.body.bodyText;
+        } else if (parsed.body && typeof parsed.body === "string") {
+          displayContent = parsed.body;
+        } else if (parsed.content) {
+          displayContent = parsed.content;
+        } else if (parsed.text) {
+          displayContent = parsed.text;
+        }
+      }
+    } catch {
+    }
+  }
+  const parsedContent = parseBitmarkContent(displayContent);
+  const primaryType = getPrimaryInteractiveType(displayContent);
   const options = extractOptions(parsedContent.parts);
   const getLanguageIcon = () => {
     switch (language) {
@@ -618,11 +755,20 @@ var AppCodeEditorInteractiveRenderer = ({
   };
   const renderInteractiveContent = () => {
     if (!parsedContent.hasInteractiveElements) {
-      return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { p: 2, textAlign: "center", color: "text.secondary" }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Typography, { variant: "body2", children: "No interactive elements found in content" }) });
+      return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_material5.Box, { sx: { p: 2 }, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+        TextRenderer,
+        {
+          bit: {
+            type: "text",
+            content: displayContent,
+            id
+          }
+        }
+      ) });
     }
     const mockBit = {
       type: primaryType || "text",
-      content,
+      content: displayContent,
       id
     };
     switch (primaryType) {
