@@ -177,11 +177,11 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
       // eslint-disable-next-line no-console
       console.log('DEBUG: using simple breakscaping implementation');
 
-      // Breakscaping rules: only add carets for unescaped brackets with trigger characters
+      // Breakscaping rules: only add carets for unescaped brackets with bit type trigger characters
       // that are followed by text content (not other brackets or structural elements)
-      // Trigger characters: . @ # ▼ ► % ! ? + - $ _ = &
-      // Find brackets that need breakscaping (have trigger chars, no caret, followed by text)
-      const needsBreakscaping = /\[(?![^[\]]*\^)([.@#\u25BC\u25BA%!?+\-$_=&][^[\]]*)\](?=\s*[^[\s])/g;
+      // Bit type trigger character: . (for bit headers like [.cloze], [.app-code-editor])
+      // Find brackets that need breakscaping (have bit type trigger, no caret, followed by text)
+      const needsBreakscaping = /\[(?![^[\]]*\^)(\.[^[\]]*)\](?=\s*[^[\s])/g;
 
       // Apply breakscaping: add caret only to brackets that need it
       const br = text.replace(needsBreakscaping, '[^$1]');
@@ -356,12 +356,12 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
     [],
   );
 
-  // Heuristic: flag '[.' style tag triggers lacking a caret in non-ignored lines
+  // Heuristic: flag '[.' style bit type triggers lacking a caret in non-ignored lines
   const findHeuristicMarkers = useCallback(
     (model: editor.ITextModel, ignoredLines: Set<number>): editor.IMarkerData[] => {
       const res: editor.IMarkerData[] = [];
       const total = model.getLineCount();
-      const trigger = /(?<!\^)\[(?=[.@#\u25BC\u25BA%!?+\-$_=&])/g; // '[' before a trigger, not preceded by '^'
+      const trigger = /(?<!\^)\[(?=\.)/g; // '[' before a bit type trigger (.), not preceded by '^'
       for (let ln = 1; ln <= total; ln++) {
         if (ignoredLines.has(ln)) continue;
         const line = model.getLineContent(ln);
@@ -373,7 +373,7 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
             severity: MarkerSeverity.Warning,
             source: 'breakscape',
             code: 'breakscape.missingCaret',
-            message: 'Possible tag trigger without escape (add ^ after [).',
+            message: 'Bit type trigger without escape (add ^ before [. to escape).',
             startLineNumber: ln,
             startColumn: col,
             endLineNumber: ln,

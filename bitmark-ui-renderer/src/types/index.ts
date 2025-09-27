@@ -83,3 +83,10 @@ export interface ClozeAndMultipleChoiceBit extends BitmarkNode {
     selectedValue?: string;
   }>;
 }
+
+export interface ArticleBit extends BitmarkNode {
+  type: 'article';
+  content?: string;
+  title?: string;
+  level?: number;
+}

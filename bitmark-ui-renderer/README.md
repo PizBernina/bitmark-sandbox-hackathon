@@ -10,6 +10,7 @@ A React component library for rendering interactive bitmark content with beautif
 - **Cloze + Multiple Choice**: Combined interactive elements
 - **Text**: Basic text with formatting (`**bold**`, `__italic__`, `==underline==`)
 - **Headers**: Title formatting with `[!Title]` syntax
+- **Article**: Structured article content with title and formatted text
 - **App Code Editor**: Interactive code editor that can render bitmark content as interactive UI components with toggle between code and interactive views
 
 ## Installation
@@ -164,6 +165,18 @@ const headerData = {
 };
 
 <BitmarkRenderer data={headerData} />
+```
+
+### Article
+```tsx
+const articleData = {
+  type: 'article',
+  title: 'Introduction to React',
+  content: 'React is a **JavaScript library** for building user interfaces.\n\nIt allows you to create __reusable components__ and manage state efficiently.\n\n## Key Features\n\n- Component-based architecture\n- Virtual DOM\n- One-way data flow\n\n> React makes it easy to create interactive UIs.',
+  level: 1
+};
+
+<BitmarkRenderer data={articleData} />
 ```
 
 ### App Code Editor (Interactive)

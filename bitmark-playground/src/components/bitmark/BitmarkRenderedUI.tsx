@@ -64,7 +64,6 @@ export const BitmarkRenderedUI: React.FC = () => {
         // Exclude bits that are results of parsing bitmark content
         // Exclude sandbox output bits (they should be handled by sandbox viewer)
         return (
-          bit.type !== 'article' &&
           bit.type !== 'paragraph' &&
           bit.type !== 'text' &&
           bit.type !== 'sandbox-output-json' &&

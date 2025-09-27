@@ -74,6 +74,12 @@ interface ClozeAndMultipleChoiceBit extends BitmarkNode {
         selectedValue?: string;
     }>;
 }
+interface ArticleBit extends BitmarkNode {
+    type: 'article';
+    content?: string;
+    title?: string;
+    level?: number;
+}
 
 declare const BitmarkRenderer: React$1.FC<BitmarkRendererProps>;
 
@@ -98,6 +104,12 @@ interface TextRendererProps {
     bit: TextBit;
 }
 declare const TextRenderer: React$1.FC<TextRendererProps>;
+
+interface ArticleRendererProps {
+    bit: ArticleBit;
+    onInteraction?: (value: string) => void;
+}
+declare const ArticleRenderer: React$1.FC<ArticleRendererProps>;
 
 interface ClozeAndMultipleChoiceRendererProps {
     bit: ClozeAndMultipleChoiceBit;
@@ -140,4 +152,4 @@ interface ErrorRendererProps {
 }
 declare const ErrorRenderer: React$1.FC<ErrorRendererProps>;
 
-export { AppCodeEditorInteractiveRenderer, AppCodeEditorRenderer, type BitmarkNode, BitmarkRenderer, type BitmarkRendererProps, type BitmarkRendererState, type ClozeAndMultipleChoiceBit, ClozeAndMultipleChoiceRenderer, type ClozeBit, ClozeRenderer, ErrorRenderer, type MultipleChoiceBit, MultipleChoiceRenderer, type RendererError, type TextBit, TextRenderer, ThemeProvider, type UserInteraction };
+export { AppCodeEditorInteractiveRenderer, AppCodeEditorRenderer, type ArticleBit, ArticleRenderer, type BitmarkNode, BitmarkRenderer, type BitmarkRendererProps, type BitmarkRendererState, type ClozeAndMultipleChoiceBit, ClozeAndMultipleChoiceRenderer, type ClozeBit, ClozeRenderer, ErrorRenderer, type MultipleChoiceBit, MultipleChoiceRenderer, type RendererError, type TextBit, TextRenderer, ThemeProvider, type UserInteraction };

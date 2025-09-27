@@ -6,6 +6,7 @@ export { ThemeProvider } from './components/ThemeProvider';
 export { ClozeRenderer } from './components/ClozeRenderer';
 export { MultipleChoiceRenderer } from './components/MultipleChoiceRenderer';
 export { TextRenderer } from './components/TextRenderer';
+export { ArticleRenderer } from './components/ArticleRenderer';
 export { ClozeAndMultipleChoiceRenderer } from './components/ClozeAndMultipleChoiceRenderer';
 export { AppCodeEditorRenderer } from './components/AppCodeEditorRenderer';
 export { AppCodeEditorInteractiveRenderer } from './components/AppCodeEditorInteractiveRenderer';
@@ -21,5 +22,6 @@ export type {
   ClozeBit,
   MultipleChoiceBit,
   TextBit,
+  ArticleBit,
   ClozeAndMultipleChoiceBit,
 } from './types';
