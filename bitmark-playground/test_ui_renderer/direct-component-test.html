@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Component Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="src/lib/bitmark-ui-renderer/index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .debug-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .debug-content {
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Direct MultipleChoiceRenderer Component Test</h1>
+        
+        <div class="debug-section">
+            <div class="debug-title">Test Data:</div>
+            <div class="debug-content" id="test-data"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Console Output:</div>
+            <div class="debug-content" id="console-output"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Rendered Output:</div>
+            <div id="root"></div>
+        </div>
+    </div>
+    
+    <script>
+        const { BitmarkRenderer, ThemeProvider } = window.BitmarkUIRenderer;
+        const { createElement: h } = React;
+        
+        // Capture console output
+        const originalLog = console.log;
+        const logs = [];
+        
+        console.log = function(...args) {
+            logs.push(args.join(' '));
+            originalLog.apply(console, args);
+            updateConsoleOutput();
+        };
+        
+        function updateConsoleOutput() {
+            document.getElementById('console-output').textContent = logs.join('\n');
+        }
+        
+        // Test data with the exact content format that should work
+        const testData = [
+            {
+                type: 'multiple-choice',
+                content: 'What color are violets?\n[- red ]\n[+ blue ]\n[- green ]'
+            }
+        ];
+        
+        document.getElementById('test-data').textContent = JSON.stringify(testData, null, 2);
+        
+        function App() {
+            console.log('App rendering with data:', testData);
+            
+            return h(ThemeProvider, null,
+                h(BitmarkRenderer, {
+                    data: testData,
+                    onInteraction: (interaction) => {
+                        console.log('Interaction received:', interaction);
+                    }
+                })
+            );
+        }
+        
+        console.log('Starting test...');
+        ReactDOM.render(h(App), document.getElementById('root'));
+        console.log('Test complete');
+    </script>
+</body>
+</html>

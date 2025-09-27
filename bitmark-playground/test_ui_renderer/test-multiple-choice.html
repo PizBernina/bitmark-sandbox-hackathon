@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="src/lib/bitmark-ui-renderer/index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script>
+        const { BitmarkRenderer, ThemeProvider } = window.BitmarkUIRenderer;
+        const { createElement: h } = React;
+        
+        // Test data - multiple choice question
+        const testData = [
+            {
+                type: 'multiple-choice',
+                content: 'What color are violets?\n[- red ]\n[+ blue ]\n[- green ]'
+            }
+        ];
+        
+        function App() {
+            return h(ThemeProvider, null,
+                h(BitmarkRenderer, {
+                    data: testData,
+                    onInteraction: (interaction) => {
+                        console.log('User interaction:', interaction);
+                    }
+                })
+            );
+        }
+        
+        ReactDOM.render(h(App), document.getElementById('root'));
+    </script>
+</body>
+</html>

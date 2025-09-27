@@ -7,6 +7,9 @@ module.exports = override(
   addWebpackResolve({
     fallback: {
       module: false,
+      fs: false,
+      path: false,
+      crypto: false,
     },
   }),
   addWebpackPlugin(

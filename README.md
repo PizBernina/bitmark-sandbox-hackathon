@@ -1,10 +1,6 @@
 
 ## ToDo
-- Add automatic and smart breakscaping
 - Integrate LLM features
-- Render output so others can display it
-- Add tests
-
 
 ## Context and design options
 

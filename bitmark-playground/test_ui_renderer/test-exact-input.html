@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Exact Bitmark Input</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@5.14.20/umd/material-ui.development.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+    <script src="src/lib/bitmark-ui-renderer/index.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .debug-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .debug-content {
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Test Exact Bitmark Input</h1>
+        
+        <div class="debug-section">
+            <div class="debug-title">Original Bitmark Input:</div>
+            <div class="debug-content">[.cloze]
+[@revealSolutions: false ]
+The students completed the [_ assignment ] with the correct verb forms.
+
+
+[.multiple-choice]
+[@revealSolutions: false ]
+What color are violets?
+[- red ]
+[+ blue ]
+[- green ]
+
+
+[.cloze-and-multiple-choice-text]
+[@revealSolutions: false ]
+Roses are [_ red ], violets are [- green ][+ blue ][- yellow ]</div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Simulated Parsed JSON (for multiple-choice):</div>
+            <div class="debug-content" id="parsed-json"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Converted Content:</div>
+            <div class="debug-content" id="converted-content"></div>
+        </div>
+        
+        <div class="debug-section">
+            <div class="debug-title">Rendered Output:</div>
+            <div id="root"></div>
+        </div>
+    </div>
+    
+    <script>
+        const { BitmarkRenderer, ThemeProvider } = window.BitmarkUIRenderer;
+        const { createElement: h } = React;
+        
+        // Simulate what the bitmark parser would produce for the multiple-choice question
+        const simulatedParsedJson = [
+            {
+                "bit": {
+                    "type": "multiple-choice",
+                    "format": "bitmark++",
+                    "bitLevel": 1,
+                    "body": [
+                        {
+                            "type": "paragraph",
+                            "content": [
+                                {
+                                    "text": "What color are violets?",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "paragraph",
+                            "content": [
+                                {
+                                    "type": "select",
+                                    "attrs": {
+                                        "options": [
+                                            {
+                                                "text": "red",
+                                                "isCorrect": false
+                                            },
+                                            {
+                                                "text": "blue", 
+                                                "isCorrect": true
+                                            },
+                                            {
+                                                "text": "green",
+                                                "isCorrect": false
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ];
+        
+        // Display the parsed JSON
+        document.getElementById('parsed-json').textContent = JSON.stringify(simulatedParsedJson, null, 2);
+        
+        // Convert the data using the same logic as BitmarkRenderedUI.tsx
+        function convertBitmarkData(bitWrappers) {
+            return bitWrappers.map((wrapper) => {
+                const bit = wrapper.bit || wrapper;
+                let content = '';
+                const allOptions = [];
+                let questionText = '';
+                
+                if (bit.body && Array.isArray(bit.body)) {
+                    content = bit.body
+                        .map((item) => {
+                            if (item.type === 'paragraph' && item.content) {
+                                const paragraphContent = item.content
+                                    .map((textItem) => {
+                                        if (textItem.type === 'text') {
+                                            return textItem.text;
+                                        } else if (textItem.type === 'select') {
+                                            const options = textItem.attrs?.options || [];
+                                            allOptions.push(...options);
+                                            return '';
+                                        }
+                                        return '';
+                                    })
+                                    .join('');
+                                
+                                if (!questionText && paragraphContent.trim() && !paragraphContent.includes('[')) {
+                                    questionText = paragraphContent.trim();
+                                }
+                                
+                                return paragraphContent;
+                            }
+                            return '';
+                        })
+                        .join('\n');
+                    
+                    // For multiple choice, create the content
+                    if (bit.type === 'multiple-choice' && allOptions.length > 0) {
+                        const correctOptions = allOptions.filter(opt => opt.isCorrect).map(opt => `[+${opt.text}]`);
+                        const wrongOptions = allOptions.filter(opt => !opt.isCorrect).map(opt => `[-${opt.text}]`);
+                        const question = questionText || content.split('\n')[0] || 'Choose an option:';
+                        content = question + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+                    }
+                }
+                
+                return {
+                    type: bit.type,
+                    content: content.trim(),
+                    originalBit: bit
+                };
+            });
+        }
+        
+        const convertedData = convertBitmarkData(simulatedParsedJson);
+        document.getElementById('converted-content').textContent = JSON.stringify(convertedData, null, 2);
+        
+        function App() {
+            console.log('Rendering with converted data:', convertedData);
+            
+            return h(ThemeProvider, null,
+                h(BitmarkRenderer, {
+                    data: convertedData,
+                    onInteraction: (interaction) => {
+                        console.log('User interaction:', interaction);
+                    }
+                })
+            );
+        }
+        
+        ReactDOM.render(h(App), document.getElementById('root'));
+    </script>
+</body>
+</html>
