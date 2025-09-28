@@ -48,15 +48,49 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+@app.post("/debug-conversation")
+async def debug_conversation(request: ChatRequest):
+    """Debug endpoint to see conversation history processing."""
+    print("=== DEBUG CONVERSATION ===")
+    print(f"Number of history messages: {len(request.conversation_history)}")
+    
+    for i, msg in enumerate(request.conversation_history):
+        print(f"Message {i}: Role={msg.role}, Content={msg.content[:50]}...")
+    
+    print(f"Current message: {request.message}")
+    
+    # Build conversation context
+    conversation_context = build_conversation_context(
+        request.conversation_history, 
+        request.message
+    )
+    
+    print(f"Built context with {len(conversation_context)} messages")
+    for i, ctx in enumerate(conversation_context):
+        role = ctx.role
+        content = ctx.parts[0].text if ctx.parts else "No content"
+        print(f"Context {i}: Role={role}, Content={content[:50]}...")
+    
+    return {
+        "history_count": len(request.conversation_history),
+        "context_count": len(conversation_context),
+        "current_message": request.message
+    }
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat_with_gemini(request: ChatRequest):
     """Send a message to Gemini and get a response using function calling."""
     try:
+        print(f"Received request with {len(request.conversation_history)} history messages")
+        print(f"Current message: {request.message[:100]}...")
+        
         # Build conversation context
         conversation_context = build_conversation_context(
             request.conversation_history, 
             request.message
         )
+        
+        print(f"Built conversation context with {len(conversation_context)} messages")
         
         # Create Gemini configuration
         config = create_gemini_config(SYSTEM_INSTRUCTION, get_function_declarations())
@@ -73,6 +107,7 @@ async def chat_with_gemini(request: ChatRequest):
             response, conversation_context, config, client
         )
         
+        print(f"Returning response: {response_text[:100]}...")
         return ChatResponse(
             response=response_text,
             success=True,

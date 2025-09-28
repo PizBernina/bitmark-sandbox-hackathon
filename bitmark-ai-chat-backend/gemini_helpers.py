@@ -34,6 +34,7 @@ def build_conversation_context(conversation_history: List[ChatMessage], current_
                 parts=[types.Part(text=msg.content)]
             )
         )
+        print(f"Added to context - Role: {gemini_role}, Content: {msg.content[:100]}...")
     
     # Add current user message
     context.append(
@@ -42,6 +43,7 @@ def build_conversation_context(conversation_history: List[ChatMessage], current_
             parts=[types.Part(text=current_message)]
         )
     )
+    print(f"Added current message - Content: {current_message[:100]}...")
     
     return context
 
@@ -142,8 +144,7 @@ async def process_gemini_response(response, conversation_context: List[types.Con
             response_text += part.text
         elif hasattr(part, 'function_call') and part.function_call:
             function_call_found = True
-            # Add the model's response to conversation context
-            conversation_context.append(candidate.content)
+            print(f"Function call detected: {part.function_call.name}")
             
             # Handle function call
             func_response, func_tools = await handle_function_call(part, conversation_context, config, client)
@@ -162,4 +163,5 @@ async def process_gemini_response(response, conversation_context: List[types.Con
         )
         response_text = extract_text_from_response(simple_response)
     
+    print(f"Final response text: {response_text[:100]}...")
     return response_text, tools_used
