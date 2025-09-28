@@ -7,6 +7,7 @@ import { BitmarkJsonTextBox } from './components/bitmark/BitmarkJsonTextBox';
 import { BitmarkMarkupDuration } from './components/bitmark/BitmarkMarkupDuration';
 import { BitmarkMarkupTextBox } from './components/bitmark/BitmarkMarkupTextBox';
 import { BitmarkRenderedUI } from './components/bitmark/BitmarkRenderedUI';
+import { AIChatManager } from './components/chat/AIChatManager';
 import { SandboxAutoViewer } from './components/sandbox/SandboxAutoViewer';
 import { Copyright } from './components/version/Copyright';
 import { Version } from './components/version/Version';
@@ -112,14 +113,17 @@ function App() {
                       }}
                     />
                   </Flex>
-                  <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
-                    <input
-                      type="checkbox"
-                      checked={snap.breakscapeWarningsEnabled}
-                      onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
-                    />
-                    <span style={{ color: 'white' }}>Breakscaping warnings</span>
-                  </label>
+                  <Flex sx={{ alignItems: 'center', gap: 2 }}>
+                    <AIChatManager />
+                    <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: 0.8 }}>
+                      <input
+                        type="checkbox"
+                        checked={snap.breakscapeWarningsEnabled}
+                        onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
+                      />
+                      <span style={{ color: 'white' }}>Breakscaping warnings</span>
+                    </label>
+                  </Flex>
                 </Flex>
                 <Flex
                   sx={{
