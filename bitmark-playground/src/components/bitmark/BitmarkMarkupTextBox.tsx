@@ -628,6 +628,7 @@ const BitmarkMarkupTextBox = (props: BitmarkMarkupTextBoxProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
+          color: 'white',
         }}
       >
         {text}

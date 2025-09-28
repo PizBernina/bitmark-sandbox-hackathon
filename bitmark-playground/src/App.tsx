@@ -118,7 +118,7 @@ function App() {
                       checked={snap.breakscapeWarningsEnabled}
                       onChange={(e) => bitmarkState.setBreakscapeWarningsEnabled(e.target.checked)}
                     />
-                    <span>Breakscaping warnings</span>
+                    <span style={{ color: 'white' }}>Breakscaping warnings</span>
                   </label>
                 </Flex>
                 <Flex
