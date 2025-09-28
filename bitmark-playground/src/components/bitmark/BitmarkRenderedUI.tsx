@@ -189,10 +189,24 @@ export const BitmarkRenderedUI: React.FC = () => {
             // eslint-disable-next-line no-console
             console.log('Created multiple choice content:', content);
           }
+
+          // For cloze-and-multiple-choice-text, if we have options, append them to the content
+          if (bit.type === 'cloze-and-multiple-choice-text' && allOptions.length > 0) {
+            const correctOptions = allOptions.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
+            const wrongOptions = allOptions.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
+            // Append options to the existing content
+            content = content + [...correctOptions, ...wrongOptions].join('');
+            // eslint-disable-next-line no-console
+            console.log('Created cloze-and-multiple-choice-text content:', content);
+          }
         }
 
         // Handle quizzes structure for multiple-choice (new format)
-        if (bit.type === 'multiple-choice' && bit.quizzes && Array.isArray(bit.quizzes)) {
+        if (
+          (bit.type === 'multiple-choice' || bit.type === 'cloze-and-multiple-choice-text') &&
+          bit.quizzes &&
+          Array.isArray(bit.quizzes)
+        ) {
           const allQuizOptions: any[] = [];
           let questionText = content || '';
 
@@ -228,7 +242,14 @@ export const BitmarkRenderedUI: React.FC = () => {
             const wrongOptions = allQuizOptions
               .filter((opt: any) => !opt.isCorrect)
               .map((opt: any) => `[-${opt.text}]`);
-            content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+
+            if (bit.type === 'cloze-and-multiple-choice-text') {
+              // For cloze-and-multiple-choice-text, append options to existing content
+              content = content + [...correctOptions, ...wrongOptions].join('');
+            } else {
+              // For multiple-choice, create new content with question and options
+              content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+            }
             // eslint-disable-next-line no-console
             console.log('Created multiple choice content from quizzes:', content);
           }
