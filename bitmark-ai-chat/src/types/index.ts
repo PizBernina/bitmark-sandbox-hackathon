@@ -1,8 +1,15 @@
+export interface ToolUsage {
+  name: string;
+  args: Record<string, any>;
+  timestamp: number;
+}
+
 export interface ChatMessage {
   id: string;
   content: string;
   sender: 'user' | 'ai';
   timestamp: Date;
+  toolsUsed?: ToolUsage[];
 }
 
 export interface ChatState {

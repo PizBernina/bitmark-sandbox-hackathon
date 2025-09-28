@@ -1,29 +1,21 @@
-import asyncio
 import os
-import json
-from typing import List, Dict, Any
-from pathlib import Path
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from dotenv import load_dotenv
 from google import genai
-from google.genai import types
+
+# Import our helper modules
+from models import ChatRequest, ChatResponse
+from tool_functions import get_function_declarations
+from gemini_helpers import (
+    load_system_instruction,
+    build_conversation_context,
+    create_gemini_config,
+    process_gemini_response
+)
 
 # Load environment variables from parent directory
 load_dotenv(dotenv_path="../.env")
-
-def load_system_instruction() -> str:
-    """Load system instruction from file or environment variable."""
-    # First try to load from file
-    system_file = Path(__file__).parent / "context-prompts" / "system_instruction.txt"
-    if system_file.exists():
-        return system_file.read_text(encoding="utf-8").strip()
-    
-    # Fallback to environment variable
-    return os.getenv(
-        "GEMINI_SYSTEM_INSTRUCTION"
-    )
 
 app = FastAPI(title="Bitmark AI Chat Backend", version="1.0.0")
 
@@ -36,23 +28,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic models for request/response
-class ChatMessage(BaseModel):
-    role: str  # "user" or "assistant" (mapped to "model" for Gemini API)
-    content: str
-    timestamp: str
-
-class ChatRequest(BaseModel):
-    message: str
-    conversation_history: List[ChatMessage] = []
-
-class ChatResponse(BaseModel):
-    response: str
-    success: bool
-    error: str = None
-
 # Initialize Gemini client
-MODEL = "gemini-2.0-flash-exp"
+MODEL = "gemini-live-2.5-flash" #-preview
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
@@ -73,52 +50,34 @@ async def health_check():
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_with_gemini(request: ChatRequest):
-    """
-    Send a message to Gemini and get a response
-    """
+    """Send a message to Gemini and get a response using function calling."""
     try:
-        config = {
-            "response_modalities": ["TEXT"],
-            "system_instruction": {
-                "parts": [{"text": SYSTEM_INSTRUCTION}]
-            }
-        }
+        # Build conversation context
+        conversation_context = build_conversation_context(
+            request.conversation_history, 
+            request.message
+        )
         
-        # Create conversation context from history
-        conversation_context = []
-        for msg in request.conversation_history:
-            # Map frontend roles to Gemini API roles
-            gemini_role = "user" if msg.role == "user" else "model"
-            conversation_context.append({
-                "role": gemini_role,
-                "parts": [{"text": msg.content}]
-            })
+        # Create Gemini configuration
+        config = create_gemini_config(SYSTEM_INSTRUCTION, get_function_declarations())
         
-        # Add current user message
-        conversation_context.append({
-            "role": "user", 
-            "parts": [{"text": request.message}]
-        })
-        
-        # Use the generate content API with system instruction
+        # Get response from Gemini
         response = await client.aio.models.generate_content(
-            model=MODEL,
+            model="gemini-2.5-flash",
             contents=conversation_context,
             config=config
         )
         
-        response_text = ""
-        if response.candidates and len(response.candidates) > 0:
-            candidate = response.candidates[0]
-            if candidate.content and candidate.content.parts:
-                for part in candidate.content.parts:
-                    if hasattr(part, 'text') and part.text:
-                        response_text += part.text
-            
-            return ChatResponse(
-                response=response_text,
-                success=True
-            )
+        # Process response and handle function calls
+        response_text, tools_used = await process_gemini_response(
+            response, conversation_context, config, client
+        )
+        
+        return ChatResponse(
+            response=response_text,
+            success=True,
+            tools_used=tools_used
+        )
             
     except Exception as e:
         print(f"Error in chat_with_gemini: {str(e)}")

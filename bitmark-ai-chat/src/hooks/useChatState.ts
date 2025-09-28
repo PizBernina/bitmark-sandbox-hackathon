@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ChatState, ChatMessage } from '../types';
+import { ChatState, ChatMessage, ToolUsage } from '../types';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -12,12 +12,13 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const addMessage = useCallback((content: string, sender: 'user' | 'ai') => {
+  const addMessage = useCallback((content: string, sender: 'user' | 'ai', toolsUsed?: ToolUsage[]) => {
     const newMessage: ChatMessage = {
       id: generateId(),
       content,
       sender,
       timestamp: new Date(),
+      toolsUsed,
     };
 
     setChatState(prev => ({
@@ -85,7 +86,7 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
       const data = await response.json();
       
       if (data.success) {
-        addMessage(data.response, 'ai');
+        addMessage(data.response, 'ai', data.tools_used || []);
       } else {
         addMessage(`Error: ${data.error || 'Failed to get response from AI'}`, 'ai');
       }
