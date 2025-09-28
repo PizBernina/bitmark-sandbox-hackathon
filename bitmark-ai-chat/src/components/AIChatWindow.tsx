@@ -14,6 +14,7 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
   position,
   onPositionChange,
   onClose,
+  isLoading = false,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -250,7 +251,7 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
             <div ref={messagesEndRef} />
           </Box>
           
-          <ChatInput onSendMessage={onSendMessage} />
+          <ChatInput onSendMessage={onSendMessage} isLoading={isLoading} />
         </>
       )}
     </Box>

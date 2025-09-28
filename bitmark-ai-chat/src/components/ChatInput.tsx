@@ -4,9 +4,10 @@ import { Box, Input, Button } from 'theme-ui';
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
-export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = false }) => {
+export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = false, isLoading = false }) => {
   const [message, setMessage] = useState('');
 
   const handleSend = () => {
@@ -53,13 +54,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = 
             borderColor: '#63019B',
           },
         }}
-        disabled={disabled}
+        disabled={disabled || isLoading}
       />
       <Button
         onClick={handleSend}
-        disabled={!message.trim() || disabled}
+        disabled={!message.trim() || disabled || isLoading}
         sx={{
-          backgroundColor: '#63019B',
+          backgroundColor: isLoading ? '#ccc' : '#63019B',
           color: 'white',
           border: 'none',
           borderRadius: '50%',
@@ -69,9 +70,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = 
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          cursor: 'pointer',
+          cursor: isLoading ? 'not-allowed' : 'pointer',
           '&:hover': {
-            backgroundColor: '#4a0168',
+            backgroundColor: isLoading ? '#ccc' : '#4a0168',
           },
           '&:disabled': {
             backgroundColor: '#ccc',
@@ -80,7 +81,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, disabled = 
           },
         }}
       >
-        ➤
+        {isLoading ? '⏳' : '➤'}
       </Button>
     </Box>
   );

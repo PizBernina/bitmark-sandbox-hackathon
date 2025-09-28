@@ -1,6 +1,36 @@
 
-## ToDo
-- Integrate LLM features
+## Overview
+
+The Bitmark ecosystem provides a comprehensive suite of tools for creating, parsing, and rendering interactive educational content. This repository contains multiple packages that work together to enable authors to create engaging educational materials with embedded runnable examples and AI-powered assistance.
+
+### Core Functionality
+
+**Sandbox Bits System** - Enable authors to embed runnable Bitmark examples inside content and show the resulting JSON or Bitmark, entirely client-side. The system uses multiple bits for composability:
+- `.app-code-editor` - Input bit for Bitmark or JSON content with stable ID references
+- `.sandbox-output-json` - Displays JSON output computed from referenced input
+- `.sandbox-output-bitmark` - Displays Bitmark output computed from referenced input
+- Client-side conversion using the same parser as the playground
+- Support for version pinning and prettification options
+
+**AI Chat Integration** - Intelligent assistance for Bitmark content creation and troubleshooting:
+- Real-time analysis of playground content through AI tools
+- Code access capabilities for all Bitmark packages
+- Visual feedback system with tool usage animations
+- Conversation history and context management
+
+**UI Rendering** - Complete React component library for interactive educational content:
+- Some Bitmark bit types rendered as interactive UI elements
+- Support for quizzes, dropdowns, forms, and custom interactions
+
+
+### Package Structure
+
+- **bitmark-parser-generator** - Core parsing engine and bit type definitions
+- **bitmark-ui-renderer** - React components for rendering Bitmark content
+- **bitmark-playground** - Interactive development environment
+- **bitmark-ai-chat** - React components for AI chat integration
+- **bitmark-ai-chat-backend** - FastAPI backend with Gemini API integration
+
 
 ## Context and design options
 
@@ -594,6 +624,44 @@ Implementation notes:
 
 - Paste notifications only appear when the pasted region actually differs from the normalized result; if no change is needed, no toast is shown.
 
+
+## AI Chat Integration
+
+The Bitmark ecosystem includes AI-powered chat capabilities to help users create and troubleshoot Bitmark content.
+
+### bitmark-ai-chat-backend
+FastAPI-based backend service providing integration with Google's Gemini API and advanced tool calling capabilities.
+
+**Key Features:**
+- Gemini API 2.5 Flash integration with function calling
+- Tool usage animation system with visual feedback
+- Direct playground integration for real-time content analysis
+- Code access tools for bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground
+- Conversation history support and error handling
+
+**Documentation:** [bitmark-ai-chat-backend/README.md](./bitmark-ai-chat-backend/README.md)
+
+### bitmark-ai-chat
+React component library for integrating AI chat functionality into Bitmark applications.
+
+**Key Features:**
+- React components for chat interface (AIChatButton, AIChatWindow, ChatInput, ChatMessage)
+- Tool usage indicators with animations
+- TypeScript support with comprehensive type definitions
+- Easy integration with existing React applications
+
+**Documentation:** [bitmark-ai-chat/README.md](./bitmark-ai-chat/README.md)
+
+### bitmark-ui-renderer
+React component library for rendering Bitmark content as interactive UI elements.
+
+**Key Features:**
+- React components for all Bitmark bit types
+- Interactive elements (quizzes, dropdowns, forms)
+- TypeScript support with full type safety
+- Customizable styling and theming
+
+**Documentation:** [bitmark-ui-renderer/README.md](./bitmark-ui-renderer/README.md)
 
 ## Changes Summary
 
