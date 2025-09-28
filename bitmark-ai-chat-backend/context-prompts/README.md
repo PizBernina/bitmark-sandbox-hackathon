@@ -79,7 +79,3 @@ The backend uses a modular architecture:
 - `tool_functions.py` - Tool functions and declarations
 - `gemini_helpers.py` - Gemini API interaction helpers
 - `context-prompts/` - Context files and system instructions
-
-## Changes Take Effect
-
-The changes will take effect the next time the backend is restarted.
