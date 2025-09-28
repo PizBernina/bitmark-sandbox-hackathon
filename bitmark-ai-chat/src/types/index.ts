@@ -1,7 +1,10 @@
 export interface ToolUsage {
-  name: string;
-  args: Record<string, any>;
-  timestamp: number;
+  function_name: string;
+  status: 'starting' | 'in_progress' | 'completed' | 'error';
+  emoji: string;
+  description: string;
+  start_time?: string;
+  end_time?: string;
 }
 
 export interface ChatMessage {
@@ -10,6 +13,8 @@ export interface ChatMessage {
   sender: 'user' | 'ai';
   timestamp: Date;
   toolsUsed?: ToolUsage[];
+  toolUsageIndicators?: ToolUsage[];
+  hasToolUsage?: boolean;
 }
 
 export interface ChatState {

@@ -1,11 +1,12 @@
 import os
+from datetime import datetime
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from google import genai
 
 # Import our helper modules
-from models import ChatRequest, ChatResponse
+from models import ChatRequest, ChatResponse, ToolUsage
 from tool_functions import get_function_declarations
 from gemini_helpers import (
     load_system_instruction,
@@ -13,6 +14,7 @@ from gemini_helpers import (
     create_gemini_config,
     process_gemini_response
 )
+from tool_usage_tracker import create_tool_usage_indicators
 
 # Load environment variables from parent directory
 load_dotenv(dotenv_path="../.env")
@@ -28,8 +30,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize Gemini client
-MODEL = "gemini-live-2.5-flash" #-preview
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
@@ -47,6 +47,18 @@ async def root():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+@app.get("/tool-animations/css")
+async def get_tool_animations_css():
+    """Get CSS for tool usage animations."""
+    from tool_usage_tracker import get_tool_animation_css
+    return {"css": get_tool_animation_css()}
+
+@app.get("/tool-animations/js")
+async def get_tool_animations_js():
+    """Get JavaScript for tool usage animations."""
+    from tool_usage_tracker import get_tool_animation_js
+    return {"js": get_tool_animation_js()}
 
 @app.post("/debug-conversation")
 async def debug_conversation(request: ChatRequest):
@@ -76,6 +88,37 @@ async def debug_conversation(request: ChatRequest):
         "context_count": len(conversation_context),
         "current_message": request.message
     }
+
+@app.post("/test-tool-animations")
+async def test_tool_animations():
+    """Test endpoint to verify tool usage indicators work."""
+    # Create test tool usage indicators
+    test_tool_usage_indicators = [
+        ToolUsage(
+            function_name="get_bitmark_general_info",
+            status="completed",
+            emoji="📚",
+            description="Looking up Bitmark information",
+            start_time=datetime.now().isoformat(),
+            end_time=datetime.now().isoformat()
+        )
+    ]
+    
+    test_tools_used = [
+        {
+            "function": "get_bitmark_general_info",
+            "args": {"topic": "team"},
+            "result": {"success": True, "content": "Test content"}
+        }
+    ]
+    
+    return ChatResponse(
+        response="This is a test response with tool usage indicators!",
+        success=True,
+        tools_used=test_tools_used,
+        tool_usage_indicators=test_tool_usage_indicators,
+        has_tool_usage=True
+    )
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_with_gemini(request: ChatRequest):
@@ -107,11 +150,22 @@ async def chat_with_gemini(request: ChatRequest):
             response, conversation_context, config, client
         )
         
+        # Create tool usage indicators
+        tool_usage_indicators = create_tool_usage_indicators(tools_used)
+        has_tool_usage = len(tools_used) > 0
+        
         print(f"Returning response: {response_text[:100]}...")
+        print(f"Tools used: {len(tools_used)}")
+        print(f"Tool usage indicators: {len(tool_usage_indicators)}")
+        print(f"Has tool usage: {has_tool_usage}")
+        print(f"Tool usage indicators details: {tool_usage_indicators}")
+        
         return ChatResponse(
             response=response_text,
             success=True,
-            tools_used=tools_used
+            tools_used=tools_used,
+            tool_usage_indicators=tool_usage_indicators,
+            has_tool_usage=has_tool_usage
         )
             
     except Exception as e:

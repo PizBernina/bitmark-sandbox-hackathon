@@ -36,7 +36,12 @@ var import_theme_ui3 = require("theme-ui");
 var import_theme_ui = require("theme-ui");
 var import_jsx_runtime = require("react/jsx-runtime");
 var ChatMessage = ({ message }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+  // Debug logging
+  console.log('ChatMessage received:', message);
+  console.log('Tool usage indicators:', message.toolUsageIndicators);
+  console.log('Has tool usage:', message.hasToolUsage);
+  
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     import_theme_ui.Box,
     {
       sx: {
@@ -44,43 +49,127 @@ var ChatMessage = ({ message }) => {
         justifyContent: message.sender === "user" ? "flex-end" : "flex-start",
         marginBottom: "8px"
       },
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_theme_ui.Box, { children: [
+      children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           import_theme_ui.Box,
           {
-            sx: {
-              maxWidth: "70%",
-              padding: "8px 12px",
-              borderRadius: "18px",
-              backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
-              color: message.sender === "user" ? "white" : "#333",
-              wordWrap: "break-word"
-            },
-            children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-              import_theme_ui.Text,
-              {
-                sx: {
-                  fontSize: "14px",
-                  whiteSpace: "pre-wrap"
-                },
-                children: message.content
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          import_theme_ui.Text,
-          {
-            sx: {
-              fontSize: "0.75rem",
-              color: "#666",
-              marginTop: "4px",
-              textAlign: message.sender === "user" ? "right" : "left"
-            },
-            children: message.timestamp.toLocaleTimeString()
+            children: [
+              // Tool usage indicators for AI messages
+              message.sender === "ai" && message.toolUsageIndicators && message.toolUsageIndicators.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                import_theme_ui.Box,
+                {
+                  sx: {
+                    margin: "10px 0",
+                    padding: "10px",
+                    background: "#f8f9fa",
+                    borderRadius: "8px",
+                    borderLeft: "4px solid #007bff"
+                  },
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      import_theme_ui.Text,
+                      {
+                        sx: {
+                          marginBottom: "8px",
+                          fontSize: "12px",
+                          color: "#666",
+                          fontWeight: 500
+                        },
+                        children: "🤖 AI is using tools..."
+                      }
+                    ),
+                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                      import_theme_ui.Box,
+                      {
+                        sx: {
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "4px"
+                        },
+                        children: message.toolUsageIndicators.map((tool, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                          import_theme_ui.Box,
+                          {
+                            key: `${tool.function_name}-${index}`,
+                            sx: {
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "8px",
+                              padding: "8px 12px",
+                              margin: "4px",
+                              borderRadius: "20px",
+                              background: "linear-gradient(45deg, #e8f5e8, #d4edda)",
+                              border: "1px solid #c3e6cb",
+                              fontSize: "14px",
+                              animation: "toolComplete 0.5s ease-out"
+                            },
+                            children: [
+                              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                                import_theme_ui.Text,
+                                {
+                                  sx: {
+                                    fontSize: "16px"
+                                  },
+                                  children: tool.emoji
+                                }
+                              ),
+                              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                                import_theme_ui.Text,
+                                {
+                                  sx: {
+                                    fontWeight: 500,
+                                    color: "#333"
+                                  },
+                                  children: tool.description
+                                }
+                              )
+                            ]
+                          },
+                          `${tool.function_name}-${index}`
+                        ))
+                      }
+                    )
+                  ]
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                import_theme_ui.Box,
+                {
+                  sx: {
+                    maxWidth: "70%",
+                    padding: "8px 12px",
+                    borderRadius: "18px",
+                    backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
+                    color: message.sender === "user" ? "white" : "#333",
+                    wordWrap: "break-word"
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                    import_theme_ui.Text,
+                    {
+                      sx: {
+                        fontSize: "14px",
+                        whiteSpace: "pre-wrap"
+                      },
+                      children: message.content
+                    }
+                  )
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                import_theme_ui.Text,
+                {
+                  sx: {
+                    fontSize: "0.75rem",
+                    color: "#666",
+                    marginTop: "4px",
+                    textAlign: message.sender === "user" ? "right" : "left"
+                  },
+                  children: message.timestamp.toLocaleTimeString()
+                }
+              )
+            ]
           }
         )
-      ] })
+      ]
     }
   );
 };
@@ -475,12 +564,15 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
     isVisible: false
   });
   const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
-  const addMessage = (0, import_react3.useCallback)((content, sender) => {
+  const addMessage = (0, import_react3.useCallback)((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
     const newMessage = {
       id: generateId(),
       content,
       sender,
-      timestamp: /* @__PURE__ */ new Date()
+      timestamp: /* @__PURE__ */ new Date(),
+      toolsUsed,
+      toolUsageIndicators,
+      hasToolUsage
     };
     setChatState((prev) => ({
       ...prev,
@@ -534,8 +626,21 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
+      
+      // Debug logging
+      console.log('Backend response:', data);
+      console.log('Tools used:', data.tools_used);
+      console.log('Tool usage indicators:', data.tool_usage_indicators);
+      console.log('Has tool usage:', data.has_tool_usage);
+      
       if (data.success) {
-        addMessage(data.response, "ai");
+        addMessage(
+          data.response, 
+          "ai", 
+          data.tools_used || [], 
+          data.tool_usage_indicators || [],
+          data.has_tool_usage || false
+        );
       } else {
         addMessage(`Error: ${data.error || "Failed to get response from AI"}`, "ai");
       }

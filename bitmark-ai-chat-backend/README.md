@@ -80,7 +80,7 @@ Send a message to Gemini and get a response
 
 ## Configuration
 
-- **Model**: `gemini-2.0-flash-exp`
+- **Model**: `gemini-2.5-flash`
 - **Response Modalities**: TEXT only
 - **CORS**: Configured for `http://localhost:3010` (frontend)
 - **System Instruction**: Configurable via `GEMINI_SYSTEM_INSTRUCTION` environment variable

@@ -12,13 +12,21 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const addMessage = useCallback((content: string, sender: 'user' | 'ai', toolsUsed?: ToolUsage[]) => {
+  const addMessage = useCallback((
+    content: string, 
+    sender: 'user' | 'ai', 
+    toolsUsed?: ToolUsage[], 
+    toolUsageIndicators?: ToolUsage[],
+    hasToolUsage?: boolean
+  ) => {
     const newMessage: ChatMessage = {
       id: generateId(),
       content,
       sender,
       timestamp: new Date(),
       toolsUsed,
+      toolUsageIndicators,
+      hasToolUsage,
     };
 
     setChatState(prev => ({
@@ -85,8 +93,20 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
       
       const data = await response.json();
       
+      // Debug logging
+      console.log('Backend response:', data);
+      console.log('Tools used:', data.tools_used);
+      console.log('Tool usage indicators:', data.tool_usage_indicators);
+      console.log('Has tool usage:', data.has_tool_usage);
+      
       if (data.success) {
-        addMessage(data.response, 'ai', data.tools_used || []);
+        addMessage(
+          data.response, 
+          'ai', 
+          data.tools_used || [], 
+          data.tool_usage_indicators || [],
+          data.has_tool_usage || false
+        );
       } else {
         addMessage(`Error: ${data.error || 'Failed to get response from AI'}`, 'ai');
       }

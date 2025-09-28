@@ -17,9 +17,20 @@ class ChatRequest(BaseModel):
     conversation_history: List[ChatMessage] = []
 
 
+class ToolUsage(BaseModel):
+    """Model for tool usage information."""
+    function_name: str
+    status: str  # "starting", "in_progress", "completed", "error"
+    emoji: str
+    description: str
+    start_time: str = None
+    end_time: str = None
+
 class ChatResponse(BaseModel):
     """Response model for chat endpoint."""
     response: str
     success: bool
     error: str = None
     tools_used: List[Dict[str, Any]] = []
+    tool_usage_indicators: List[ToolUsage] = []
+    has_tool_usage: bool = False
