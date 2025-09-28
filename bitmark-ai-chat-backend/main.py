@@ -25,7 +25,7 @@ app.add_middleware(
 
 # Pydantic models for request/response
 class ChatMessage(BaseModel):
-    role: str  # "user" or "assistant"
+    role: str  # "user" or "assistant" (mapped to "model" for Gemini API)
     content: str
     timestamp: str
 
@@ -68,8 +68,10 @@ async def chat_with_gemini(request: ChatRequest):
         # Create conversation context from history
         conversation_context = []
         for msg in request.conversation_history:
+            # Map frontend roles to Gemini API roles
+            gemini_role = "user" if msg.role == "user" else "model"
             conversation_context.append({
-                "role": msg.role,
+                "role": gemini_role,
                 "parts": [{"text": msg.content}]
             })
         

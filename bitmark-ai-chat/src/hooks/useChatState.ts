@@ -61,7 +61,7 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
     try {
       // Prepare conversation history for the API
       const conversationHistory = chatState.messages.map(msg => ({
-        role: msg.sender,
+        role: msg.sender === 'ai' ? 'assistant' : msg.sender,
         content: msg.content,
         timestamp: msg.timestamp.toISOString()
       }));
