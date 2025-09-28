@@ -53,6 +53,7 @@ const BitmarkJsonTextBox = (props: BitmarkJsonTextBoxProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
+          color: 'white',
         }}
       >
         {text}

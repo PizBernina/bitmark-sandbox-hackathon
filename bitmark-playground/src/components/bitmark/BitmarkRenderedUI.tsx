@@ -144,7 +144,28 @@ export const BitmarkRenderedUI: React.FC = () => {
               if (item.type === 'paragraph' && item.content) {
                 const paragraphContent = item.content
                   .map((textItem: any) => {
+                    // Debug logging for article types
+                    if (bit.type === 'article') {
+                      // eslint-disable-next-line no-console
+                      console.log('Processing textItem for article:', textItem);
+                      if (textItem.marks && Array.isArray(textItem.marks) && textItem.marks.length > 0) {
+                        // eslint-disable-next-line no-console
+                        console.log('TextItem has marks:', textItem.marks);
+                      }
+                    }
+
                     if (textItem.type === 'text') {
+                      // Check for formatting marks
+                      if (textItem.marks && Array.isArray(textItem.marks) && textItem.marks.length > 0) {
+                        const mark = textItem.marks[0];
+                        if (mark.type === 'strong' || mark.type === 'bold') {
+                          return `**${textItem.text}**`;
+                        } else if (mark.type === 'em' || mark.type === 'italic') {
+                          return `__${textItem.text}__`;
+                        } else if (mark.type === 'u' || mark.type === 'underline') {
+                          return `==${textItem.text}==`;
+                        }
+                      }
                       return textItem.text;
                     } else if (textItem.type === 'gap') {
                       return `[_${textItem.attrs?.solutions?.[0] || ''}]`;
@@ -155,6 +176,15 @@ export const BitmarkRenderedUI: React.FC = () => {
                       return '';
                     } else if (textItem.type === 'hardBreak') {
                       return '\n';
+                    } else if (textItem.type === 'strong' || textItem.type === 'bold') {
+                      // Handle bold formatting
+                      return `**${textItem.text || textItem.content || ''}**`;
+                    } else if (textItem.type === 'em' || textItem.type === 'italic') {
+                      // Handle italic formatting
+                      return `__${textItem.text || textItem.content || ''}__`;
+                    } else if (textItem.type === 'u' || textItem.type === 'underline') {
+                      // Handle underline formatting
+                      return `==${textItem.text || textItem.content || ''}==`;
                     }
                     return '';
                   })
@@ -189,10 +219,24 @@ export const BitmarkRenderedUI: React.FC = () => {
             // eslint-disable-next-line no-console
             console.log('Created multiple choice content:', content);
           }
+
+          // For cloze-and-multiple-choice-text, if we have options, append them to the content
+          if (bit.type === 'cloze-and-multiple-choice-text' && allOptions.length > 0) {
+            const correctOptions = allOptions.filter((opt: any) => opt.isCorrect).map((opt: any) => `[+${opt.text}]`);
+            const wrongOptions = allOptions.filter((opt: any) => !opt.isCorrect).map((opt: any) => `[-${opt.text}]`);
+            // Append options to the existing content
+            content = content + [...correctOptions, ...wrongOptions].join('');
+            // eslint-disable-next-line no-console
+            console.log('Created cloze-and-multiple-choice-text content:', content);
+          }
         }
 
         // Handle quizzes structure for multiple-choice (new format)
-        if (bit.type === 'multiple-choice' && bit.quizzes && Array.isArray(bit.quizzes)) {
+        if (
+          (bit.type === 'multiple-choice' || bit.type === 'cloze-and-multiple-choice-text') &&
+          bit.quizzes &&
+          Array.isArray(bit.quizzes)
+        ) {
           const allQuizOptions: any[] = [];
           let questionText = content || '';
 
@@ -228,7 +272,14 @@ export const BitmarkRenderedUI: React.FC = () => {
             const wrongOptions = allQuizOptions
               .filter((opt: any) => !opt.isCorrect)
               .map((opt: any) => `[-${opt.text}]`);
-            content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+
+            if (bit.type === 'cloze-and-multiple-choice-text') {
+              // For cloze-and-multiple-choice-text, append options to existing content
+              content = content + [...correctOptions, ...wrongOptions].join('');
+            } else {
+              // For multiple-choice, create new content with question and options
+              content = questionText + '\n' + [...correctOptions, ...wrongOptions].join('\n');
+            }
             // eslint-disable-next-line no-console
             console.log('Created multiple choice content from quizzes:', content);
           }
@@ -265,6 +316,8 @@ export const BitmarkRenderedUI: React.FC = () => {
           mappedType = 'multiple-choice';
         } else if (bit.type === 'cloze') {
           mappedType = 'cloze';
+        } else if (bit.type === 'article') {
+          mappedType = 'article';
         } else if (bit.type === 'app-code-editor') {
           // Preserve app-code-editor type for proper rendering
           mappedType = bit.type;
@@ -278,6 +331,12 @@ export const BitmarkRenderedUI: React.FC = () => {
           content: content.trim(),
           originalBit: bit, // Keep original for debugging
         };
+
+        // Add article-specific properties
+        if (bit.type === 'article') {
+          result.title = bit.title || bit.attrs?.title || 'Article';
+          result.level = bit.level || bit.attrs?.level || 1;
+        }
 
         // Add properties needed for grouping
         if (bit.type === 'app-code-editor') {
