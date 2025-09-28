@@ -10,6 +10,7 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
     position: initialPosition,
     isVisible: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const addMessage = useCallback((content: string, sender: 'user' | 'ai') => {
     const newMessage: ChatMessage = {
@@ -53,17 +54,52 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
     }));
   }, []);
 
-  const sendMessage = useCallback((message: string) => {
+  const sendMessage = useCallback(async (message: string) => {
     addMessage(message, 'user');
-    // TODO: Add AI response logic here when Gemini integration is implemented
-    // For now, we'll just echo the message back
-    setTimeout(() => {
-      addMessage(`Echo: ${message}`, 'ai');
-    }, 1000);
-  }, [addMessage]);
+    setIsLoading(true);
+    
+    try {
+      // Prepare conversation history for the API
+      const conversationHistory = chatState.messages.map(msg => ({
+        role: msg.sender,
+        content: msg.content,
+        timestamp: msg.timestamp.toISOString()
+      }));
+      
+      // Call the backend API
+      const response = await fetch('http://localhost:8000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: message,
+          conversation_history: conversationHistory
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        addMessage(data.response, 'ai');
+      } else {
+        addMessage(`Error: ${data.error || 'Failed to get response from AI'}`, 'ai');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      addMessage(`Error: ${error instanceof Error ? error.message : 'Failed to connect to AI service'}`, 'ai');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [addMessage, chatState.messages]);
 
   return {
     chatState,
+    isLoading,
     addMessage,
     clearMessages,
     toggleVisibility,

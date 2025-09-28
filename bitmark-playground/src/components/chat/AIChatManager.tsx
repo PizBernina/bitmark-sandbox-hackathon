@@ -3,7 +3,8 @@ import React from 'react';
 import { AIChatWindow, AIChatButton, useChatState } from '../../lib/bitmark-ai-chat/index.js';
 
 export const AIChatManager: React.FC = () => {
-  const { chatState, toggleVisibility, toggleMinimize, updatePosition, sendMessage, clearMessages } = useChatState();
+  const { chatState, isLoading, toggleVisibility, toggleMinimize, updatePosition, sendMessage, clearMessages } =
+    useChatState();
 
   const handleClose = () => {
     // Close the window by hiding it
@@ -23,6 +24,7 @@ export const AIChatManager: React.FC = () => {
         position={chatState.position}
         onPositionChange={updatePosition}
         onClose={handleClose}
+        isLoading={isLoading}
       />
     </>
   );

@@ -22,6 +22,7 @@ export interface AIChatWindowProps {
   position: { x: number; y: number };
   onPositionChange: (position: { x: number; y: number }) => void;
   onClose: () => void;
+  isLoading?: boolean;
 }
 
 export interface AIChatButtonProps {

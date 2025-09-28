@@ -59,7 +59,7 @@ var ChatMessage = ({ message }) => {
 import { useState } from "react";
 import { Box as Box2, Input, Button } from "theme-ui";
 import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
-var ChatInput = ({ onSendMessage, disabled = false }) => {
+var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
   const [message, setMessage] = useState("");
   const handleSend = () => {
     if (message.trim() && !disabled) {
@@ -106,16 +106,16 @@ var ChatInput = ({ onSendMessage, disabled = false }) => {
                 borderColor: "#63019B"
               }
             },
-            disabled
+            disabled: disabled || isLoading
           }
         ),
         /* @__PURE__ */ jsx2(
           Button,
           {
             onClick: handleSend,
-            disabled: !message.trim() || disabled,
+            disabled: !message.trim() || disabled || isLoading,
             sx: {
-              backgroundColor: "#63019B",
+              backgroundColor: isLoading ? "#ccc" : "#63019B",
               color: "white",
               border: "none",
               borderRadius: "50%",
@@ -125,9 +125,9 @@ var ChatInput = ({ onSendMessage, disabled = false }) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              cursor: "pointer",
+              cursor: isLoading ? "not-allowed" : "pointer",
               "&:hover": {
-                backgroundColor: "#4a0168"
+                backgroundColor: isLoading ? "#ccc" : "#4a0168"
               },
               "&:disabled": {
                 backgroundColor: "#ccc",
@@ -135,7 +135,7 @@ var ChatInput = ({ onSendMessage, disabled = false }) => {
                 cursor: "not-allowed"
               }
             },
-            children: "\u27A4"
+            children: isLoading ? "\u23F3" : "\u27A4"
           }
         )
       ]
@@ -154,7 +154,8 @@ var AIChatWindow = ({
   isMinimized,
   position,
   onPositionChange,
-  onClose
+  onClose,
+  isLoading = false
 }) => {
   const [isDragging, setIsDragging] = useState2(false);
   const [dragStart, setDragStart] = useState2({ x: 0, y: 0 });
@@ -394,7 +395,7 @@ var AIChatWindow = ({
               ]
             }
           ),
-          /* @__PURE__ */ jsx3(ChatInput, { onSendMessage })
+          /* @__PURE__ */ jsx3(ChatInput, { onSendMessage, isLoading })
         ] })
       ]
     }
@@ -443,6 +444,7 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
     position: initialPosition,
     isVisible: false
   });
+  const [isLoading, setIsLoading] = useState3(false);
   const addMessage = useCallback((content, sender) => {
     const newMessage = {
       id: generateId(),
@@ -479,14 +481,44 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
       position
     }));
   }, []);
-  const sendMessage = useCallback((message) => {
+  const sendMessage = useCallback(async (message) => {
     addMessage(message, "user");
-    setTimeout(() => {
-      addMessage(`Echo: ${message}`, "ai");
-    }, 1e3);
-  }, [addMessage]);
+    setIsLoading(true);
+    try {
+      const conversationHistory = chatState.messages.map((msg) => ({
+        role: msg.sender,
+        content: msg.content,
+        timestamp: msg.timestamp.toISOString()
+      }));
+      const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message,
+          conversation_history: conversationHistory
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success) {
+        addMessage(data.response, "ai");
+      } else {
+        addMessage(`Error: ${data.error || "Failed to get response from AI"}`, "ai");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      addMessage(`Error: ${error instanceof Error ? error.message : "Failed to connect to AI service"}`, "ai");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [addMessage, chatState.messages]);
   return {
     chatState,
+    isLoading,
     addMessage,
     clearMessages,
     toggleVisibility,

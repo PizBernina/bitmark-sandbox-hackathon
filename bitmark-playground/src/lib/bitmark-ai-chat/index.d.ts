@@ -31,6 +31,7 @@ interface AIChatWindowProps {
         y: number;
     }) => void;
     onClose: () => void;
+    isLoading?: boolean;
 }
 interface AIChatButtonProps {
     onClick: () => void;
@@ -49,6 +50,7 @@ declare const ChatMessage: React.FC<ChatMessageProps>;
 interface ChatInputProps {
     onSendMessage: (message: string) => void;
     disabled?: boolean;
+    isLoading?: boolean;
 }
 declare const ChatInput: React.FC<ChatInputProps>;
 
@@ -57,6 +59,7 @@ declare const useChatState: (initialPosition?: {
     y: number;
 }) => {
     chatState: ChatState;
+    isLoading: boolean;
     addMessage: (content: string, sender: "user" | "ai") => void;
     clearMessages: () => void;
     toggleVisibility: () => void;
@@ -65,7 +68,7 @@ declare const useChatState: (initialPosition?: {
         x: number;
         y: number;
     }) => void;
-    sendMessage: (message: string) => void;
+    sendMessage: (message: string) => Promise<void>;
 };
 
 export { AIChatButton, type AIChatButtonProps, AIChatWindow, type AIChatWindowProps, ChatInput, type ChatMessage$1 as ChatMessage, ChatMessage as ChatMessageComponent, type ChatState, useChatState };
