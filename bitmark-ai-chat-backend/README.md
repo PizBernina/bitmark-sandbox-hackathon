@@ -165,6 +165,7 @@ The backend provides visual feedback when the AI uses tools to answer user quest
 |------|-------|-------------|---------|
 | `get_bitmark_general_info` | 📚 | Looking up Bitmark information | Retrieve general info about Bitmark |
 | `get_bitmark_code_info` | 💻 | Analyzing code structure | Get technical details about Bitmark |
+| `get_code_access_info` | 🔍 | Analyzing source code | Access actual running code and implementation details |
 | `get_playground_panes_info` | ⚙️ | Analyzing your Bitmark content | Access and analyze playground content |
 
 ### Animation States

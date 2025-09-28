@@ -17,9 +17,14 @@ TOOL_EMOJIS = {
         "description": "Analyzing code structure",
         "color": "#2196F3"
     },
-    "get_user_input_info": {
-        "emoji": "🔧",
-        "description": "Troubleshooting input issues",
+    "get_code_access_info": {
+        "emoji": "🔍",
+        "description": "Analyzing source code",
+        "color": "#9C27B0"
+    },
+    "get_playground_panes_info": {
+        "emoji": "⚙️",
+        "description": "Analyzing your Bitmark content",
         "color": "#FF9800"
     }
 }

@@ -66,6 +66,39 @@ def get_bitmark_code_info(code_type: str = "syntax") -> Dict[str, Any]:
     }
 
 
+def get_code_access_info(code_type: str = "parser", file_path: str = None, function_name: str = None) -> Dict[str, Any]:
+    """
+    Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground.
+    Use this when users ask about implementation details, code structure, or need to understand how specific functions work.
+    
+    Args:
+        code_type: Type of code to access (parser, ui_renderer, playground, specific_file, function_implementation)
+        file_path: Specific file path to analyze (optional)
+        function_name: Specific function to examine (optional)
+    
+    Returns:
+        Dictionary containing code analysis and implementation details
+    """
+    try:
+        if code_type == "parser":
+            return _get_parser_code_info()
+        elif code_type == "ui_renderer":
+            return _get_ui_renderer_code_info()
+        elif code_type == "playground":
+            return _get_playground_code_info()
+        elif code_type == "specific_file" and file_path:
+            return _get_specific_file_info(file_path)
+        elif code_type == "function_implementation" and function_name:
+            return _get_function_implementation(function_name)
+        else:
+            return _get_general_code_info()
+    except Exception as e:
+        return {
+            "code_type": code_type,
+            "error": f"Failed to access code information: {str(e)}",
+            "success": False
+        }
+
 def get_playground_panes_info(input_type: str = "general", pane_content: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     Access and analyze the 4 playground panes (Bitmark markup, JSON, Rendered UI, Sandbox) to help users with their Bitmark content.
@@ -452,6 +485,275 @@ def _get_forms_info() -> Dict[str, Any]:
         "success": True
     }
 
+def _get_parser_code_info() -> Dict[str, Any]:
+    """Get information about the bitmark-parser-generator code."""
+    try:
+        import os
+        import sys
+        
+        # Add the parser package to the path
+        parser_path = os.path.join(os.path.dirname(__file__), '..', 'bitmark-parser-generator', 'src')
+        if parser_path not in sys.path:
+            sys.path.insert(0, parser_path)
+        
+        # Try to import and analyze the parser
+        try:
+            from BitmarkParserGenerator import BitmarkParserGenerator
+            parser = BitmarkParserGenerator()
+            
+            # Get parser methods and properties
+            methods = [method for method in dir(parser) if not method.startswith('_')]
+            
+            return {
+                "code_type": "parser",
+                "package": "bitmark-parser-generator",
+                "class": "BitmarkParserGenerator",
+                "available_methods": methods[:10],  # First 10 methods
+                "total_methods": len(methods),
+                "description": "Main parser class for converting Bitmark markup to JSON",
+                "success": True
+            }
+        except ImportError as e:
+            return {
+                "code_type": "parser",
+                "error": f"Could not import BitmarkParserGenerator: {str(e)}",
+                "suggestion": "Make sure bitmark-parser-generator is installed and accessible",
+                "success": False
+            }
+            
+    except Exception as e:
+        return {
+            "code_type": "parser",
+            "error": f"Failed to access parser code: {str(e)}",
+            "success": False
+        }
+
+def _get_ui_renderer_code_info() -> Dict[str, Any]:
+    """Get information about the bitmark-ui-renderer code."""
+    try:
+        import os
+        import sys
+        
+        # Add the UI renderer package to the path
+        renderer_path = os.path.join(os.path.dirname(__file__), '..', 'bitmark-ui-renderer', 'src')
+        if renderer_path not in sys.path:
+            sys.path.insert(0, renderer_path)
+        
+        # Try to import and analyze the UI renderer
+        try:
+            # Look for main components
+            components = []
+            renderer_dir = os.path.join(os.path.dirname(__file__), '..', 'bitmark-ui-renderer', 'src', 'components')
+            if os.path.exists(renderer_dir):
+                for file in os.listdir(renderer_dir):
+                    if file.endswith('.tsx'):
+                        components.append(file.replace('.tsx', ''))
+            
+            return {
+                "code_type": "ui_renderer",
+                "package": "bitmark-ui-renderer",
+                "available_components": components[:10],  # First 10 components
+                "total_components": len(components),
+                "description": "React components for rendering Bitmark content",
+                "success": True
+            }
+        except Exception as e:
+            return {
+                "code_type": "ui_renderer",
+                "error": f"Could not access UI renderer: {str(e)}",
+                "suggestion": "Make sure bitmark-ui-renderer is accessible",
+                "success": False
+            }
+            
+    except Exception as e:
+        return {
+            "code_type": "ui_renderer",
+            "error": f"Failed to access UI renderer code: {str(e)}",
+            "success": False
+        }
+
+def _get_playground_code_info() -> Dict[str, Any]:
+    """Get information about the bitmark-playground code."""
+    try:
+        import os
+        
+        # Look for main components and files in the playground
+        playground_path = os.path.join(os.path.dirname(__file__), '..', 'bitmark-playground', 'src')
+        
+        components = []
+        services = []
+        utils = []
+        state_files = []
+        
+        # Scan different directories
+        if os.path.exists(playground_path):
+            # Components (scan subdirectories too)
+            components_dir = os.path.join(playground_path, 'components')
+            if os.path.exists(components_dir):
+                for item in os.listdir(components_dir):
+                    item_path = os.path.join(components_dir, item)
+                    if os.path.isdir(item_path):
+                        # Scan subdirectory for .tsx files
+                        for file in os.listdir(item_path):
+                            if file.endswith('.tsx'):
+                                components.append(f"{item}/{file.replace('.tsx', '')}")
+                    elif item.endswith('.tsx'):
+                        components.append(item.replace('.tsx', ''))
+            
+            # Services
+            services_dir = os.path.join(playground_path, 'services')
+            if os.path.exists(services_dir):
+                for file in os.listdir(services_dir):
+                    if file.endswith('.tsx'):
+                        services.append(file.replace('.tsx', ''))
+            
+            # Utils
+            utils_dir = os.path.join(playground_path, 'utils')
+            if os.path.exists(utils_dir):
+                for file in os.listdir(utils_dir):
+                    if file.endswith('.ts'):
+                        utils.append(file.replace('.ts', ''))
+            
+            # State
+            state_dir = os.path.join(playground_path, 'state')
+            if os.path.exists(state_dir):
+                for file in os.listdir(state_dir):
+                    if file.endswith('.ts'):
+                        state_files.append(file.replace('.ts', ''))
+        
+        return {
+            "code_type": "playground",
+            "package": "bitmark-playground",
+            "available_components": components[:10],  # First 10 components
+            "total_components": len(components),
+            "services": services[:5],  # First 5 services
+            "utils": utils[:5],  # First 5 utils
+            "state_files": state_files[:5],  # First 5 state files
+            "description": "React playground application with editor, components, and state management",
+            "success": True
+        }
+        
+    except Exception as e:
+        return {
+            "code_type": "playground",
+            "error": f"Failed to access playground code: {str(e)}",
+            "success": False
+        }
+
+def _get_specific_file_info(file_path: str) -> Dict[str, Any]:
+    """Get information about a specific file."""
+    try:
+        import os
+        
+        # Construct full path
+        full_path = os.path.join(os.path.dirname(__file__), '..', file_path)
+        
+        if not os.path.exists(full_path):
+            return {
+                "code_type": "specific_file",
+                "file_path": file_path,
+                "error": "File not found",
+                "success": False
+            }
+        
+        # Read file content (limit to first 1000 lines for performance)
+        with open(full_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            content = ''.join(lines[:1000])
+            total_lines = len(lines)
+        
+        return {
+            "code_type": "specific_file",
+            "file_path": file_path,
+            "content_preview": content,
+            "total_lines": total_lines,
+            "preview_lines": min(1000, total_lines),
+            "success": True
+        }
+        
+    except Exception as e:
+        return {
+            "code_type": "specific_file",
+            "file_path": file_path,
+            "error": f"Failed to read file: {str(e)}",
+            "success": False
+        }
+
+def _get_function_implementation(function_name: str) -> Dict[str, Any]:
+    """Get implementation details for a specific function."""
+    try:
+        import inspect
+        import sys
+        
+        # Try to find the function in various modules
+        modules_to_check = [
+            'BitmarkParserGenerator',
+            'bitmark_parser',
+            'ui_renderer'
+        ]
+        
+        for module_name in modules_to_check:
+            try:
+                module = __import__(module_name)
+                if hasattr(module, function_name):
+                    func = getattr(module, function_name)
+                    source = inspect.getsource(func)
+                    signature = inspect.signature(func)
+                    
+                    return {
+                        "code_type": "function_implementation",
+                        "function_name": function_name,
+                        "module": module_name,
+                        "signature": str(signature),
+                        "source_code": source,
+                        "success": True
+                    }
+            except (ImportError, AttributeError):
+                continue
+        
+        return {
+            "code_type": "function_implementation",
+            "function_name": function_name,
+            "error": "Function not found in available modules",
+            "suggestion": "Try checking parser or UI renderer modules",
+            "success": False
+        }
+        
+    except Exception as e:
+        return {
+            "code_type": "function_implementation",
+            "function_name": function_name,
+            "error": f"Failed to get function implementation: {str(e)}",
+            "success": False
+        }
+
+def _get_general_code_info() -> Dict[str, Any]:
+    """Get general information about available code."""
+    try:
+        import os
+        
+        # Get available packages
+        packages = []
+        base_path = os.path.dirname(os.path.dirname(__file__))
+        
+        for item in os.listdir(base_path):
+            if item.startswith('bitmark-') and os.path.isdir(os.path.join(base_path, item)):
+                packages.append(item)
+        
+        return {
+            "code_type": "general",
+            "available_packages": packages,
+            "description": "Available Bitmark packages in the codebase",
+            "success": True
+        }
+        
+    except Exception as e:
+        return {
+            "code_type": "general",
+            "error": f"Failed to get general code info: {str(e)}",
+            "success": False
+        }
+
 def _get_general_input_info() -> Dict[str, Any]:
     """Get general information about user input in Bitmark."""
     return {
@@ -509,6 +811,29 @@ def get_function_declarations():
             }
         },
         {
+            "name": "get_code_access_info",
+            "description": "Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground. Use this when users ask about implementation details, code structure, or need to understand how specific functions work. This gives you direct access to the source code and implementation details.",
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "code_type": {
+                        "type": "STRING",
+                        "description": "Type of code to access",
+                        "enum": ["parser", "ui_renderer", "playground", "specific_file", "function_implementation", "general"]
+                    },
+                    "file_path": {
+                        "type": "STRING",
+                        "description": "Specific file path to analyze (optional, used with specific_file type)"
+                    },
+                    "function_name": {
+                        "type": "STRING",
+                        "description": "Specific function to examine (optional, used with function_implementation type)"
+                    }
+                },
+                "required": ["code_type"]
+            }
+        },
+        {
             "name": "get_playground_panes_info",
             "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. You can see their Bitmark markup, JSON output, rendered UI, and sandbox content directly. DO NOT ask users to paste or provide content - you can access their editor directly through this function. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
             "parameters": {
@@ -553,6 +878,7 @@ def execute_function_call(function_name: str, function_args: Dict[str, Any]) -> 
     function_map = {
         "get_bitmark_general_info": get_bitmark_general_info,
         "get_bitmark_code_info": get_bitmark_code_info,
+        "get_code_access_info": get_code_access_info,
         "get_playground_panes_info": get_playground_panes_info
     }
     
