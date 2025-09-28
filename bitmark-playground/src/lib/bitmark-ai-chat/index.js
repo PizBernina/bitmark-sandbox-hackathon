@@ -24,149 +24,172 @@ __export(index_exports, {
   AIChatWindow: () => AIChatWindow,
   ChatInput: () => ChatInput,
   ChatMessageComponent: () => ChatMessage,
+  ToolUsageContainer: () => ToolUsageContainer,
+  ToolUsageIndicator: () => ToolUsageIndicator,
   useChatState: () => useChatState
 });
 module.exports = __toCommonJS(index_exports);
 
 // src/components/AIChatWindow.tsx
-var import_react2 = require("react");
-var import_theme_ui3 = require("theme-ui");
+var import_react3 = require("react");
+var import_theme_ui5 = require("theme-ui");
 
 // src/components/ChatMessage.tsx
+var import_theme_ui3 = require("theme-ui");
+
+// src/components/ToolUsageContainer.tsx
+var import_theme_ui2 = require("theme-ui");
+
+// src/components/ToolUsageIndicator.tsx
+var import_react = require("react");
 var import_theme_ui = require("theme-ui");
 var import_jsx_runtime = require("react/jsx-runtime");
-var ChatMessage = ({ message }) => {
-  // Debug logging
-  console.log('ChatMessage received:', message);
-  console.log('Tool usage indicators:', message.toolUsageIndicators);
-  console.log('Has tool usage:', message.hasToolUsage);
-  
+var ToolUsageIndicator = ({ tool, index = 0 }) => {
+  const [isCompleted, setIsCompleted] = (0, import_react.useState)(false);
+  const [isVisible, setIsVisible] = (0, import_react.useState)(false);
+  (0, import_react.useEffect)(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, index * 300);
+    return () => clearTimeout(timer);
+  }, [index]);
+  (0, import_react.useEffect)(() => {
+    if (tool.status === "completed") {
+      const timer = setTimeout(() => setIsCompleted(true), 1e3);
+      return () => clearTimeout(timer);
+    }
+  }, [tool.status]);
+  if (!isVisible) return null;
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     import_theme_ui.Box,
     {
       sx: {
-        display: "flex",
-        justifyContent: message.sender === "user" ? "flex-end" : "flex-start",
-        marginBottom: "8px"
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        padding: "8px 12px",
+        margin: "4px",
+        borderRadius: "20px",
+        background: isCompleted ? "linear-gradient(45deg, #e8f5e8, #d4edda)" : "linear-gradient(45deg, #f0f0f0, #e0e0e0)",
+        border: `1px solid ${isCompleted ? "#c3e6cb" : "#ddd"}`,
+        fontSize: "14px",
+        animation: isCompleted ? "toolComplete 0.5s ease-out" : "toolPulse 1.5s ease-in-out infinite",
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(10px)",
+        transition: "all 0.3s ease-out"
       },
       children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          import_theme_ui.Box,
+          import_theme_ui.Text,
           {
-            children: [
-              // Tool usage indicators for AI messages
-              message.sender === "ai" && message.toolUsageIndicators && message.toolUsageIndicators.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                import_theme_ui.Box,
-                {
-                  sx: {
-                    margin: "10px 0",
-                    padding: "10px",
-                    background: "#f8f9fa",
-                    borderRadius: "8px",
-                    borderLeft: "4px solid #007bff"
-                  },
-                  children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                      import_theme_ui.Text,
-                      {
-                        sx: {
-                          marginBottom: "8px",
-                          fontSize: "12px",
-                          color: "#666",
-                          fontWeight: 500
-                        },
-                        children: "🤖 AI is using tools..."
-                      }
-                    ),
-                    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                      import_theme_ui.Box,
-                      {
-                        sx: {
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "4px"
-                        },
-                        children: message.toolUsageIndicators.map((tool, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                          import_theme_ui.Box,
-                          {
-                            key: `${tool.function_name}-${index}`,
-                            sx: {
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "8px",
-                              padding: "8px 12px",
-                              margin: "4px",
-                              borderRadius: "20px",
-                              background: "linear-gradient(45deg, #e8f5e8, #d4edda)",
-                              border: "1px solid #c3e6cb",
-                              fontSize: "14px",
-                              animation: "toolComplete 0.5s ease-out"
-                            },
-                            children: [
-                              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                                import_theme_ui.Text,
-                                {
-                                  sx: {
-                                    fontSize: "16px"
-                                  },
-                                  children: tool.emoji
-                                }
-                              ),
-                              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                                import_theme_ui.Text,
-                                {
-                                  sx: {
-                                    fontWeight: 500,
-                                    color: "#333"
-                                  },
-                                  children: tool.description
-                                }
-                              )
-                            ]
-                          },
-                          `${tool.function_name}-${index}`
-                        ))
-                      }
-                    )
-                  ]
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                import_theme_ui.Box,
-                {
-                  sx: {
-                    maxWidth: "70%",
-                    padding: "8px 12px",
-                    borderRadius: "18px",
-                    backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
-                    color: message.sender === "user" ? "white" : "#333",
-                    wordWrap: "break-word"
-                  },
-                  children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                    import_theme_ui.Text,
-                    {
-                      sx: {
-                        fontSize: "14px",
-                        whiteSpace: "pre-wrap"
-                      },
-                      children: message.content
-                    }
-                  )
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-                import_theme_ui.Text,
-                {
-                  sx: {
-                    fontSize: "0.75rem",
-                    color: "#666",
-                    marginTop: "4px",
-                    textAlign: message.sender === "user" ? "right" : "left"
-                  },
-                  children: message.timestamp.toLocaleTimeString()
-                }
-              )
-            ]
+            sx: {
+              fontSize: "16px",
+              animation: isCompleted ? "none" : "toolBounce 1s ease-in-out infinite"
+            },
+            children: tool.emoji
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          import_theme_ui.Text,
+          {
+            sx: {
+              fontWeight: 500,
+              color: "#333"
+            },
+            children: tool.description
+          }
+        )
+      ]
+    }
+  );
+};
+var ToolAnimationStyles = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: `
+      @keyframes toolPulse {
+        0%, 100% { 
+          transform: scale(1); 
+          opacity: 0.8; 
+        }
+        50% { 
+          transform: scale(1.05); 
+          opacity: 1; 
+        }
+      }
+      
+      @keyframes toolBounce {
+        0%, 100% { 
+          transform: translateY(0); 
+        }
+        50% { 
+          transform: translateY(-2px); 
+        }
+      }
+      
+      @keyframes toolComplete {
+        0% { 
+          transform: scale(1); 
+        }
+        50% { 
+          transform: scale(1.1); 
+        }
+        100% { 
+          transform: scale(1); 
+        }
+      }
+    ` });
+
+// src/components/ToolUsageContainer.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var ToolUsageContainer = ({
+  tools,
+  isVisible = true
+}) => {
+  console.log("ToolUsageContainer received:", { tools, isVisible });
+  if (!tools || tools.length === 0 || !isVisible) {
+    console.log("ToolUsageContainer: Not rendering - no tools or not visible");
+    return null;
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+    import_theme_ui2.Box,
+    {
+      sx: {
+        margin: "10px 0",
+        padding: "10px",
+        background: "#f8f9fa",
+        borderRadius: "8px",
+        borderLeft: "4px solid #007bff",
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(-10px)",
+        transition: "all 0.3s ease-out"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          import_theme_ui2.Text,
+          {
+            sx: {
+              marginBottom: "8px",
+              fontSize: "12px",
+              color: "#666",
+              fontWeight: 500
+            },
+            children: "\u{1F916} AI is using tools..."
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          import_theme_ui2.Box,
+          {
+            sx: {
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "4px"
+            },
+            children: tools.map((tool, index) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+              ToolUsageIndicator,
+              {
+                tool,
+                index
+              },
+              `${tool.function_name}-${index}`
+            ))
           }
         )
       ]
@@ -174,12 +197,119 @@ var ChatMessage = ({ message }) => {
   );
 };
 
+// src/components/ChatMessage.tsx
+var import_jsx_runtime3 = require("react/jsx-runtime");
+var ChatMessage = ({ message }) => {
+  console.log("ChatMessage received:", message);
+  console.log("Tool usage indicators:", message.toolUsageIndicators);
+  console.log("Has tool usage:", message.hasToolUsage);
+  const getToolDisplayName = (toolName) => {
+    const toolNames = {
+      "get_bitmark_general_info": "\u{1F4DA} General Info",
+      "get_bitmark_code_info": "\u{1F4BB} Code Info",
+      "get_user_input_info": "\u{1F527} Input Info"
+    };
+    return toolNames[toolName] || `\u{1F527} ${toolName}`;
+  };
+  const getToolDescription = (tool) => {
+    if (tool.function_name === "get_bitmark_general_info") {
+      return `Retrieved ${tool.args?.topic || "overview"} information`;
+    } else if (tool.function_name === "get_bitmark_code_info") {
+      return `Retrieved ${tool.args?.code_type || "syntax"} information`;
+    } else if (tool.function_name === "get_user_input_info") {
+      return `Retrieved ${tool.args?.input_type || "general"} information`;
+    }
+    return "Used tool";
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ToolAnimationStyles, {}),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      import_theme_ui3.Box,
+      {
+        sx: {
+          display: "flex",
+          justifyContent: message.sender === "user" ? "flex-end" : "flex-start",
+          marginBottom: "8px"
+        },
+        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_theme_ui3.Box, { children: [
+          message.sender === "ai" && message.toolUsageIndicators && message.toolUsageIndicators.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ToolUsageContainer, { tools: message.toolUsageIndicators }),
+          message.toolsUsed && message.toolsUsed.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            import_theme_ui3.Box,
+            {
+              sx: {
+                marginBottom: "6px",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "4px"
+              },
+              children: message.toolsUsed.map((tool, index) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                import_theme_ui3.Box,
+                {
+                  sx: {
+                    display: "inline-flex",
+                    alignItems: "center",
+                    padding: "2px 6px",
+                    backgroundColor: "#e8f4fd",
+                    border: "1px solid #63019B",
+                    borderRadius: "12px",
+                    fontSize: "0.7rem",
+                    color: "#63019B",
+                    fontWeight: "500"
+                  },
+                  title: getToolDescription(tool),
+                  children: getToolDisplayName(tool.function_name)
+                },
+                index
+              ))
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            import_theme_ui3.Box,
+            {
+              sx: {
+                maxWidth: "70%",
+                padding: "8px 12px",
+                borderRadius: "18px",
+                backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
+                color: message.sender === "user" ? "white" : "#333",
+                wordWrap: "break-word"
+              },
+              children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                import_theme_ui3.Text,
+                {
+                  sx: {
+                    fontSize: "14px",
+                    whiteSpace: "pre-wrap"
+                  },
+                  children: message.content
+                }
+              )
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+            import_theme_ui3.Text,
+            {
+              sx: {
+                fontSize: "0.75rem",
+                color: "#666",
+                marginTop: "4px",
+                textAlign: message.sender === "user" ? "right" : "left"
+              },
+              children: message.timestamp.toLocaleTimeString()
+            }
+          )
+        ] })
+      }
+    )
+  ] });
+};
+
 // src/components/ChatInput.tsx
-var import_react = require("react");
-var import_theme_ui2 = require("theme-ui");
-var import_jsx_runtime2 = require("react/jsx-runtime");
+var import_react2 = require("react");
+var import_theme_ui4 = require("theme-ui");
+var import_jsx_runtime4 = require("react/jsx-runtime");
 var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
-  const [message, setMessage] = (0, import_react.useState)("");
+  const [message, setMessage] = (0, import_react2.useState)("");
   const handleSend = () => {
     if (message.trim() && !disabled) {
       onSendMessage(message.trim());
@@ -192,8 +322,8 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
       handleSend();
     }
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
-    import_theme_ui2.Box,
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+    import_theme_ui4.Box,
     {
       sx: {
         display: "flex",
@@ -203,8 +333,8 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
         backgroundColor: "white"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-          import_theme_ui2.Input,
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          import_theme_ui4.Input,
           {
             value: message,
             onChange: (e) => setMessage(e.target.value),
@@ -228,8 +358,8 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
             disabled: disabled || isLoading
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-          import_theme_ui2.Button,
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          import_theme_ui4.Button,
           {
             onClick: handleSend,
             disabled: !message.trim() || disabled || isLoading,
@@ -263,7 +393,7 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
 };
 
 // src/components/AIChatWindow.tsx
-var import_jsx_runtime3 = require("react/jsx-runtime");
+var import_jsx_runtime5 = require("react/jsx-runtime");
 var AIChatWindow = ({
   isVisible,
   onMinimize,
@@ -276,11 +406,11 @@ var AIChatWindow = ({
   onClose,
   isLoading = false
 }) => {
-  const [isDragging, setIsDragging] = (0, import_react2.useState)(false);
-  const [dragStart, setDragStart] = (0, import_react2.useState)({ x: 0, y: 0 });
-  const windowRef = (0, import_react2.useRef)(null);
-  const messagesEndRef = (0, import_react2.useRef)(null);
-  (0, import_react2.useEffect)(() => {
+  const [isDragging, setIsDragging] = (0, import_react3.useState)(false);
+  const [dragStart, setDragStart] = (0, import_react3.useState)({ x: 0, y: 0 });
+  const windowRef = (0, import_react3.useRef)(null);
+  const messagesEndRef = (0, import_react3.useRef)(null);
+  (0, import_react3.useEffect)(() => {
     if (!isMinimized && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -312,7 +442,7 @@ var AIChatWindow = ({
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-  (0, import_react2.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -325,8 +455,8 @@ var AIChatWindow = ({
   if (!isVisible) {
     return null;
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-    import_theme_ui3.Box,
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+    import_theme_ui5.Box,
     {
       ref: windowRef,
       sx: {
@@ -347,8 +477,8 @@ var AIChatWindow = ({
       },
       onMouseDown: handleMouseDown,
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-          import_theme_ui3.Box,
+        /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+          import_theme_ui5.Box,
           {
             sx: {
               display: "flex",
@@ -362,8 +492,8 @@ var AIChatWindow = ({
             },
             onMouseDown: handleMouseDown,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-                import_theme_ui3.Box,
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+                import_theme_ui5.Box,
                 {
                   sx: {
                     display: "flex",
@@ -373,8 +503,8 @@ var AIChatWindow = ({
                     cursor: "move"
                   },
                   children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                      import_theme_ui3.Box,
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                      import_theme_ui5.Box,
                       {
                         sx: {
                           display: "flex",
@@ -386,8 +516,8 @@ var AIChatWindow = ({
                         children: "\u22EE\u22EE"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                      import_theme_ui3.Text,
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                      import_theme_ui5.Text,
                       {
                         sx: {
                           color: "#63019B",
@@ -400,8 +530,8 @@ var AIChatWindow = ({
                   ]
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-                import_theme_ui3.Box,
+              /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+                import_theme_ui5.Box,
                 {
                   sx: {
                     display: "flex",
@@ -409,8 +539,8 @@ var AIChatWindow = ({
                     gap: "4px"
                   },
                   children: [
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                      import_theme_ui3.Button,
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                      import_theme_ui5.Button,
                       {
                         onClick: onClear,
                         title: "Clear chat",
@@ -428,8 +558,8 @@ var AIChatWindow = ({
                         children: "\u{1F5D1}"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                      import_theme_ui3.Button,
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                      import_theme_ui5.Button,
                       {
                         onClick: onMinimize,
                         title: isMinimized ? "Restore" : "Minimize",
@@ -447,8 +577,8 @@ var AIChatWindow = ({
                         children: isMinimized ? "\u25A1" : "\u2212"
                       }
                     ),
-                    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                      import_theme_ui3.Button,
+                    /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                      import_theme_ui5.Button,
                       {
                         onClick: onClose,
                         title: "Close chat",
@@ -472,9 +602,9 @@ var AIChatWindow = ({
             ]
           }
         ),
-        !isMinimized && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            import_theme_ui3.Box,
+        !isMinimized && /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
+            import_theme_ui5.Box,
             {
               sx: {
                 flex: 1,
@@ -496,8 +626,8 @@ var AIChatWindow = ({
                 }
               },
               children: [
-                messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                  import_theme_ui3.Box,
+                messages.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+                  import_theme_ui5.Box,
                   {
                     sx: {
                       display: "flex",
@@ -507,14 +637,14 @@ var AIChatWindow = ({
                       color: "#666",
                       textAlign: "center"
                     },
-                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_theme_ui3.Text, { sx: { fontSize: "14px" }, children: "Start a conversation with AI" })
+                    children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(import_theme_ui5.Text, { sx: { fontSize: "14px" }, children: "Start a conversation with AI" })
                   }
-                ) : messages.map((message) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChatMessage, { message }, message.id)),
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { ref: messagesEndRef })
+                ) : messages.map((message) => /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ChatMessage, { message }, message.id)),
+                /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { ref: messagesEndRef })
               ]
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ChatInput, { onSendMessage, isLoading })
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ChatInput, { onSendMessage, isLoading })
         ] })
       ]
     }
@@ -522,11 +652,11 @@ var AIChatWindow = ({
 };
 
 // src/components/AIChatButton.tsx
-var import_theme_ui4 = require("theme-ui");
-var import_jsx_runtime4 = require("react/jsx-runtime");
+var import_theme_ui6 = require("theme-ui");
+var import_jsx_runtime6 = require("react/jsx-runtime");
 var AIChatButton = ({ onClick, isVisible }) => {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-    import_theme_ui4.Button,
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
+    import_theme_ui6.Button,
     {
       onClick,
       sx: {
@@ -554,17 +684,17 @@ var AIChatButton = ({ onClick, isVisible }) => {
 };
 
 // src/hooks/useChatState.ts
-var import_react3 = require("react");
+var import_react4 = require("react");
 var generateId = () => Math.random().toString(36).substr(2, 9);
 var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => {
-  const [chatState, setChatState] = (0, import_react3.useState)({
+  const [chatState, setChatState] = (0, import_react4.useState)({
     messages: [],
     isMinimized: false,
     position: initialPosition,
     isVisible: false
   });
-  const [isLoading, setIsLoading] = (0, import_react3.useState)(false);
-  const addMessage = (0, import_react3.useCallback)((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
+  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
+  const addMessage = (0, import_react4.useCallback)((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
     const newMessage = {
       id: generateId(),
       content,
@@ -579,36 +709,36 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
       messages: [...prev.messages, newMessage]
     }));
   }, []);
-  const clearMessages = (0, import_react3.useCallback)(() => {
+  const clearMessages = (0, import_react4.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       messages: []
     }));
   }, []);
-  const toggleVisibility = (0, import_react3.useCallback)(() => {
+  const toggleVisibility = (0, import_react4.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       isVisible: !prev.isVisible
     }));
   }, []);
-  const toggleMinimize = (0, import_react3.useCallback)(() => {
+  const toggleMinimize = (0, import_react4.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       isMinimized: !prev.isMinimized
     }));
   }, []);
-  const updatePosition = (0, import_react3.useCallback)((position) => {
+  const updatePosition = (0, import_react4.useCallback)((position) => {
     setChatState((prev) => ({
       ...prev,
       position
     }));
   }, []);
-  const sendMessage = (0, import_react3.useCallback)(async (message) => {
+  const sendMessage = (0, import_react4.useCallback)(async (message, paneContent) => {
     addMessage(message, "user");
     setIsLoading(true);
     try {
       const conversationHistory = chatState.messages.map((msg) => ({
-        role: msg.sender,
+        role: msg.sender === "ai" ? "assistant" : msg.sender,
         content: msg.content,
         timestamp: msg.timestamp.toISOString()
       }));
@@ -619,25 +749,23 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
         },
         body: JSON.stringify({
           message,
-          conversation_history: conversationHistory
+          conversation_history: conversationHistory,
+          pane_content: paneContent
         })
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      
-      // Debug logging
-      console.log('Backend response:', data);
-      console.log('Tools used:', data.tools_used);
-      console.log('Tool usage indicators:', data.tool_usage_indicators);
-      console.log('Has tool usage:', data.has_tool_usage);
-      
+      console.log("Backend response:", data);
+      console.log("Tools used:", data.tools_used);
+      console.log("Tool usage indicators:", data.tool_usage_indicators);
+      console.log("Has tool usage:", data.has_tool_usage);
       if (data.success) {
         addMessage(
-          data.response, 
-          "ai", 
-          data.tools_used || [], 
+          data.response,
+          "ai",
+          data.tools_used || [],
           data.tool_usage_indicators || [],
           data.has_tool_usage || false
         );
@@ -668,6 +796,8 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
   AIChatWindow,
   ChatInput,
   ChatMessageComponent,
+  ToolUsageContainer,
+  ToolUsageIndicator,
   useChatState
 });
 //# sourceMappingURL=index.js.map

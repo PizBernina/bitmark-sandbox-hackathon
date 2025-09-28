@@ -63,7 +63,7 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
     }));
   }, []);
 
-  const sendMessage = useCallback(async (message: string) => {
+  const sendMessage = useCallback(async (message: string, paneContent?: Record<string, string>) => {
     addMessage(message, 'user');
     setIsLoading(true);
     
@@ -83,7 +83,8 @@ export const useChatState = (initialPosition = { x: window.innerWidth - 370, y: 
         },
         body: JSON.stringify({
           message: message,
-          conversation_history: conversationHistory
+          conversation_history: conversationHistory,
+          pane_content: paneContent
         })
       });
       

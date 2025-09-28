@@ -15,6 +15,7 @@ class ChatRequest(BaseModel):
     """Request model for chat endpoint."""
     message: str
     conversation_history: List[ChatMessage] = []
+    pane_content: Dict[str, str] = None  # Content from the 4 playground panes
 
 
 class ToolUsage(BaseModel):

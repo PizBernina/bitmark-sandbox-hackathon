@@ -126,6 +126,7 @@ async def chat_with_gemini(request: ChatRequest):
     try:
         print(f"Received request with {len(request.conversation_history)} history messages")
         print(f"Current message: {request.message[:100]}...")
+        print(f"Pane content: {request.pane_content}")
         
         # Build conversation context
         conversation_context = build_conversation_context(
@@ -147,7 +148,7 @@ async def chat_with_gemini(request: ChatRequest):
         
         # Process response and handle function calls
         response_text, tools_used = await process_gemini_response(
-            response, conversation_context, config, client
+            response, conversation_context, config, client, request.pane_content
         )
         
         # Create tool usage indicators

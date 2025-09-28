@@ -192,9 +192,3 @@ const response = await fetch('/chat', {
 - Colors can be customized per tool type
 - Animation timing can be adjusted
 - Layout can be modified for different designs
-
-## Demo
-
-See `tool_animation_example.html` for a working demo of the animation system.
-
-The system provides a smooth, engaging experience that keeps users informed about what the AI is doing behind the scenes!

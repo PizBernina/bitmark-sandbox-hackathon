@@ -86,7 +86,7 @@ def extract_text_from_response(response) -> str:
 
 
 async def handle_function_call(part: types.Part, conversation_context: List[types.Content], 
-                             config: types.GenerateContentConfig, client) -> Tuple[str, List[Dict[str, Any]]]:
+                             config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None) -> Tuple[str, List[Dict[str, Any]]]:
     """Handle a function call and return response text and tools used."""
     if not hasattr(part, 'function_call') or not part.function_call:
         return "", []
@@ -95,6 +95,11 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
     function_args = part.function_call.args
     
     print(f"Executing function: {function_name} with args: {function_args}")
+    
+    # Add pane content to function args if it's the playground function
+    if function_name == "get_playground_panes_info" and pane_content:
+        function_args["pane_content"] = pane_content
+        print(f"Added pane content to function args: {pane_content}")
     
     # Execute the function
     result = execute_function_call(function_name, function_args)
@@ -126,7 +131,7 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
 
 
 async def process_gemini_response(response, conversation_context: List[types.Content], 
-                                config: types.GenerateContentConfig, client) -> Tuple[str, List[Dict[str, Any]]]:
+                                config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None) -> Tuple[str, List[Dict[str, Any]]]:
     """Process Gemini response and handle function calls if present."""
     if not response.candidates or len(response.candidates) == 0:
         return "", []
@@ -139,18 +144,24 @@ async def process_gemini_response(response, conversation_context: List[types.Con
     tools_used = []
     function_call_found = False
     
-    for part in candidate.content.parts:
+    for i, part in enumerate(candidate.content.parts):
+        print(f"Processing part {i}: {type(part)}")
+        print(f"Part attributes: {dir(part)}")
         if hasattr(part, 'text') and part.text:
+            print(f"Text part found: {part.text[:100]}...")
             response_text += part.text
         elif hasattr(part, 'function_call') and part.function_call:
             function_call_found = True
             print(f"Function call detected: {part.function_call.name}")
+            print(f"Function call args: {part.function_call.args}")
             
             # Handle function call
-            func_response, func_tools = await handle_function_call(part, conversation_context, config, client)
+            func_response, func_tools = await handle_function_call(part, conversation_context, config, client, pane_content)
             response_text = func_response
             tools_used.extend(func_tools)
             break
+        else:
+            print(f"Part {i} is neither text nor function call")
     
     # If no function call found, try simple response
     if not function_call_found and not response_text:

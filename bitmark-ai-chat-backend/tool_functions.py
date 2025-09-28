@@ -66,20 +66,59 @@ def get_bitmark_code_info(code_type: str = "syntax") -> Dict[str, Any]:
     }
 
 
-def get_user_input_info(input_type: str = "general", pane_content: Dict[str, Any] = None) -> Dict[str, Any]:
+def get_playground_panes_info(input_type: str = "general", pane_content: Dict[str, Any] = None) -> Dict[str, Any]:
     """
-    Retrieve information about user input handling in Bitmark and troubleshoot input issues.
+    Access and analyze the 4 playground panes (Bitmark markup, JSON, Rendered UI, Sandbox) to help users with their Bitmark content.
+    Use this when users ask about their input, want to check their Bitmark markup, need help with errors, or want to analyze their content.
     
     Args:
-        input_type: Type of input information (forms, validation, interactive_elements, troubleshooting)
-        pane_content: Optional content from the 4 playground panes for troubleshooting
+        input_type: Type of analysis to perform (markup_analysis, error_check, content_review, troubleshooting, general)
+        pane_content: Content from the 4 playground panes: bitmark_markup, json_content, rendered_ui, sandbox_content
     
     Returns:
-        Dictionary containing the requested input information and troubleshooting results
+        Dictionary containing analysis results and suggestions for the user's Bitmark content
     """
     try:
-        if input_type == "troubleshooting" and pane_content:
-            return _troubleshoot_input_issues(pane_content)
+        if input_type == "troubleshooting":
+            if pane_content:
+                return _troubleshoot_input_issues(pane_content)
+            else:
+                return {
+                    "input_type": "troubleshooting",
+                    "message": "No playground content provided for troubleshooting. Please ensure the playground panes are accessible.",
+                    "suggestions": ["Check if the playground is loaded and has content in the panes"],
+                    "success": False
+                }
+        elif input_type == "markup_analysis":
+            if pane_content:
+                return _analyze_bitmark_markup(pane_content.get("bitmark_markup", ""))
+            else:
+                return {
+                    "input_type": "markup_analysis",
+                    "message": "No playground content provided for markup analysis. I need access to the Bitmark markup pane to analyze your content.",
+                    "suggestions": ["Please ensure the playground is loaded and has Bitmark markup in the top-left pane"],
+                    "success": False
+                }
+        elif input_type == "error_check":
+            if pane_content:
+                return _check_for_errors(pane_content)
+            else:
+                return {
+                    "input_type": "error_check",
+                    "message": "No playground content provided for error checking. I need access to all playground panes to check for errors.",
+                    "suggestions": ["Please ensure the playground is loaded and accessible"],
+                    "success": False
+                }
+        elif input_type == "content_review":
+            if pane_content:
+                return _review_content(pane_content)
+            else:
+                return {
+                    "input_type": "content_review",
+                    "message": "No playground content provided for content review. I need access to the playground panes to review your content.",
+                    "suggestions": ["Please ensure the playground is loaded and has content"],
+                    "success": False
+                }
         elif input_type == "interactive_elements":
             return _get_interactive_elements_info()
         elif input_type == "validation":
@@ -91,9 +130,118 @@ def get_user_input_info(input_type: str = "general", pane_content: Dict[str, Any
     except Exception as e:
         return {
             "input_type": input_type,
-            "error": f"Failed to retrieve input information: {str(e)}",
+            "error": f"Failed to retrieve playground panes information: {str(e)}",
             "success": False
         }
+
+def _analyze_bitmark_markup(bitmark_markup: str) -> Dict[str, Any]:
+    """Analyze Bitmark markup content for issues and suggestions."""
+    if not bitmark_markup.strip():
+        return {
+            "input_type": "markup_analysis",
+            "message": "No Bitmark markup found in the playground",
+            "suggestions": ["Please add some Bitmark markup to the top-left pane to analyze"],
+            "success": False
+        }
+    
+    issues = []
+    suggestions = []
+    
+    # Check for common issues and typos
+    if "[.close]" in bitmark_markup:
+        issues.append("❌ TYPO DETECTED: '[.close]' should be '[.cloze]'")
+        suggestions.append("Fix the typo: change '[.close]' to '[.cloze]'")
+    elif "[.cloze]" in bitmark_markup:
+        if "[_]" not in bitmark_markup:
+            issues.append("Cloze exercise found but no input fields [_] detected")
+            suggestions.append("Add input fields using [_] syntax in your cloze exercise")
+        else:
+            suggestions.append("✅ Cloze exercise syntax looks correct!")
+    
+    if "[.multiple-choice]" in bitmark_markup:
+        if "[+" not in bitmark_markup or "[-" not in bitmark_markup:
+            issues.append("Multiple choice found but no answer options detected")
+            suggestions.append("Add correct answers with [+option] and incorrect answers with [-option]")
+        else:
+            suggestions.append("✅ Multiple choice syntax looks correct!")
+    
+    if "**" in bitmark_markup and "__" in bitmark_markup:
+        suggestions.append("✅ Your markup uses both **bold** and __italic__ formatting - looks good!")
+    
+    # Check for other common typos
+    if "[.cloze-and-multiple-choice-text]" in bitmark_markup:
+        suggestions.append("✅ Combined cloze and multiple choice syntax detected!")
+    
+    # Check for reveal solutions syntax
+    if "[@revealSolutions:" in bitmark_markup:
+        suggestions.append("✅ Reveal solutions syntax detected!")
+    
+    return {
+        "input_type": "markup_analysis",
+        "bitmark_markup": bitmark_markup[:200] + "..." if len(bitmark_markup) > 200 else bitmark_markup,
+        "issues": issues,
+        "suggestions": suggestions,
+        "success": True
+    }
+
+def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
+    """Check for errors across all panes."""
+    errors = []
+    suggestions = []
+    
+    bitmark_markup = pane_content.get("bitmark_markup", "")
+    json_content = pane_content.get("json_content", "")
+    rendered_ui = pane_content.get("rendered_ui", "")
+    
+    if not bitmark_markup.strip():
+        errors.append("No Bitmark markup found")
+        suggestions.append("Add some Bitmark markup to get started")
+    
+    if bitmark_markup and not json_content:
+        errors.append("Bitmark markup exists but no JSON output found")
+        suggestions.append("Check if your Bitmark syntax is correct - it should generate JSON")
+    
+    if json_content and not rendered_ui:
+        errors.append("JSON exists but no rendered UI found")
+        suggestions.append("The JSON might not be valid for rendering")
+    
+    return {
+        "input_type": "error_check",
+        "errors": errors,
+        "suggestions": suggestions,
+        "success": len(errors) == 0
+    }
+
+def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
+    """Review content across all panes and provide feedback."""
+    review = {
+        "bitmark_markup": "Not provided",
+        "json_content": "Not provided", 
+        "rendered_ui": "Not provided",
+        "sandbox_content": "Not provided"
+    }
+    
+    feedback = []
+    
+    for pane, content in pane_content.items():
+        if content and content.strip():
+            review[pane] = f"Provided ({len(content)} characters)"
+            if pane == "bitmark_markup":
+                if "[.cloze]" in content:
+                    feedback.append("✅ Cloze exercise detected")
+                if "[.multiple-choice]" in content:
+                    feedback.append("✅ Multiple choice question detected")
+                if "**" in content or "__" in content:
+                    feedback.append("✅ Text formatting detected")
+        else:
+            feedback.append(f"⚠️ {pane.replace('_', ' ').title()} pane is empty")
+    
+    return {
+        "input_type": "content_review",
+        "review": review,
+        "feedback": feedback,
+        "success": True
+    }
 
 def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Troubleshoot input issues based on pane content."""
@@ -135,43 +283,6 @@ def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
         "suggestions": suggestions,
         "success": True
     }
-
-def _analyze_bitmark_markup(markup: str) -> List[Dict[str, Any]]:
-    """Analyze bitmark markup for common input issues."""
-    issues = []
-    
-    # Check for common syntax issues
-    if "[_]" in markup and "[_answer]" not in markup:
-        issues.append({
-            "type": "syntax_error",
-            "pane": "bitmark_markup",
-            "issue": "Empty cloze placeholder found",
-            "description": "Found [_] without content. Use [_answer] format.",
-            "severity": "error"
-        })
-    
-    # Check for malformed multiple choice
-    if "[-" in markup and "[+" not in markup:
-        issues.append({
-            "type": "syntax_error", 
-            "pane": "bitmark_markup",
-            "issue": "Incomplete multiple choice syntax",
-            "description": "Found [-option] without [+correct] option",
-            "severity": "error"
-        })
-    
-    # Check for unclosed brackets
-    open_brackets = markup.count("[") - markup.count("]")
-    if open_brackets > 0:
-        issues.append({
-            "type": "syntax_error",
-            "pane": "bitmark_markup", 
-            "issue": "Unclosed brackets",
-            "description": f"Found {open_brackets} unclosed bracket(s)",
-            "severity": "error"
-        })
-    
-    return issues
 
 def _analyze_json_content(json_content: str) -> List[Dict[str, Any]]:
     """Analyze JSON content for parsing issues."""
@@ -398,19 +509,19 @@ def get_function_declarations():
             }
         },
         {
-            "name": "get_user_input_info",
-            "description": "Retrieve information about user input handling in Bitmark and troubleshoot input issues",
+            "name": "get_playground_panes_info",
+            "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. You can see their Bitmark markup, JSON output, rendered UI, and sandbox content directly. DO NOT ask users to paste or provide content - you can access their editor directly through this function. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
             "parameters": {
                 "type": "OBJECT",
                 "properties": {
                     "input_type": {
                         "type": "STRING",
-                        "description": "Type of input information to retrieve",
-                        "enum": ["forms", "validation", "interactive_elements", "troubleshooting", "general"]
+                        "description": "Type of analysis to perform on the playground content",
+                        "enum": ["markup_analysis", "error_check", "content_review", "troubleshooting", "general"]
                     },
                     "pane_content": {
                         "type": "OBJECT",
-                        "description": "Optional content from the 4 playground panes for troubleshooting",
+                        "description": "Content from the 4 playground panes for analysis",
                         "properties": {
                             "bitmark_markup": {
                                 "type": "STRING",
@@ -442,7 +553,7 @@ def execute_function_call(function_name: str, function_args: Dict[str, Any]) -> 
     function_map = {
         "get_bitmark_general_info": get_bitmark_general_info,
         "get_bitmark_code_info": get_bitmark_code_info,
-        "get_user_input_info": get_user_input_info
+        "get_playground_panes_info": get_playground_panes_info
     }
     
     if function_name not in function_map:
