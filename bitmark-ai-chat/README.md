@@ -30,3 +30,23 @@ The chat maintains its state (messages, position, visibility) until the user exp
 - White background for the chat window
 - Purple buttons matching the app's accent color (#63019B)
 - Consistent typography and spacing with the main application
+
+## Dependencies
+
+This library uses the following key dependencies:
+
+### Core Dependencies
+- **React** (>=16.8.0) - Core React library for component development
+- **React DOM** (>=16.8.0) - React DOM rendering
+- **Theme UI** (^0.16.1) - Styling system for consistent theming with the playground
+
+### Development Dependencies
+- **TypeScript** (^5.3.3) - Type safety and development experience
+- **tsup** (^8.0.1) - Fast TypeScript bundler for building the library
+- **@emotion/react** (^11.11.1) - CSS-in-JS styling support
+- **@emotion/styled** (^11.11.0) - Styled components support
+
+### Integration Notes
+- The library is designed to work seamlessly with the existing bitmark playground theme system
+- Uses Theme UI components instead of Material-UI to maintain consistency
+- Built as a standalone package that can be integrated into any React application
