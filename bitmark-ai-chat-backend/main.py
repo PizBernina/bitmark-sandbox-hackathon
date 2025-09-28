@@ -2,6 +2,7 @@ import asyncio
 import os
 import json
 from typing import List, Dict, Any
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -11,6 +12,18 @@ from google.genai import types
 
 # Load environment variables from parent directory
 load_dotenv(dotenv_path="../.env")
+
+def load_system_instruction() -> str:
+    """Load system instruction from file or environment variable."""
+    # First try to load from file
+    system_file = Path(__file__).parent / "context-prompts" / "system_instruction.txt"
+    if system_file.exists():
+        return system_file.read_text(encoding="utf-8").strip()
+    
+    # Fallback to environment variable
+    return os.getenv(
+        "GEMINI_SYSTEM_INSTRUCTION"
+    )
 
 app = FastAPI(title="Bitmark AI Chat Backend", version="1.0.0")
 
@@ -47,6 +60,9 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
+# Load system instruction
+SYSTEM_INSTRUCTION = load_system_instruction()
+
 @app.get("/")
 async def root():
     return {"message": "Bitmark AI Chat Backend is running"}
@@ -62,7 +78,10 @@ async def chat_with_gemini(request: ChatRequest):
     """
     try:
         config = {
-            "response_modalities": ["TEXT"]
+            "response_modalities": ["TEXT"],
+            "system_instruction": {
+                "parts": [{"text": SYSTEM_INSTRUCTION}]
+            }
         }
         
         # Create conversation context from history
@@ -81,10 +100,11 @@ async def chat_with_gemini(request: ChatRequest):
             "parts": [{"text": request.message}]
         })
         
-        # Use the generate content API instead of live API for now
+        # Use the generate content API with system instruction
         response = await client.aio.models.generate_content(
             model=MODEL,
-            contents=conversation_context
+            contents=conversation_context,
+            config=config
         )
         
         response_text = ""

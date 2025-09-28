@@ -31,7 +31,13 @@ Backend service for the Bitmark AI Chat feature, providing integration with Goog
    export GEMINI_API_KEY="your_actual_gemini_api_key_here"
    ```
 
-3. **Run the server:**
+3. **Configure system instruction (optional):**
+   
+   The system instruction is loaded from `context-prompts/system_instruction.txt` by default. You can:
+   - Edit the file directly to customize the AI's behavior
+   - Or set `GEMINI_SYSTEM_INSTRUCTION` environment variable to override
+
+4. **Run the server:**
    ```bash
    python main.py
    ```
@@ -74,9 +80,37 @@ Send a message to Gemini and get a response
 
 ## Configuration
 
-- **Model**: `gemini-live-2.5-flash-preview`
+- **Model**: `gemini-2.0-flash-exp`
 - **Response Modalities**: TEXT only
 - **CORS**: Configured for `http://localhost:3010` (frontend)
+- **System Instruction**: Configurable via `GEMINI_SYSTEM_INSTRUCTION` environment variable
+
+### System Instruction
+
+The AI assistant uses a system instruction to provide context about its role and capabilities. The system instruction is loaded from `context-prompts/system_instruction.txt` by default.
+
+**File-based approach (recommended):**
+- Edit `context-prompts/system_instruction.txt` to customize the AI's behavior
+- Changes take effect when the server is restarted
+
+**Environment variable override:**
+- Set `GEMINI_SYSTEM_INSTRUCTION` to override the file-based instruction
+- Useful for deployment or testing different configurations
+
+**Default system instruction:**
+```
+You are a helpful AI assistant for the Bitmark ecosystem. Bitmark is a markup language for creating interactive educational content. You can help users with Bitmark syntax, creating interactive elements, and understanding how to use the Bitmark parser and UI renderer. Be concise and helpful in your responses.
+
+Key areas you can help with:
+- Bitmark syntax and grammar
+- Creating interactive elements (quizzes, dropdowns, etc.)
+- Understanding the Bitmark parser and how it works
+- UI rendering and component usage
+- Best practices for educational content creation
+- Troubleshooting Bitmark-related issues
+
+Always provide practical examples when explaining Bitmark concepts and keep responses focused on the user's specific needs.
+```
 
 ## Error Handling
 
