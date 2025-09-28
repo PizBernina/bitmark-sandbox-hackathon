@@ -663,16 +663,6 @@ React component library for rendering Bitmark content as interactive UI elements
 
 **Documentation:** [bitmark-ui-renderer/README.md](./bitmark-ui-renderer/README.md)
 
-## Changes Summary
-
-Code changes in:
-- `@gmb/bitmark-parser-generator`
-  - `src/model/enum/PropertyKey.ts` (add properties)
-  - `src/model/enum/BitType.ts` (add bit types)
-  - `src/config/raw/bits.ts` (add bit configs)
-- Optional viewer in any chosen app (e.g., bitmark‑playground):
-  - `src/components/bitmark/SandboxRenderer.tsx` (or equivalent)
-
-- Defined new properties and bit types in the parser config and provided example usage.
-- Provided a minimal viewer to execute conversions client‑side.
-- Assessed each requirement with status and suggested improvements where needed.
+## Next steps
+- Add unit tests
+- Improve AI Chat
