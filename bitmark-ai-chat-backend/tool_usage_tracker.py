@@ -12,11 +12,6 @@ TOOL_EMOJIS = {
         "description": "Looking up Bitmark information",
         "color": "#4CAF50"
     },
-    "get_bitmark_code_info": {
-        "emoji": "💻", 
-        "description": "Analyzing code structure",
-        "color": "#2196F3"
-    },
     "get_code_access_info": {
         "emoji": "🔍",
         "description": "Analyzing source code",

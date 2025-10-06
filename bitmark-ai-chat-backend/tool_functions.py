@@ -48,24 +48,6 @@ def get_bitmark_general_info(topic: str = "overview") -> Dict[str, Any]:
         return {"error": f"Failed to retrieve information: {str(e)}", "success": False}
 
 
-def get_bitmark_code_info(code_type: str = "syntax") -> Dict[str, Any]:
-    """
-    Retrieve information about Bitmark code, syntax, and technical details.
-    
-    Args:
-        code_type: Type of code information (syntax, examples, parser, etc.)
-    
-    Returns:
-        Dictionary containing the requested code information
-    """
-    # This will be implemented later with actual code examples
-    return {
-        "code_type": code_type,
-        "message": "Code information retrieval not yet implemented",
-        "success": False
-    }
-
-
 def get_code_access_info(code_type: str = "parser", file_path: str = None, function_name: str = None) -> Dict[str, Any]:
     """
     Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground.
@@ -278,46 +260,19 @@ def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
 
 def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Troubleshoot input issues based on pane content."""
-    issues = []
-    suggestions = []
-    
-    # Check bitmark markup pane
+    # Get pane contents
     bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
-    if bitmark_markup:
-        markup_issues = _analyze_bitmark_markup(bitmark_markup)
-        issues.extend(markup_issues)
-    
-    # Check JSON pane
     json_content = pane_content.get("json_content", "")
-    if json_content:
-        json_issues = _analyze_json_content(json_content)
-        issues.extend(json_issues)
-    
-    # Check rendered UI pane
-    rendered_ui = pane_content.get("rendered_ui_pane", "")
-    if rendered_ui:
-        ui_issues = _analyze_rendered_ui(rendered_ui)
-        issues.extend(ui_issues)
-    
-    # Check sandbox pane
     sandbox_content = pane_content.get("sandbox_output_pane", "")
-    if sandbox_content:
-        sandbox_issues = _analyze_sandbox_content(sandbox_content)
-        issues.extend(sandbox_issues)
     
-    # Generate suggestions based on issues
-    if issues:
-        suggestions = _generate_troubleshooting_suggestions(issues)
-    
-    # Add the actual pane content to help LLM analyze directly
+    # Return the actual content for the LLM to analyze
+    # The LLM is smart enough to understand the content and provide helpful analysis
     return {
         "input_type": "troubleshooting",
-        "pane_content_analyzed": True,
-        "input_json_or_bitmark_pane": bitmark_markup[:500] if bitmark_markup else "Not provided",
-        "json_content": json_content[:1000] if json_content else "Not provided",
-        "sandbox_output_pane": sandbox_content[:500] if sandbox_content else "Not provided",
-        "issues_found": issues,
-        "suggestions": suggestions,
+        "message": "Retrieved playground content successfully. Analyzing your Bitmark markup and outputs.",
+        "input_json_or_bitmark_pane": bitmark_markup if bitmark_markup else "No content in input pane",
+        "json_content": json_content[:2000] if json_content else "No JSON content generated",
+        "sandbox_output_pane": sandbox_content if sandbox_content else "No sandbox output generated",
         "success": True
     }
 
@@ -808,29 +763,14 @@ def get_function_declarations():
             }
         },
         {
-            "name": "get_bitmark_code_info",
-            "description": "Retrieve information about Bitmark code, syntax, and technical details",
-            "parameters": {
-                "type": "OBJECT",
-                "properties": {
-                    "code_type": {
-                        "type": "STRING",
-                        "description": "Type of code information to retrieve",
-                        "enum": ["syntax", "examples", "parser", "ui_renderer"]
-                    }
-                },
-                "required": ["code_type"]
-            }
-        },
-        {
             "name": "get_code_access_info",
-            "description": "Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground. Use this when users ask about implementation details, code structure, or need to understand how specific functions work. This gives you direct access to the source code and implementation details.",
+            "description": "Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground. Use this when users ask about implementation details, code structure, supported features (like question types), or need to understand how specific functions work. This gives you direct access to the source code and implementation details.",
             "parameters": {
                 "type": "OBJECT",
                 "properties": {
                     "code_type": {
                         "type": "STRING",
-                        "description": "Type of code to access",
+                        "description": "Type of code to access: 'ui_renderer' for UI components and supported question types, 'parser' for Bitmark parsing logic, 'playground' for playground implementation, 'specific_file' to analyze a specific file, 'function_implementation' to examine a function, or 'general' for overview",
                         "enum": ["parser", "ui_renderer", "playground", "specific_file", "function_implementation", "general"]
                     },
                     "file_path": {
@@ -889,7 +829,6 @@ def execute_function_call(function_name: str, function_args: Dict[str, Any]) -> 
     """Execute a function call and return the result."""
     function_map = {
         "get_bitmark_general_info": get_bitmark_general_info,
-        "get_bitmark_code_info": get_bitmark_code_info,
         "get_code_access_info": get_code_access_info,
         "get_playground_panes_info": get_playground_panes_info
     }
