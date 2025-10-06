@@ -4,6 +4,105 @@ import { AIChatWindowProps } from '../types';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 
+const TypingIndicator: React.FC = () => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        marginBottom: '8px',
+        animation: 'fadeIn 0.3s ease-in',
+        '@keyframes fadeIn': {
+          from: { opacity: 0, transform: 'translateY(10px)' },
+          to: { opacity: 1, transform: 'translateY(0)' },
+        },
+      }}
+    >
+      <Box
+        sx={{
+          padding: '8px 12px',
+          borderRadius: '18px',
+          backgroundColor: '#f0f0f0',
+          color: '#666',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+        }}
+      >
+        <Text sx={{ fontSize: '14px' }}>Writing</Text>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '2px',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              width: '4px',
+              height: '4px',
+              borderRadius: '50%',
+              backgroundColor: '#666',
+              animation: 'bounce 1.4s infinite ease-in-out both',
+              animationDelay: '0s',
+              '@keyframes bounce': {
+                '0%, 80%, 100%': {
+                  transform: 'scale(0)',
+                  opacity: 0.5,
+                },
+                '40%': {
+                  transform: 'scale(1)',
+                  opacity: 1,
+                },
+              },
+            }}
+          />
+          <Box
+            sx={{
+              width: '4px',
+              height: '4px',
+              borderRadius: '50%',
+              backgroundColor: '#666',
+              animation: 'bounce 1.4s infinite ease-in-out both',
+              animationDelay: '0.2s',
+              '@keyframes bounce': {
+                '0%, 80%, 100%': {
+                  transform: 'scale(0)',
+                  opacity: 0.5,
+                },
+                '40%': {
+                  transform: 'scale(1)',
+                  opacity: 1,
+                },
+              },
+            }}
+          />
+          <Box
+            sx={{
+              width: '4px',
+              height: '4px',
+              borderRadius: '50%',
+              backgroundColor: '#666',
+              animation: 'bounce 1.4s infinite ease-in-out both',
+              animationDelay: '0.4s',
+              '@keyframes bounce': {
+                '0%, 80%, 100%': {
+                  transform: 'scale(0)',
+                  opacity: 0.5,
+                },
+                '40%': {
+                  transform: 'scale(1)',
+                  opacity: 1,
+                },
+              },
+            }}
+          />
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
 export const AIChatWindow: React.FC<AIChatWindowProps> = ({
   isVisible,
   onMinimize,
@@ -21,12 +120,12 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
   const windowRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when new messages arrive
+  // Auto-scroll to bottom when new messages arrive or when loading state changes
   useEffect(() => {
     if (!isMinimized && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, isMinimized]);
+  }, [messages, isMinimized, isLoading]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     // Allow dragging from anywhere on the header, but not from buttons
@@ -228,7 +327,7 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
               },
             }}
           >
-            {messages.length === 0 ? (
+            {messages.length === 0 && !isLoading ? (
               <Box
                 sx={{
                   display: 'flex',
@@ -244,9 +343,12 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
                 </Text>
               </Box>
             ) : (
-              messages.map((message) => (
-                <ChatMessage key={message.id} message={message} />
-              ))
+              <>
+                {messages.map((message) => (
+                  <ChatMessage key={message.id} message={message} />
+                ))}
+                {isLoading && <TypingIndicator />}
+              </>
             )}
             <div ref={messagesEndRef} />
           </Box>

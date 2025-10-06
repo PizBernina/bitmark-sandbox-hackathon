@@ -341,24 +341,6 @@ var ChatMessage = ({ message }) => {
   console.log("ChatMessage received:", message);
   console.log("Tool usage indicators:", message.toolUsageIndicators);
   console.log("Has tool usage:", message.hasToolUsage);
-  const getToolDisplayName = (toolName) => {
-    const toolNames = {
-      "get_bitmark_general_info": "\u{1F4DA} General Info",
-      "get_bitmark_code_info": "\u{1F4BB} Code Info",
-      "get_user_input_info": "\u{1F527} Input Info"
-    };
-    return toolNames[toolName] || `\u{1F527} ${toolName}`;
-  };
-  const getToolDescription = (tool) => {
-    if (tool.function_name === "get_bitmark_general_info") {
-      return `Retrieved ${tool.args?.topic || "overview"} information`;
-    } else if (tool.function_name === "get_bitmark_code_info") {
-      return `Retrieved ${tool.args?.code_type || "syntax"} information`;
-    } else if (tool.function_name === "get_user_input_info") {
-      return `Retrieved ${tool.args?.input_type || "general"} information`;
-    }
-    return "Used tool";
-  };
   return /* @__PURE__ */ jsxs3(Fragment, { children: [
     /* @__PURE__ */ jsx3(ToolAnimationStyles, {}),
     /* @__PURE__ */ jsx3(
@@ -371,36 +353,6 @@ var ChatMessage = ({ message }) => {
         },
         children: /* @__PURE__ */ jsxs3(Box3, { children: [
           message.sender === "ai" && message.toolUsageIndicators && message.toolUsageIndicators.length > 0 && /* @__PURE__ */ jsx3(ToolUsageContainer, { tools: message.toolUsageIndicators }),
-          message.toolsUsed && message.toolsUsed.length > 0 && /* @__PURE__ */ jsx3(
-            Box3,
-            {
-              sx: {
-                marginBottom: "6px",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "4px"
-              },
-              children: message.toolsUsed.map((tool, index) => /* @__PURE__ */ jsx3(
-                Box3,
-                {
-                  sx: {
-                    display: "inline-flex",
-                    alignItems: "center",
-                    padding: "2px 6px",
-                    backgroundColor: "#e8f4fd",
-                    border: "1px solid #63019B",
-                    borderRadius: "12px",
-                    fontSize: "0.7rem",
-                    color: "#63019B",
-                    fontWeight: "500"
-                  },
-                  title: getToolDescription(tool),
-                  children: getToolDisplayName(tool.function_name)
-                },
-                index
-              ))
-            }
-          ),
           /* @__PURE__ */ jsx3(
             Box3,
             {
@@ -568,6 +520,121 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
 
 // src/components/AIChatWindow.tsx
 import { Fragment as Fragment2, jsx as jsx5, jsxs as jsxs5 } from "react/jsx-runtime";
+var TypingIndicator = () => {
+  return /* @__PURE__ */ jsx5(
+    Box5,
+    {
+      sx: {
+        display: "flex",
+        justifyContent: "flex-start",
+        marginBottom: "8px",
+        animation: "fadeIn 0.3s ease-in",
+        "@keyframes fadeIn": {
+          from: { opacity: 0, transform: "translateY(10px)" },
+          to: { opacity: 1, transform: "translateY(0)" }
+        }
+      },
+      children: /* @__PURE__ */ jsxs5(
+        Box5,
+        {
+          sx: {
+            padding: "8px 12px",
+            borderRadius: "18px",
+            backgroundColor: "#f0f0f0",
+            color: "#666",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px"
+          },
+          children: [
+            /* @__PURE__ */ jsx5(Text4, { sx: { fontSize: "14px" }, children: "Writing" }),
+            /* @__PURE__ */ jsxs5(
+              Box5,
+              {
+                sx: {
+                  display: "flex",
+                  gap: "2px",
+                  alignItems: "center"
+                },
+                children: [
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0.2s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0.4s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  )
+                ]
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+};
 var AIChatWindow = ({
   isVisible,
   onMinimize,
@@ -588,7 +655,7 @@ var AIChatWindow = ({
     if (!isMinimized && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, isMinimized]);
+  }, [messages, isMinimized, isLoading]);
   const handleMouseDown = (e) => {
     const target = e.target;
     const isButton = target.closest("button") || target.tagName === "BUTTON";
@@ -800,7 +867,7 @@ var AIChatWindow = ({
                 }
               },
               children: [
-                messages.length === 0 ? /* @__PURE__ */ jsx5(
+                messages.length === 0 && !isLoading ? /* @__PURE__ */ jsx5(
                   Box5,
                   {
                     sx: {
@@ -813,7 +880,10 @@ var AIChatWindow = ({
                     },
                     children: /* @__PURE__ */ jsx5(Text4, { sx: { fontSize: "14px" }, children: "Start a conversation with AI" })
                   }
-                ) : messages.map((message) => /* @__PURE__ */ jsx5(ChatMessage, { message }, message.id)),
+                ) : /* @__PURE__ */ jsxs5(Fragment2, { children: [
+                  messages.map((message) => /* @__PURE__ */ jsx5(ChatMessage, { message }, message.id)),
+                  isLoading && /* @__PURE__ */ jsx5(TypingIndicator, {})
+                ] }),
                 /* @__PURE__ */ jsx5("div", { ref: messagesEndRef })
               ]
             }
