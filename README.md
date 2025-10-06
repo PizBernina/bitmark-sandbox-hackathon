@@ -654,3 +654,148 @@ React component library for rendering Bitmark content as interactive UI elements
 - Customizable styling and theming
 
 **Documentation:** [bitmark-ui-renderer/README.md](./bitmark-ui-renderer/README.md)
+
+
+# How to run it
+
+## First-time setup
+
+### Prerequisites
+
+Before running the Bitmark ecosystem, ensure you have the following installed:
+
+- **Node.js** (v24+ recommended) - [Download here](https://nodejs.org/)
+- **Python** (3.10+) - [Download here](https://www.python.org/downloads/)
+- **Yarn** (v3.5.0+) - Install with `npm install -g yarn`
+- **Git** (v2.11+) - [Download here](https://git-scm.com/)
+
+### Installation Steps
+
+1. **Clone the repository** (if not already done):
+   ```bash
+   git clone https://github.com/PizBernina/bitmark-sandbox-hackathon.git
+   cd bitmark-sandbox-hackathon
+   ```
+
+2. **Install bitmark-parser-generator dependencies:**
+   ```bash
+   cd bitmark-parser-generator
+   npm install
+   npm run build
+   cd ..
+   ```
+
+3. **Install bitmark-playground dependencies:**
+   ```bash
+   cd bitmark-playground
+   yarn install
+   cd ..
+   ```
+
+4. **Install bitmark-ai-chat dependencies:**
+   ```bash
+   cd bitmark-ai-chat
+   yarn install
+   yarn build
+   cd ..
+   ```
+
+5. **Install bitmark-ui-renderer dependencies:**
+   ```bash
+   cd bitmark-ui-renderer
+   yarn install
+   yarn build
+   cd ..
+   ```
+
+6. **Set up Python virtual environment and install backend dependencies:**
+   ```bash
+   cd bitmark-ai-chat-backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   cd ..
+   ```
+
+7. **Configure environment variables:**
+   
+   Create a `.env` file in the main directory:
+   ```bash
+   echo "GEMINI_API_KEY=your_actual_gemini_api_key_here" > .env
+   cd ..
+   ```
+   
+   **Note:** You'll need to obtain a Gemini API key from [Google AI Studio](https://aistudio.google.com/) and replace `your_actual_gemini_api_key_here` with your actual key.
+
+### Verification
+
+To verify everything is set up correctly:
+
+1. **Test the parser generator:**
+   ```bash
+   cd bitmark-parser-generator
+   npm test
+   cd ..
+   ```
+
+2. **Test the playground build:**
+   ```bash
+   cd bitmark-playground
+   yarn build
+   cd ..
+   ```
+
+3. **Test the AI backend:**
+   ```bash
+   cd bitmark-ai-chat-backend
+   source venv/bin/activate
+   python main.py
+   # Should start on http://localhost:8000
+   # Press Ctrl+C to stop
+   cd ..
+   ```
+
+## Running the complete system
+
+Once everything is installed, you can run the complete Bitmark ecosystem:
+
+### Terminal 1 - Parser Generator (serves the parser library):
+```bash
+cd bitmark-parser-generator
+nvm use 24  # or your Node.js version
+npx serve dist -l 38829
+```
+
+### Terminal 2 - Playground (main application):
+```bash
+cd bitmark-playground
+yarn start
+```
+
+### Terminal 3 - AI Chat Backend:
+```bash
+cd bitmark-ai-chat-backend
+source venv/bin/activate
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+### Access the application:
+http://localhost:3010/bitmark-playground
+- **AI Backend API**: http://localhost:8000
+- **Parser Library**: http://localhost:38829
+
+## Troubleshooting
+
+### Common Issues:
+
+1. **Node.js version mismatch**: Ensure you're using Node.js v24+ for the parser generator
+2. **Python virtual environment**: Make sure to activate the virtual environment before running the backend
+3. **Missing API key**: Ensure your Gemini API key is properly set in the `.env` file
+4. **Port conflicts**: If ports 3010, 8000, or 38829 are in use, stop the conflicting services or change the ports in the commands above
+5. **Yarn vs npm**: The playground uses Yarn, while the parser generator uses npm - this is intentional
+
+### Getting Help:
+
+- Check the individual package READMEs for more detailed information
+- Ensure all dependencies are properly installed
+- Verify your environment variables are set correctly
