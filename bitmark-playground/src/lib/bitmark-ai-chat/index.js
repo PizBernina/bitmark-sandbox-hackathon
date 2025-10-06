@@ -681,6 +681,9 @@ var AIChatWindow = ({
 }) => {
   const [isDragging, setIsDragging] = (0, import_react4.useState)(false);
   const [dragStart, setDragStart] = (0, import_react4.useState)({ x: 0, y: 0 });
+  const [isResizing, setIsResizing] = (0, import_react4.useState)(false);
+  const [resizeStart, setResizeStart] = (0, import_react4.useState)({ x: 0, y: 0, width: 0, height: 0 });
+  const [windowSize, setWindowSize] = (0, import_react4.useState)({ width: 350, height: 500 });
   const windowRef = (0, import_react4.useRef)(null);
   const messagesEndRef = (0, import_react4.useRef)(null);
   (0, import_react4.useEffect)(() => {
@@ -705,8 +708,8 @@ var AIChatWindow = ({
         x: e.clientX - dragStart.x,
         y: e.clientY - dragStart.y
       };
-      const maxX = window.innerWidth - 350;
-      const maxY = window.innerHeight - (isMinimized ? 50 : 500);
+      const maxX = window.innerWidth - windowSize.width;
+      const maxY = window.innerHeight - (isMinimized ? 50 : windowSize.height);
       newPosition.x = Math.max(0, Math.min(newPosition.x, maxX));
       newPosition.y = Math.max(0, Math.min(newPosition.y, maxY));
       onPositionChange(newPosition);
@@ -714,6 +717,29 @@ var AIChatWindow = ({
   };
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+  const handleResizeMouseDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+    setResizeStart({
+      x: e.clientX,
+      y: e.clientY,
+      width: windowSize.width,
+      height: windowSize.height
+    });
+  };
+  const handleResizeMouseMove = (e) => {
+    if (isResizing) {
+      const deltaX = e.clientX - resizeStart.x;
+      const deltaY = e.clientY - resizeStart.y;
+      const newWidth = Math.max(300, Math.min(800, resizeStart.width + deltaX));
+      const newHeight = Math.max(400, Math.min(900, resizeStart.height + deltaY));
+      setWindowSize({ width: newWidth, height: newHeight });
+    }
+  };
+  const handleResizeMouseUp = () => {
+    setIsResizing(false);
   };
   (0, import_react4.useEffect)(() => {
     if (isDragging) {
@@ -725,6 +751,16 @@ var AIChatWindow = ({
       };
     }
   }, [isDragging, dragStart]);
+  (0, import_react4.useEffect)(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleResizeMouseMove);
+      document.addEventListener("mouseup", handleResizeMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleResizeMouseMove);
+        document.removeEventListener("mouseup", handleResizeMouseUp);
+      };
+    }
+  }, [isResizing, resizeStart]);
   if (!isVisible) {
     return null;
   }
@@ -736,8 +772,8 @@ var AIChatWindow = ({
         position: "fixed",
         top: `${position.y}px`,
         left: `${position.x}px`,
-        width: "350px",
-        height: isMinimized ? "50px" : "500px",
+        width: `${windowSize.width}px`,
+        height: isMinimized ? "50px" : `${windowSize.height}px`,
         backgroundColor: "white",
         border: "1px solid #e0e0e0",
         borderRadius: "8px",
@@ -745,7 +781,7 @@ var AIChatWindow = ({
         display: "flex",
         flexDirection: "column",
         zIndex: 1e3,
-        transition: "height 0.3s ease",
+        transition: isMinimized ? "height 0.3s ease" : "none",
         overflow: "hidden"
       },
       children: [
@@ -920,7 +956,31 @@ var AIChatWindow = ({
             }
           ),
           /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(ChatInput, { onSendMessage, isLoading })
-        ] })
+        ] }),
+        !isMinimized && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(
+          import_theme_ui5.Box,
+          {
+            onMouseDown: handleResizeMouseDown,
+            sx: {
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              width: "20px",
+              height: "20px",
+              cursor: "nwse-resize",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              color: "#999",
+              userSelect: "none",
+              "&:hover": {
+                color: "#63019B"
+              }
+            },
+            children: "\u22F0"
+          }
+        )
       ]
     }
   );

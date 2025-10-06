@@ -117,6 +117,9 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [windowSize, setWindowSize] = useState({ width: 350, height: 500 });
   const windowRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -149,8 +152,8 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
       };
       
       // Keep window within viewport bounds
-      const maxX = window.innerWidth - 350;
-      const maxY = window.innerHeight - (isMinimized ? 50 : 500);
+      const maxX = window.innerWidth - windowSize.width;
+      const maxY = window.innerHeight - (isMinimized ? 50 : windowSize.height);
       
       newPosition.x = Math.max(0, Math.min(newPosition.x, maxX));
       newPosition.y = Math.max(0, Math.min(newPosition.y, maxY));
@@ -161,6 +164,34 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
 
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+
+  const handleResizeMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+    setResizeStart({
+      x: e.clientX,
+      y: e.clientY,
+      width: windowSize.width,
+      height: windowSize.height,
+    });
+  };
+
+  const handleResizeMouseMove = (e: MouseEvent) => {
+    if (isResizing) {
+      const deltaX = e.clientX - resizeStart.x;
+      const deltaY = e.clientY - resizeStart.y;
+      
+      const newWidth = Math.max(300, Math.min(800, resizeStart.width + deltaX));
+      const newHeight = Math.max(400, Math.min(900, resizeStart.height + deltaY));
+      
+      setWindowSize({ width: newWidth, height: newHeight });
+    }
+  };
+
+  const handleResizeMouseUp = () => {
+    setIsResizing(false);
   };
 
   useEffect(() => {
@@ -175,6 +206,18 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
     }
   }, [isDragging, dragStart]);
 
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleResizeMouseMove);
+      document.addEventListener('mouseup', handleResizeMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleResizeMouseMove);
+        document.removeEventListener('mouseup', handleResizeMouseUp);
+      };
+    }
+  }, [isResizing, resizeStart]);
+
   if (!isVisible) {
     return null;
   }
@@ -186,8 +229,8 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
         position: 'fixed',
         top: `${position.y}px`,
         left: `${position.x}px`,
-        width: '350px',
-        height: isMinimized ? '50px' : '500px',
+        width: `${windowSize.width}px`,
+        height: isMinimized ? '50px' : `${windowSize.height}px`,
         backgroundColor: 'white',
         border: '1px solid #e0e0e0',
         borderRadius: '8px',
@@ -195,7 +238,7 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
         display: 'flex',
         flexDirection: 'column',
         zIndex: 1000,
-        transition: 'height 0.3s ease',
+        transition: isMinimized ? 'height 0.3s ease' : 'none',
         overflow: 'hidden',
       }}
     >
@@ -354,6 +397,32 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
           
           <ChatInput onSendMessage={onSendMessage} isLoading={isLoading} />
         </>
+      )}
+      
+      {/* Resize handle */}
+      {!isMinimized && (
+        <Box
+          onMouseDown={handleResizeMouseDown}
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            width: '20px',
+            height: '20px',
+            cursor: 'nwse-resize',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '12px',
+            color: '#999',
+            userSelect: 'none',
+            '&:hover': {
+              color: '#63019B',
+            },
+          }}
+        >
+          ⋰
+        </Box>
       )}
     </Box>
   );
