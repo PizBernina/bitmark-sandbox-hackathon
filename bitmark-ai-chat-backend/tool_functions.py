@@ -106,7 +106,7 @@ def get_playground_panes_info(input_type: str = "general", pane_content: Dict[st
     
     Args:
         input_type: Type of analysis to perform (markup_analysis, error_check, content_review, troubleshooting, general)
-        pane_content: Content from the 4 playground panes: bitmark_markup, json_content, rendered_ui, sandbox_content
+        pane_content: Content from the 4 playground panes: input_json_or_bitmark_pane, json_content, rendered_ui_pane, sandbox_output_pane
     
     Returns:
         Dictionary containing analysis results and suggestions for the user's Bitmark content
@@ -124,7 +124,7 @@ def get_playground_panes_info(input_type: str = "general", pane_content: Dict[st
                 }
         elif input_type == "markup_analysis":
             if pane_content:
-                return _analyze_bitmark_markup(pane_content.get("bitmark_markup", ""))
+                return _analyze_bitmark_markup(pane_content.get("input_json_or_bitmark_pane", ""))
             else:
                 return {
                     "input_type": "markup_analysis",
@@ -222,9 +222,9 @@ def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     errors = []
     suggestions = []
     
-    bitmark_markup = pane_content.get("bitmark_markup", "")
+    bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
     json_content = pane_content.get("json_content", "")
-    rendered_ui = pane_content.get("rendered_ui", "")
+    rendered_ui = pane_content.get("rendered_ui_pane", "")
     
     if not bitmark_markup.strip():
         errors.append("No Bitmark markup found")
@@ -248,10 +248,10 @@ def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
 def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Review content across all panes and provide feedback."""
     review = {
-        "bitmark_markup": "Not provided",
+        "input_json_or_bitmark_pane": "Not provided",
         "json_content": "Not provided", 
-        "rendered_ui": "Not provided",
-        "sandbox_content": "Not provided"
+        "rendered_ui_pane": "Not provided",
+        "sandbox_output_pane": "Not provided"
     }
     
     feedback = []
@@ -259,7 +259,7 @@ def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     for pane, content in pane_content.items():
         if content and content.strip():
             review[pane] = f"Provided ({len(content)} characters)"
-            if pane == "bitmark_markup":
+            if pane == "input_json_or_bitmark_pane":
                 if "[.cloze]" in content:
                     feedback.append("✅ Cloze exercise detected")
                 if "[.multiple-choice]" in content:
@@ -282,7 +282,7 @@ def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     suggestions = []
     
     # Check bitmark markup pane
-    bitmark_markup = pane_content.get("bitmark_markup", "")
+    bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
     if bitmark_markup:
         markup_issues = _analyze_bitmark_markup(bitmark_markup)
         issues.extend(markup_issues)
@@ -294,13 +294,13 @@ def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
         issues.extend(json_issues)
     
     # Check rendered UI pane
-    rendered_ui = pane_content.get("rendered_ui", "")
+    rendered_ui = pane_content.get("rendered_ui_pane", "")
     if rendered_ui:
         ui_issues = _analyze_rendered_ui(rendered_ui)
         issues.extend(ui_issues)
     
     # Check sandbox pane
-    sandbox_content = pane_content.get("sandbox_content", "")
+    sandbox_content = pane_content.get("sandbox_output_pane", "")
     if sandbox_content:
         sandbox_issues = _analyze_sandbox_content(sandbox_content)
         issues.extend(sandbox_issues)
@@ -309,9 +309,13 @@ def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     if issues:
         suggestions = _generate_troubleshooting_suggestions(issues)
     
+    # Add the actual pane content to help LLM analyze directly
     return {
         "input_type": "troubleshooting",
         "pane_content_analyzed": True,
+        "input_json_or_bitmark_pane": bitmark_markup[:500] if bitmark_markup else "Not provided",
+        "json_content": json_content[:1000] if json_content else "Not provided",
+        "sandbox_output_pane": sandbox_content[:500] if sandbox_content else "Not provided",
         "issues_found": issues,
         "suggestions": suggestions,
         "success": True
@@ -361,6 +365,10 @@ def _analyze_rendered_ui(rendered_ui: str) -> List[Dict[str, Any]]:
     """Analyze rendered UI for display issues."""
     issues = []
     
+    # Skip analysis if this is just a placeholder string from frontend
+    if "not available" in rendered_ui.lower():
+        return issues
+    
     # Check for empty rendered content
     if not rendered_ui or rendered_ui.strip() == "":
         issues.append({
@@ -386,6 +394,10 @@ def _analyze_rendered_ui(rendered_ui: str) -> List[Dict[str, Any]]:
 def _analyze_sandbox_content(sandbox_content: str) -> List[Dict[str, Any]]:
     """Analyze sandbox content for issues."""
     issues = []
+    
+    # Skip analysis if this is just a placeholder string from frontend
+    if "not available" in sandbox_content.lower():
+        return issues
     
     # Check for empty sandbox content
     if not sandbox_content or sandbox_content.strip() == "":
@@ -835,7 +847,7 @@ def get_function_declarations():
         },
         {
             "name": "get_playground_panes_info",
-            "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. You can see their Bitmark markup, JSON output, rendered UI, and sandbox content directly. DO NOT ask users to paste or provide content - you can access their editor directly through this function. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
+            "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. The function returns the actual input_json_or_bitmark_pane and json_content from the playground, which you can analyze directly to answer the user's question. Focus on the input_json_or_bitmark_pane (raw Bitmark syntax) and json_content (parsed JSON representation) fields in the response - these contain all the information you need. DO NOT say you lack access if these fields contain content. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
             "parameters": {
                 "type": "OBJECT",
                 "properties": {
@@ -848,7 +860,7 @@ def get_function_declarations():
                         "type": "OBJECT",
                         "description": "Content from the 4 playground panes for analysis",
                         "properties": {
-                            "bitmark_markup": {
+                            "input_json_or_bitmark_pane": {
                                 "type": "STRING",
                                 "description": "Content from the bitmark markup pane (top-left)"
                             },
@@ -856,11 +868,11 @@ def get_function_declarations():
                                 "type": "STRING", 
                                 "description": "Content from the JSON pane (top-right)"
                             },
-                            "rendered_ui": {
+                            "rendered_ui_pane": {
                                 "type": "STRING",
                                 "description": "Content from the rendered UI pane (bottom-left)"
                             },
-                            "sandbox_content": {
+                            "sandbox_output_pane": {
                                 "type": "STRING",
                                 "description": "Content from the sandbox pane (bottom-right)"
                             }

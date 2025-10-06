@@ -67,10 +67,10 @@ Send a message to Gemini and get a response with tool calling support
     }
   ],
   "pane_content": {
-    "bitmark_markup": "[.cloze] The students completed the [_assignment] with the correct verb forms.",
+    "input_json_or_bitmark_pane": "[.cloze] The students completed the [_assignment] with the correct verb forms.",
     "json_content": "[{\"bit\": {\"type\": \"cloze\"}}]",
-    "rendered_ui": "Rendered UI content",
-    "sandbox_content": "Sandbox content"
+    "rendered_ui_pane": "Rendered UI content",
+    "sandbox_output_pane": "Sandbox content"
   }
 }
 ```
@@ -184,10 +184,10 @@ To integrate the AI chat with the Bitmark playground, the following changes were
 ### Pane Content Structure
 ```json
 {
-  "bitmark_markup": "User's Bitmark markup from top-left pane",
+  "input_json_or_bitmark_pane": "User's Bitmark markup from top-left pane",
   "json_content": "Parsed JSON output from top-right pane", 
-  "rendered_ui": "Rendered UI content from bottom-left pane",
-  "sandbox_content": "Sandbox output from bottom-right pane"
+  "rendered_ui_pane": "Rendered UI content from bottom-left pane",
+  "sandbox_output_pane": "Sandbox output from bottom-right pane"
 }
 ```
 

@@ -31,10 +31,11 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // src/components/AIChatWindow.tsx
-var import_react3 = require("react");
+var import_react4 = require("react");
 var import_theme_ui5 = require("theme-ui");
 
 // src/components/ChatMessage.tsx
+var import_react2 = require("react");
 var import_theme_ui3 = require("theme-ui");
 
 // src/components/ToolUsageContainer.tsx
@@ -199,6 +200,175 @@ var ToolUsageContainer = ({
 
 // src/components/ChatMessage.tsx
 var import_jsx_runtime3 = require("react/jsx-runtime");
+var CodeBlockComponent = ({ code, language }) => {
+  const [copied, setCopied] = (0, import_react2.useState)(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2e3);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+    import_theme_ui3.Box,
+    {
+      sx: {
+        position: "relative",
+        marginY: "8px",
+        borderRadius: "8px",
+        backgroundColor: "#1e1e1e",
+        overflow: "hidden"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+          import_theme_ui3.Box,
+          {
+            sx: {
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "8px 12px",
+              backgroundColor: "#2d2d2d",
+              borderBottom: "1px solid #444"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_theme_ui3.Text, { sx: { fontSize: "12px", color: "#888", fontFamily: "monospace" }, children: language || "code" }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                import_theme_ui3.Button,
+                {
+                  onClick: handleCopy,
+                  sx: {
+                    padding: "4px 12px",
+                    fontSize: "12px",
+                    backgroundColor: copied ? "#4caf50" : "#444",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    transition: "background-color 0.2s",
+                    "&:hover": {
+                      backgroundColor: copied ? "#4caf50" : "#555"
+                    }
+                  },
+                  children: copied ? "\u2713 Copied!" : "Copy"
+                }
+              )
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          import_theme_ui3.Box,
+          {
+            sx: {
+              padding: "12px",
+              overflowX: "auto"
+            },
+            children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              import_theme_ui3.Text,
+              {
+                as: "pre",
+                sx: {
+                  margin: 0,
+                  fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                  fontSize: "13px",
+                  color: "#d4d4d4",
+                  whiteSpace: "pre",
+                  lineHeight: "1.5"
+                },
+                children: code
+              }
+            )
+          }
+        )
+      ]
+    }
+  );
+};
+var renderMarkdown = (text) => {
+  const lines = text.split("\n");
+  const elements = [];
+  let currentList = [];
+  let listKey = 0;
+  const processInlineMarkdown = (line) => {
+    const parts = [];
+    let remaining = line;
+    let key = 0;
+    const boldRegex = /\*\*([^*]+)\*\*/g;
+    let lastIndex = 0;
+    let match;
+    while ((match = boldRegex.exec(remaining)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: remaining.substring(lastIndex, match.index) }, `text-${key++}`));
+      }
+      parts.push(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)("strong", { children: match[1] }, `bold-${key++}`));
+      lastIndex = match.index + match[0].length;
+    }
+    if (lastIndex < remaining.length) {
+      parts.push(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: remaining.substring(lastIndex) }, `text-${key++}`));
+    }
+    return parts.length > 0 ? parts : [remaining];
+  };
+  lines.forEach((line, index) => {
+    if (line.trim().startsWith("*") && !line.trim().startsWith("**")) {
+      const content = line.trim().substring(1).trim();
+      currentList.push(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("li", { style: { marginLeft: "1em", listStyleType: "disc" }, children: processInlineMarkdown(content) }, `li-${index}`)
+      );
+    } else {
+      if (currentList.length > 0) {
+        elements.push(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { style: { margin: "0.5em 0", paddingLeft: "1.5em" }, children: currentList }, `ul-${listKey++}`)
+        );
+        currentList = [];
+      }
+      if (line.trim()) {
+        elements.push(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { marginBottom: "0.5em" }, children: processInlineMarkdown(line) }, `p-${index}`)
+        );
+      } else {
+        elements.push(/* @__PURE__ */ (0, import_jsx_runtime3.jsx)("br", {}, `br-${index}`));
+      }
+    }
+  });
+  if (currentList.length > 0) {
+    elements.push(
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("ul", { style: { margin: "0.5em 0", paddingLeft: "1.5em" }, children: currentList }, `ul-${listKey++}`)
+    );
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, { children: elements });
+};
+var parseMessageContent = (content) => {
+  const parts = [];
+  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
+  let lastIndex = 0;
+  let match;
+  while ((match = codeBlockRegex.exec(content)) !== null) {
+    if (match.index > lastIndex) {
+      const textContent = content.substring(lastIndex, match.index);
+      if (textContent.trim()) {
+        parts.push({ type: "text", content: textContent });
+      }
+    }
+    parts.push({
+      type: "code",
+      content: match[2].trim(),
+      language: match[1] || "text"
+    });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < content.length) {
+    const textContent = content.substring(lastIndex);
+    if (textContent.trim()) {
+      parts.push({ type: "text", content: textContent });
+    }
+  }
+  if (parts.length === 0) {
+    parts.push({ type: "text", content });
+  }
+  return parts;
+};
 var ChatMessage = ({ message }) => {
   console.log("ChatMessage received:", message);
   console.log("Tool usage indicators:", message.toolUsageIndicators);
@@ -268,21 +438,57 @@ var ChatMessage = ({ message }) => {
             {
               sx: {
                 maxWidth: "70%",
-                padding: "8px 12px",
-                borderRadius: "18px",
-                backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
-                color: message.sender === "user" ? "white" : "#333",
-                wordWrap: "break-word"
+                minWidth: message.sender === "ai" ? "300px" : "auto"
               },
-              children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                import_theme_ui3.Text,
-                {
-                  sx: {
-                    fontSize: "14px",
-                    whiteSpace: "pre-wrap"
+              children: message.sender === "ai" ? (
+                // Parse and render AI messages with code blocks
+                parseMessageContent(message.content).map((part, index) => part.type === "code" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(CodeBlockComponent, { code: part.content, language: part.language || "text" }, index) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  import_theme_ui3.Box,
+                  {
+                    sx: {
+                      padding: "8px 12px",
+                      borderRadius: "18px",
+                      backgroundColor: "#f0f0f0",
+                      color: "#333",
+                      wordWrap: "break-word",
+                      marginY: index > 0 ? "4px" : 0
+                    },
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                      import_theme_ui3.Box,
+                      {
+                        sx: {
+                          fontSize: "14px"
+                        },
+                        children: renderMarkdown(part.content)
+                      }
+                    )
                   },
-                  children: message.content
-                }
+                  index
+                ))
+              ) : (
+                // User messages stay simple
+                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                  import_theme_ui3.Box,
+                  {
+                    sx: {
+                      padding: "8px 12px",
+                      borderRadius: "18px",
+                      backgroundColor: "#63019B",
+                      color: "white",
+                      wordWrap: "break-word"
+                    },
+                    children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+                      import_theme_ui3.Text,
+                      {
+                        sx: {
+                          fontSize: "14px",
+                          whiteSpace: "pre-wrap"
+                        },
+                        children: message.content
+                      }
+                    )
+                  }
+                )
               )
             }
           ),
@@ -305,11 +511,11 @@ var ChatMessage = ({ message }) => {
 };
 
 // src/components/ChatInput.tsx
-var import_react2 = require("react");
+var import_react3 = require("react");
 var import_theme_ui4 = require("theme-ui");
 var import_jsx_runtime4 = require("react/jsx-runtime");
 var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
-  const [message, setMessage] = (0, import_react2.useState)("");
+  const [message, setMessage] = (0, import_react3.useState)("");
   const handleSend = () => {
     if (message.trim() && !disabled) {
       onSendMessage(message.trim());
@@ -406,11 +612,11 @@ var AIChatWindow = ({
   onClose,
   isLoading = false
 }) => {
-  const [isDragging, setIsDragging] = (0, import_react3.useState)(false);
-  const [dragStart, setDragStart] = (0, import_react3.useState)({ x: 0, y: 0 });
-  const windowRef = (0, import_react3.useRef)(null);
-  const messagesEndRef = (0, import_react3.useRef)(null);
-  (0, import_react3.useEffect)(() => {
+  const [isDragging, setIsDragging] = (0, import_react4.useState)(false);
+  const [dragStart, setDragStart] = (0, import_react4.useState)({ x: 0, y: 0 });
+  const windowRef = (0, import_react4.useRef)(null);
+  const messagesEndRef = (0, import_react4.useRef)(null);
+  (0, import_react4.useEffect)(() => {
     if (!isMinimized && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -442,7 +648,7 @@ var AIChatWindow = ({
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-  (0, import_react3.useEffect)(() => {
+  (0, import_react4.useEffect)(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -684,17 +890,17 @@ var AIChatButton = ({ onClick, isVisible }) => {
 };
 
 // src/hooks/useChatState.ts
-var import_react4 = require("react");
+var import_react5 = require("react");
 var generateId = () => Math.random().toString(36).substr(2, 9);
 var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => {
-  const [chatState, setChatState] = (0, import_react4.useState)({
+  const [chatState, setChatState] = (0, import_react5.useState)({
     messages: [],
     isMinimized: false,
     position: initialPosition,
     isVisible: false
   });
-  const [isLoading, setIsLoading] = (0, import_react4.useState)(false);
-  const addMessage = (0, import_react4.useCallback)((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
+  const [isLoading, setIsLoading] = (0, import_react5.useState)(false);
+  const addMessage = (0, import_react5.useCallback)((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
     const newMessage = {
       id: generateId(),
       content,
@@ -709,31 +915,31 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
       messages: [...prev.messages, newMessage]
     }));
   }, []);
-  const clearMessages = (0, import_react4.useCallback)(() => {
+  const clearMessages = (0, import_react5.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       messages: []
     }));
   }, []);
-  const toggleVisibility = (0, import_react4.useCallback)(() => {
+  const toggleVisibility = (0, import_react5.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       isVisible: !prev.isVisible
     }));
   }, []);
-  const toggleMinimize = (0, import_react4.useCallback)(() => {
+  const toggleMinimize = (0, import_react5.useCallback)(() => {
     setChatState((prev) => ({
       ...prev,
       isMinimized: !prev.isMinimized
     }));
   }, []);
-  const updatePosition = (0, import_react4.useCallback)((position) => {
+  const updatePosition = (0, import_react5.useCallback)((position) => {
     setChatState((prev) => ({
       ...prev,
       position
     }));
   }, []);
-  const sendMessage = (0, import_react4.useCallback)(async (message, paneContent) => {
+  const sendMessage = (0, import_react5.useCallback)(async (message, paneContent) => {
     addMessage(message, "user");
     setIsLoading(true);
     try {
