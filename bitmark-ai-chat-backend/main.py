@@ -141,7 +141,7 @@ async def chat_with_gemini(request: ChatRequest):
         
         # Get response from Gemini
         response = await client.aio.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.5-pro", #gemini-2.5-flash
             contents=conversation_context,
             config=config
         )

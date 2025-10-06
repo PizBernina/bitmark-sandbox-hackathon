@@ -1,9 +1,10 @@
 // src/components/AIChatWindow.tsx
-import { useState as useState3, useRef, useEffect as useEffect2 } from "react";
-import { Box as Box5, Text as Text4, Button as Button2 } from "theme-ui";
+import { useState as useState4, useRef, useEffect as useEffect2 } from "react";
+import { Box as Box5, Text as Text4, Button as Button3 } from "theme-ui";
 
 // src/components/ChatMessage.tsx
-import { Box as Box3, Text as Text3 } from "theme-ui";
+import { useState as useState2 } from "react";
+import { Box as Box3, Text as Text3, Button } from "theme-ui";
 
 // src/components/ToolUsageContainer.tsx
 import { Box as Box2, Text as Text2 } from "theme-ui";
@@ -167,28 +168,179 @@ var ToolUsageContainer = ({
 
 // src/components/ChatMessage.tsx
 import { Fragment, jsx as jsx3, jsxs as jsxs3 } from "react/jsx-runtime";
+var CodeBlockComponent = ({ code, language }) => {
+  const [copied, setCopied] = useState2(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2e3);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+  return /* @__PURE__ */ jsxs3(
+    Box3,
+    {
+      sx: {
+        position: "relative",
+        marginY: "8px",
+        borderRadius: "8px",
+        backgroundColor: "#1e1e1e",
+        overflow: "hidden"
+      },
+      children: [
+        /* @__PURE__ */ jsxs3(
+          Box3,
+          {
+            sx: {
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "8px 12px",
+              backgroundColor: "#2d2d2d",
+              borderBottom: "1px solid #444"
+            },
+            children: [
+              /* @__PURE__ */ jsx3(Text3, { sx: { fontSize: "12px", color: "#888", fontFamily: "monospace" }, children: language || "code" }),
+              /* @__PURE__ */ jsx3(
+                Button,
+                {
+                  onClick: handleCopy,
+                  sx: {
+                    padding: "4px 12px",
+                    fontSize: "12px",
+                    backgroundColor: copied ? "#4caf50" : "#444",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    transition: "background-color 0.2s",
+                    "&:hover": {
+                      backgroundColor: copied ? "#4caf50" : "#555"
+                    }
+                  },
+                  children: copied ? "\u2713 Copied!" : "Copy"
+                }
+              )
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx3(
+          Box3,
+          {
+            sx: {
+              padding: "12px",
+              overflowX: "auto"
+            },
+            children: /* @__PURE__ */ jsx3(
+              Text3,
+              {
+                as: "pre",
+                sx: {
+                  margin: 0,
+                  fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                  fontSize: "13px",
+                  color: "#d4d4d4",
+                  whiteSpace: "pre",
+                  lineHeight: "1.5"
+                },
+                children: code
+              }
+            )
+          }
+        )
+      ]
+    }
+  );
+};
+var renderMarkdown = (text) => {
+  const lines = text.split("\n");
+  const elements = [];
+  let currentList = [];
+  let listKey = 0;
+  const processInlineMarkdown = (line) => {
+    const parts = [];
+    let remaining = line;
+    let key = 0;
+    const boldRegex = /\*\*([^*]+)\*\*/g;
+    let lastIndex = 0;
+    let match;
+    while ((match = boldRegex.exec(remaining)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(/* @__PURE__ */ jsx3("span", { children: remaining.substring(lastIndex, match.index) }, `text-${key++}`));
+      }
+      parts.push(/* @__PURE__ */ jsx3("strong", { children: match[1] }, `bold-${key++}`));
+      lastIndex = match.index + match[0].length;
+    }
+    if (lastIndex < remaining.length) {
+      parts.push(/* @__PURE__ */ jsx3("span", { children: remaining.substring(lastIndex) }, `text-${key++}`));
+    }
+    return parts.length > 0 ? parts : [remaining];
+  };
+  lines.forEach((line, index) => {
+    if (line.trim().startsWith("*") && !line.trim().startsWith("**")) {
+      const content = line.trim().substring(1).trim();
+      currentList.push(
+        /* @__PURE__ */ jsx3("li", { style: { marginLeft: "1em", listStyleType: "disc" }, children: processInlineMarkdown(content) }, `li-${index}`)
+      );
+    } else {
+      if (currentList.length > 0) {
+        elements.push(
+          /* @__PURE__ */ jsx3("ul", { style: { margin: "0.5em 0", paddingLeft: "1.5em" }, children: currentList }, `ul-${listKey++}`)
+        );
+        currentList = [];
+      }
+      if (line.trim()) {
+        elements.push(
+          /* @__PURE__ */ jsx3("div", { style: { marginBottom: "0.5em" }, children: processInlineMarkdown(line) }, `p-${index}`)
+        );
+      } else {
+        elements.push(/* @__PURE__ */ jsx3("br", {}, `br-${index}`));
+      }
+    }
+  });
+  if (currentList.length > 0) {
+    elements.push(
+      /* @__PURE__ */ jsx3("ul", { style: { margin: "0.5em 0", paddingLeft: "1.5em" }, children: currentList }, `ul-${listKey++}`)
+    );
+  }
+  return /* @__PURE__ */ jsx3(Fragment, { children: elements });
+};
+var parseMessageContent = (content) => {
+  const parts = [];
+  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
+  let lastIndex = 0;
+  let match;
+  while ((match = codeBlockRegex.exec(content)) !== null) {
+    if (match.index > lastIndex) {
+      const textContent = content.substring(lastIndex, match.index);
+      if (textContent.trim()) {
+        parts.push({ type: "text", content: textContent });
+      }
+    }
+    parts.push({
+      type: "code",
+      content: match[2].trim(),
+      language: match[1] || "text"
+    });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < content.length) {
+    const textContent = content.substring(lastIndex);
+    if (textContent.trim()) {
+      parts.push({ type: "text", content: textContent });
+    }
+  }
+  if (parts.length === 0) {
+    parts.push({ type: "text", content });
+  }
+  return parts;
+};
 var ChatMessage = ({ message }) => {
   console.log("ChatMessage received:", message);
   console.log("Tool usage indicators:", message.toolUsageIndicators);
   console.log("Has tool usage:", message.hasToolUsage);
-  const getToolDisplayName = (toolName) => {
-    const toolNames = {
-      "get_bitmark_general_info": "\u{1F4DA} General Info",
-      "get_bitmark_code_info": "\u{1F4BB} Code Info",
-      "get_user_input_info": "\u{1F527} Input Info"
-    };
-    return toolNames[toolName] || `\u{1F527} ${toolName}`;
-  };
-  const getToolDescription = (tool) => {
-    if (tool.function_name === "get_bitmark_general_info") {
-      return `Retrieved ${tool.args?.topic || "overview"} information`;
-    } else if (tool.function_name === "get_bitmark_code_info") {
-      return `Retrieved ${tool.args?.code_type || "syntax"} information`;
-    } else if (tool.function_name === "get_user_input_info") {
-      return `Retrieved ${tool.args?.input_type || "general"} information`;
-    }
-    return "Used tool";
-  };
   return /* @__PURE__ */ jsxs3(Fragment, { children: [
     /* @__PURE__ */ jsx3(ToolAnimationStyles, {}),
     /* @__PURE__ */ jsx3(
@@ -201,56 +353,62 @@ var ChatMessage = ({ message }) => {
         },
         children: /* @__PURE__ */ jsxs3(Box3, { children: [
           message.sender === "ai" && message.toolUsageIndicators && message.toolUsageIndicators.length > 0 && /* @__PURE__ */ jsx3(ToolUsageContainer, { tools: message.toolUsageIndicators }),
-          message.toolsUsed && message.toolsUsed.length > 0 && /* @__PURE__ */ jsx3(
-            Box3,
-            {
-              sx: {
-                marginBottom: "6px",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "4px"
-              },
-              children: message.toolsUsed.map((tool, index) => /* @__PURE__ */ jsx3(
-                Box3,
-                {
-                  sx: {
-                    display: "inline-flex",
-                    alignItems: "center",
-                    padding: "2px 6px",
-                    backgroundColor: "#e8f4fd",
-                    border: "1px solid #63019B",
-                    borderRadius: "12px",
-                    fontSize: "0.7rem",
-                    color: "#63019B",
-                    fontWeight: "500"
-                  },
-                  title: getToolDescription(tool),
-                  children: getToolDisplayName(tool.function_name)
-                },
-                index
-              ))
-            }
-          ),
           /* @__PURE__ */ jsx3(
             Box3,
             {
               sx: {
                 maxWidth: "70%",
-                padding: "8px 12px",
-                borderRadius: "18px",
-                backgroundColor: message.sender === "user" ? "#63019B" : "#f0f0f0",
-                color: message.sender === "user" ? "white" : "#333",
-                wordWrap: "break-word"
+                minWidth: message.sender === "ai" ? "300px" : "auto"
               },
-              children: /* @__PURE__ */ jsx3(
-                Text3,
-                {
-                  sx: {
-                    fontSize: "14px",
-                    whiteSpace: "pre-wrap"
+              children: message.sender === "ai" ? (
+                // Parse and render AI messages with code blocks
+                parseMessageContent(message.content).map((part, index) => part.type === "code" ? /* @__PURE__ */ jsx3(CodeBlockComponent, { code: part.content, language: part.language || "text" }, index) : /* @__PURE__ */ jsx3(
+                  Box3,
+                  {
+                    sx: {
+                      padding: "8px 12px",
+                      borderRadius: "18px",
+                      backgroundColor: "#f0f0f0",
+                      color: "#333",
+                      wordWrap: "break-word",
+                      marginY: index > 0 ? "4px" : 0
+                    },
+                    children: /* @__PURE__ */ jsx3(
+                      Box3,
+                      {
+                        sx: {
+                          fontSize: "14px"
+                        },
+                        children: renderMarkdown(part.content)
+                      }
+                    )
                   },
-                  children: message.content
-                }
+                  index
+                ))
+              ) : (
+                // User messages stay simple
+                /* @__PURE__ */ jsx3(
+                  Box3,
+                  {
+                    sx: {
+                      padding: "8px 12px",
+                      borderRadius: "18px",
+                      backgroundColor: "#63019B",
+                      color: "white",
+                      wordWrap: "break-word"
+                    },
+                    children: /* @__PURE__ */ jsx3(
+                      Text3,
+                      {
+                        sx: {
+                          fontSize: "14px",
+                          whiteSpace: "pre-wrap"
+                        },
+                        children: message.content
+                      }
+                    )
+                  }
+                )
               )
             }
           ),
@@ -273,11 +431,11 @@ var ChatMessage = ({ message }) => {
 };
 
 // src/components/ChatInput.tsx
-import { useState as useState2 } from "react";
-import { Box as Box4, Input, Button } from "theme-ui";
+import { useState as useState3 } from "react";
+import { Box as Box4, Input, Button as Button2 } from "theme-ui";
 import { jsx as jsx4, jsxs as jsxs4 } from "react/jsx-runtime";
 var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
-  const [message, setMessage] = useState2("");
+  const [message, setMessage] = useState3("");
   const handleSend = () => {
     if (message.trim() && !disabled) {
       onSendMessage(message.trim());
@@ -327,7 +485,7 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
           }
         ),
         /* @__PURE__ */ jsx4(
-          Button,
+          Button2,
           {
             onClick: handleSend,
             disabled: !message.trim() || disabled || isLoading,
@@ -362,6 +520,121 @@ var ChatInput = ({ onSendMessage, disabled = false, isLoading = false }) => {
 
 // src/components/AIChatWindow.tsx
 import { Fragment as Fragment2, jsx as jsx5, jsxs as jsxs5 } from "react/jsx-runtime";
+var TypingIndicator = () => {
+  return /* @__PURE__ */ jsx5(
+    Box5,
+    {
+      sx: {
+        display: "flex",
+        justifyContent: "flex-start",
+        marginBottom: "8px",
+        animation: "fadeIn 0.3s ease-in",
+        "@keyframes fadeIn": {
+          from: { opacity: 0, transform: "translateY(10px)" },
+          to: { opacity: 1, transform: "translateY(0)" }
+        }
+      },
+      children: /* @__PURE__ */ jsxs5(
+        Box5,
+        {
+          sx: {
+            padding: "8px 12px",
+            borderRadius: "18px",
+            backgroundColor: "#f0f0f0",
+            color: "#666",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px"
+          },
+          children: [
+            /* @__PURE__ */ jsx5(Text4, { sx: { fontSize: "14px" }, children: "Writing" }),
+            /* @__PURE__ */ jsxs5(
+              Box5,
+              {
+                sx: {
+                  display: "flex",
+                  gap: "2px",
+                  alignItems: "center"
+                },
+                children: [
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0.2s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  ),
+                  /* @__PURE__ */ jsx5(
+                    Box5,
+                    {
+                      sx: {
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        backgroundColor: "#666",
+                        animation: "bounce 1.4s infinite ease-in-out both",
+                        animationDelay: "0.4s",
+                        "@keyframes bounce": {
+                          "0%, 80%, 100%": {
+                            transform: "scale(0)",
+                            opacity: 0.5
+                          },
+                          "40%": {
+                            transform: "scale(1)",
+                            opacity: 1
+                          }
+                        }
+                      }
+                    }
+                  )
+                ]
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+};
 var AIChatWindow = ({
   isVisible,
   onMinimize,
@@ -374,15 +647,18 @@ var AIChatWindow = ({
   onClose,
   isLoading = false
 }) => {
-  const [isDragging, setIsDragging] = useState3(false);
-  const [dragStart, setDragStart] = useState3({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState4(false);
+  const [dragStart, setDragStart] = useState4({ x: 0, y: 0 });
+  const [isResizing, setIsResizing] = useState4(false);
+  const [resizeStart, setResizeStart] = useState4({ x: 0, y: 0, width: 0, height: 0 });
+  const [windowSize, setWindowSize] = useState4({ width: 350, height: 500 });
   const windowRef = useRef(null);
   const messagesEndRef = useRef(null);
   useEffect2(() => {
     if (!isMinimized && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages, isMinimized]);
+  }, [messages, isMinimized, isLoading]);
   const handleMouseDown = (e) => {
     const target = e.target;
     const isButton = target.closest("button") || target.tagName === "BUTTON";
@@ -400,8 +676,8 @@ var AIChatWindow = ({
         x: e.clientX - dragStart.x,
         y: e.clientY - dragStart.y
       };
-      const maxX = window.innerWidth - 350;
-      const maxY = window.innerHeight - (isMinimized ? 50 : 500);
+      const maxX = window.innerWidth - windowSize.width;
+      const maxY = window.innerHeight - (isMinimized ? 50 : windowSize.height);
       newPosition.x = Math.max(0, Math.min(newPosition.x, maxX));
       newPosition.y = Math.max(0, Math.min(newPosition.y, maxY));
       onPositionChange(newPosition);
@@ -409,6 +685,29 @@ var AIChatWindow = ({
   };
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+  const handleResizeMouseDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+    setResizeStart({
+      x: e.clientX,
+      y: e.clientY,
+      width: windowSize.width,
+      height: windowSize.height
+    });
+  };
+  const handleResizeMouseMove = (e) => {
+    if (isResizing) {
+      const deltaX = e.clientX - resizeStart.x;
+      const deltaY = e.clientY - resizeStart.y;
+      const newWidth = Math.max(300, Math.min(800, resizeStart.width + deltaX));
+      const newHeight = Math.max(400, Math.min(900, resizeStart.height + deltaY));
+      setWindowSize({ width: newWidth, height: newHeight });
+    }
+  };
+  const handleResizeMouseUp = () => {
+    setIsResizing(false);
   };
   useEffect2(() => {
     if (isDragging) {
@@ -420,6 +719,16 @@ var AIChatWindow = ({
       };
     }
   }, [isDragging, dragStart]);
+  useEffect2(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleResizeMouseMove);
+      document.addEventListener("mouseup", handleResizeMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleResizeMouseMove);
+        document.removeEventListener("mouseup", handleResizeMouseUp);
+      };
+    }
+  }, [isResizing, resizeStart]);
   if (!isVisible) {
     return null;
   }
@@ -431,8 +740,8 @@ var AIChatWindow = ({
         position: "fixed",
         top: `${position.y}px`,
         left: `${position.x}px`,
-        width: "350px",
-        height: isMinimized ? "50px" : "500px",
+        width: `${windowSize.width}px`,
+        height: isMinimized ? "50px" : `${windowSize.height}px`,
         backgroundColor: "white",
         border: "1px solid #e0e0e0",
         borderRadius: "8px",
@@ -440,10 +749,9 @@ var AIChatWindow = ({
         display: "flex",
         flexDirection: "column",
         zIndex: 1e3,
-        transition: "height 0.3s ease",
+        transition: isMinimized ? "height 0.3s ease" : "none",
         overflow: "hidden"
       },
-      onMouseDown: handleMouseDown,
       children: [
         /* @__PURE__ */ jsxs5(
           Box5,
@@ -508,7 +816,7 @@ var AIChatWindow = ({
                   },
                   children: [
                     /* @__PURE__ */ jsx5(
-                      Button2,
+                      Button3,
                       {
                         onClick: onClear,
                         title: "Clear chat",
@@ -527,7 +835,7 @@ var AIChatWindow = ({
                       }
                     ),
                     /* @__PURE__ */ jsx5(
-                      Button2,
+                      Button3,
                       {
                         onClick: onMinimize,
                         title: isMinimized ? "Restore" : "Minimize",
@@ -546,7 +854,7 @@ var AIChatWindow = ({
                       }
                     ),
                     /* @__PURE__ */ jsx5(
-                      Button2,
+                      Button3,
                       {
                         onClick: onClose,
                         title: "Close chat",
@@ -594,7 +902,7 @@ var AIChatWindow = ({
                 }
               },
               children: [
-                messages.length === 0 ? /* @__PURE__ */ jsx5(
+                messages.length === 0 && !isLoading ? /* @__PURE__ */ jsx5(
                   Box5,
                   {
                     sx: {
@@ -607,24 +915,51 @@ var AIChatWindow = ({
                     },
                     children: /* @__PURE__ */ jsx5(Text4, { sx: { fontSize: "14px" }, children: "Start a conversation with AI" })
                   }
-                ) : messages.map((message) => /* @__PURE__ */ jsx5(ChatMessage, { message }, message.id)),
+                ) : /* @__PURE__ */ jsxs5(Fragment2, { children: [
+                  messages.map((message) => /* @__PURE__ */ jsx5(ChatMessage, { message }, message.id)),
+                  isLoading && /* @__PURE__ */ jsx5(TypingIndicator, {})
+                ] }),
                 /* @__PURE__ */ jsx5("div", { ref: messagesEndRef })
               ]
             }
           ),
           /* @__PURE__ */ jsx5(ChatInput, { onSendMessage, isLoading })
-        ] })
+        ] }),
+        !isMinimized && /* @__PURE__ */ jsx5(
+          Box5,
+          {
+            onMouseDown: handleResizeMouseDown,
+            sx: {
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              width: "20px",
+              height: "20px",
+              cursor: "nwse-resize",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              color: "#999",
+              userSelect: "none",
+              "&:hover": {
+                color: "#63019B"
+              }
+            },
+            children: "\u22F0"
+          }
+        )
       ]
     }
   );
 };
 
 // src/components/AIChatButton.tsx
-import { Button as Button3 } from "theme-ui";
+import { Button as Button4 } from "theme-ui";
 import { jsx as jsx6 } from "react/jsx-runtime";
 var AIChatButton = ({ onClick, isVisible }) => {
   return /* @__PURE__ */ jsx6(
-    Button3,
+    Button4,
     {
       onClick,
       sx: {
@@ -652,16 +987,16 @@ var AIChatButton = ({ onClick, isVisible }) => {
 };
 
 // src/hooks/useChatState.ts
-import { useState as useState4, useCallback } from "react";
+import { useState as useState5, useCallback } from "react";
 var generateId = () => Math.random().toString(36).substr(2, 9);
 var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => {
-  const [chatState, setChatState] = useState4({
+  const [chatState, setChatState] = useState5({
     messages: [],
     isMinimized: false,
     position: initialPosition,
     isVisible: false
   });
-  const [isLoading, setIsLoading] = useState4(false);
+  const [isLoading, setIsLoading] = useState5(false);
   const addMessage = useCallback((content, sender, toolsUsed, toolUsageIndicators, hasToolUsage) => {
     const newMessage = {
       id: generateId(),

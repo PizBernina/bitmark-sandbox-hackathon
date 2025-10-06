@@ -120,7 +120,7 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
     
     # Get final response with function result
     final_response = await client.aio.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-2.5-pro", #gemini-2.5-flash
         contents=conversation_context,
         config=config
     )

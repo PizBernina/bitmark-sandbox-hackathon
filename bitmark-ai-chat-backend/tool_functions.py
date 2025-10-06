@@ -48,24 +48,6 @@ def get_bitmark_general_info(topic: str = "overview") -> Dict[str, Any]:
         return {"error": f"Failed to retrieve information: {str(e)}", "success": False}
 
 
-def get_bitmark_code_info(code_type: str = "syntax") -> Dict[str, Any]:
-    """
-    Retrieve information about Bitmark code, syntax, and technical details.
-    
-    Args:
-        code_type: Type of code information (syntax, examples, parser, etc.)
-    
-    Returns:
-        Dictionary containing the requested code information
-    """
-    # This will be implemented later with actual code examples
-    return {
-        "code_type": code_type,
-        "message": "Code information retrieval not yet implemented",
-        "success": False
-    }
-
-
 def get_code_access_info(code_type: str = "parser", file_path: str = None, function_name: str = None) -> Dict[str, Any]:
     """
     Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground.
@@ -106,7 +88,7 @@ def get_playground_panes_info(input_type: str = "general", pane_content: Dict[st
     
     Args:
         input_type: Type of analysis to perform (markup_analysis, error_check, content_review, troubleshooting, general)
-        pane_content: Content from the 4 playground panes: bitmark_markup, json_content, rendered_ui, sandbox_content
+        pane_content: Content from the 4 playground panes: input_json_or_bitmark_pane, json_content, rendered_ui_pane, sandbox_output_pane
     
     Returns:
         Dictionary containing analysis results and suggestions for the user's Bitmark content
@@ -124,7 +106,7 @@ def get_playground_panes_info(input_type: str = "general", pane_content: Dict[st
                 }
         elif input_type == "markup_analysis":
             if pane_content:
-                return _analyze_bitmark_markup(pane_content.get("bitmark_markup", ""))
+                return _analyze_bitmark_markup(pane_content.get("input_json_or_bitmark_pane", ""))
             else:
                 return {
                     "input_type": "markup_analysis",
@@ -222,9 +204,9 @@ def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     errors = []
     suggestions = []
     
-    bitmark_markup = pane_content.get("bitmark_markup", "")
+    bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
     json_content = pane_content.get("json_content", "")
-    rendered_ui = pane_content.get("rendered_ui", "")
+    rendered_ui = pane_content.get("rendered_ui_pane", "")
     
     if not bitmark_markup.strip():
         errors.append("No Bitmark markup found")
@@ -248,10 +230,10 @@ def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
 def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Review content across all panes and provide feedback."""
     review = {
-        "bitmark_markup": "Not provided",
+        "input_json_or_bitmark_pane": "Not provided",
         "json_content": "Not provided", 
-        "rendered_ui": "Not provided",
-        "sandbox_content": "Not provided"
+        "rendered_ui_pane": "Not provided",
+        "sandbox_output_pane": "Not provided"
     }
     
     feedback = []
@@ -259,7 +241,7 @@ def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     for pane, content in pane_content.items():
         if content and content.strip():
             review[pane] = f"Provided ({len(content)} characters)"
-            if pane == "bitmark_markup":
+            if pane == "input_json_or_bitmark_pane":
                 if "[.cloze]" in content:
                     feedback.append("✅ Cloze exercise detected")
                 if "[.multiple-choice]" in content:
@@ -278,42 +260,19 @@ def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
 
 def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Troubleshoot input issues based on pane content."""
-    issues = []
-    suggestions = []
-    
-    # Check bitmark markup pane
-    bitmark_markup = pane_content.get("bitmark_markup", "")
-    if bitmark_markup:
-        markup_issues = _analyze_bitmark_markup(bitmark_markup)
-        issues.extend(markup_issues)
-    
-    # Check JSON pane
+    # Get pane contents
+    bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
     json_content = pane_content.get("json_content", "")
-    if json_content:
-        json_issues = _analyze_json_content(json_content)
-        issues.extend(json_issues)
+    sandbox_content = pane_content.get("sandbox_output_pane", "")
     
-    # Check rendered UI pane
-    rendered_ui = pane_content.get("rendered_ui", "")
-    if rendered_ui:
-        ui_issues = _analyze_rendered_ui(rendered_ui)
-        issues.extend(ui_issues)
-    
-    # Check sandbox pane
-    sandbox_content = pane_content.get("sandbox_content", "")
-    if sandbox_content:
-        sandbox_issues = _analyze_sandbox_content(sandbox_content)
-        issues.extend(sandbox_issues)
-    
-    # Generate suggestions based on issues
-    if issues:
-        suggestions = _generate_troubleshooting_suggestions(issues)
-    
+    # Return the actual content for the LLM to analyze
+    # The LLM is smart enough to understand the content and provide helpful analysis
     return {
         "input_type": "troubleshooting",
-        "pane_content_analyzed": True,
-        "issues_found": issues,
-        "suggestions": suggestions,
+        "message": "Retrieved playground content successfully. Analyzing your Bitmark markup and outputs.",
+        "input_json_or_bitmark_pane": bitmark_markup if bitmark_markup else "No content in input pane",
+        "json_content": json_content[:2000] if json_content else "No JSON content generated",
+        "sandbox_output_pane": sandbox_content if sandbox_content else "No sandbox output generated",
         "success": True
     }
 
@@ -361,6 +320,10 @@ def _analyze_rendered_ui(rendered_ui: str) -> List[Dict[str, Any]]:
     """Analyze rendered UI for display issues."""
     issues = []
     
+    # Skip analysis if this is just a placeholder string from frontend
+    if "not available" in rendered_ui.lower():
+        return issues
+    
     # Check for empty rendered content
     if not rendered_ui or rendered_ui.strip() == "":
         issues.append({
@@ -386,6 +349,10 @@ def _analyze_rendered_ui(rendered_ui: str) -> List[Dict[str, Any]]:
 def _analyze_sandbox_content(sandbox_content: str) -> List[Dict[str, Any]]:
     """Analyze sandbox content for issues."""
     issues = []
+    
+    # Skip analysis if this is just a placeholder string from frontend
+    if "not available" in sandbox_content.lower():
+        return issues
     
     # Check for empty sandbox content
     if not sandbox_content or sandbox_content.strip() == "":
@@ -796,29 +763,14 @@ def get_function_declarations():
             }
         },
         {
-            "name": "get_bitmark_code_info",
-            "description": "Retrieve information about Bitmark code, syntax, and technical details",
-            "parameters": {
-                "type": "OBJECT",
-                "properties": {
-                    "code_type": {
-                        "type": "STRING",
-                        "description": "Type of code information to retrieve",
-                        "enum": ["syntax", "examples", "parser", "ui_renderer"]
-                    }
-                },
-                "required": ["code_type"]
-            }
-        },
-        {
             "name": "get_code_access_info",
-            "description": "Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground. Use this when users ask about implementation details, code structure, or need to understand how specific functions work. This gives you direct access to the source code and implementation details.",
+            "description": "Access and analyze the actual running code in the backend, including bitmark-parser-generator, bitmark-ui-renderer, and bitmark-playground. Use this when users ask about implementation details, code structure, supported features (like question types), or need to understand how specific functions work. This gives you direct access to the source code and implementation details.",
             "parameters": {
                 "type": "OBJECT",
                 "properties": {
                     "code_type": {
                         "type": "STRING",
-                        "description": "Type of code to access",
+                        "description": "Type of code to access: 'ui_renderer' for UI components and supported question types, 'parser' for Bitmark parsing logic, 'playground' for playground implementation, 'specific_file' to analyze a specific file, 'function_implementation' to examine a function, or 'general' for overview",
                         "enum": ["parser", "ui_renderer", "playground", "specific_file", "function_implementation", "general"]
                     },
                     "file_path": {
@@ -835,7 +787,7 @@ def get_function_declarations():
         },
         {
             "name": "get_playground_panes_info",
-            "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. You can see their Bitmark markup, JSON output, rendered UI, and sandbox content directly. DO NOT ask users to paste or provide content - you can access their editor directly through this function. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
+            "description": "CRITICAL: This function gives you DIRECT ACCESS to the user's playground editor content. When users ask about their Bitmark content, their input, or want you to check something they're working on, you MUST use this function to read what's currently in their editor. The function returns the actual input_json_or_bitmark_pane and json_content from the playground, which you can analyze directly to answer the user's question. Focus on the input_json_or_bitmark_pane (raw Bitmark syntax) and json_content (parsed JSON representation) fields in the response - these contain all the information you need. DO NOT say you lack access if these fields contain content. Use this for questions like 'check my cloze question', 'any issues?', 'help with my input', 'analyze my content', etc.",
             "parameters": {
                 "type": "OBJECT",
                 "properties": {
@@ -848,7 +800,7 @@ def get_function_declarations():
                         "type": "OBJECT",
                         "description": "Content from the 4 playground panes for analysis",
                         "properties": {
-                            "bitmark_markup": {
+                            "input_json_or_bitmark_pane": {
                                 "type": "STRING",
                                 "description": "Content from the bitmark markup pane (top-left)"
                             },
@@ -856,11 +808,11 @@ def get_function_declarations():
                                 "type": "STRING", 
                                 "description": "Content from the JSON pane (top-right)"
                             },
-                            "rendered_ui": {
+                            "rendered_ui_pane": {
                                 "type": "STRING",
                                 "description": "Content from the rendered UI pane (bottom-left)"
                             },
-                            "sandbox_content": {
+                            "sandbox_output_pane": {
                                 "type": "STRING",
                                 "description": "Content from the sandbox pane (bottom-right)"
                             }
@@ -877,7 +829,6 @@ def execute_function_call(function_name: str, function_args: Dict[str, Any]) -> 
     """Execute a function call and return the result."""
     function_map = {
         "get_bitmark_general_info": get_bitmark_general_info,
-        "get_bitmark_code_info": get_bitmark_code_info,
         "get_code_access_info": get_code_access_info,
         "get_playground_panes_info": get_playground_panes_info
     }
