@@ -147,11 +147,31 @@ export const AIChatManager: React.FC = () => {
     }
   }, [bitmarkParserGenerator, loadSuccess, snap.jsonAsString]);
 
+  // Extract rendered UI HTML from DOM
+  const getRenderedUIHtml = (): string => {
+    try {
+      // Find the BitmarkRenderer container by ID
+      const container = document.getElementById('bitmark-rendered-ui-container');
+
+      if (container) {
+        const html = container.innerHTML;
+        if (html && html.trim()) {
+          // Return a cleaned up version with a reasonable length limit
+          return html.length > 5000 ? html.substring(0, 5000) + '...[truncated]' : html;
+        }
+      }
+
+      return 'No rendered UI content available';
+    } catch (error) {
+      return `Error extracting rendered UI: ${String(error)}`;
+    }
+  };
+
   // Create pane content from current state
   const paneContent = {
     input_json_or_bitmark_pane: snap.markup || '',
     json_content: snap.jsonAsString || '',
-    rendered_ui_pane: '', // Could be extracted from DOM if needed
+    rendered_ui_pane: getRenderedUIHtml(),
     sandbox_output_pane: sandboxOutputs,
   };
 

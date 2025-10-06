@@ -410,6 +410,7 @@ export const BitmarkRenderedUI: React.FC = () => {
         </Text>
       </Flex>
       <Flex
+        id="bitmark-rendered-ui-container"
         sx={{
           flex: 1,
           minHeight: 0,
