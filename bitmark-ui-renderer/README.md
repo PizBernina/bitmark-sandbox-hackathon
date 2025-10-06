@@ -19,39 +19,7 @@ A React component library for rendering interactive bitmark content with beautif
 npm install bitmark-ui-renderer
 ```
 
-## Quick Start
-
-```tsx
-import React from 'react';
-import { BitmarkRenderer, ThemeProvider } from 'bitmark-ui-renderer';
-
-const App = () => {
-  const bitmarkData = [
-    {
-      type: 'cloze',
-      content: 'The students completed the [_assignment] with the correct verb forms.'
-    },
-    {
-      type: 'multiple-choice',
-      content: 'What color are violets? [-red][+blue][-green]'
-    }
-  ];
-
-  return (
-    <ThemeProvider>
-      <BitmarkRenderer
-        data={bitmarkData}
-        onInteraction={(interaction) => {
-          console.log('User interaction:', interaction);
-        }}
-      />
-    </ThemeProvider>
-  );
-};
-```
-
 ## API Reference
-
 ### BitmarkRenderer
 
 The main component for rendering bitmark content.
@@ -361,7 +329,7 @@ Components accept `className` and `style` props for custom styling:
 
 ## Error Handling
 
-The library provides comprehensive error handling:
+The library provides error handling:
 
 - **Parsing Errors**: Invalid JSON or malformed data
 - **Unsupported Types**: Unknown bit types
@@ -413,12 +381,6 @@ If app code editor shows "No content available" in both modes:
 - **Efficient Updates**: Only changed components re-render
 - **Bundle Size**: Optimized for minimal bundle impact
 
-## Browser Support
-
-- **Modern Browsers**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
-- **Mobile**: iOS Safari 14+, Chrome Mobile 90+
-- **Features**: ES2020+ features are used
-
 ## Development
 
 ```bash
@@ -437,4 +399,4 @@ npm run type-check
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT License

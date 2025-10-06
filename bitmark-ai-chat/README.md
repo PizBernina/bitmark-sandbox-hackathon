@@ -50,3 +50,8 @@ This library uses the following key dependencies:
 - The library is designed to work seamlessly with the existing bitmark playground theme system
 - Uses Theme UI components instead of Material-UI to maintain consistency
 - Built as a standalone package that can be integrated into any React application
+
+
+## License
+
+MIT License

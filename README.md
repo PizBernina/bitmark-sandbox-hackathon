@@ -1,7 +1,7 @@
 
 ## Overview
 
-The Bitmark ecosystem provides a comprehensive suite of tools for creating, parsing, and rendering interactive educational content. This repository contains multiple packages that work together to enable authors to create engaging educational materials with embedded runnable examples and AI-powered assistance.
+The Bitmark ecosystem provides a comprehensive suite of tools for creating, parsing, and rendering interactive educational content. This repository builds upon the bitmark parser and playground. It contains additional three new packages that are integrated into the playground to enable third parties to create and test engaging educational materials with embedded runnable examples and AI-powered assistance.
 
 ### Core Functionality
 
@@ -20,7 +20,7 @@ The Bitmark ecosystem provides a comprehensive suite of tools for creating, pars
 
 **UI Rendering** - Complete React component library for interactive educational content:
 - Some Bitmark bit types rendered as interactive UI elements
-- Support for quizzes, dropdowns, forms, and custom interactions
+- Support for quizzes and more
 
 
 ### Package Structure
@@ -36,6 +36,7 @@ The Bitmark ecosystem provides a comprehensive suite of tools for creating, pars
 
 Goal
 - Enable authors to embed runnable Bitmark examples inside content and show the resulting JSON or Bitmark, entirely client‑side.
+- Optional: Add some UI rendering and LLM feature
 
 Options considered
 - Option A: Single self‑contained sandbox bit
@@ -593,21 +594,13 @@ End‑to‑end (playground/app):
 - Tech stack (up to you; many members use Angular): Achieved
   - Viewer is framework‑agnostic; example provided in React matches the playground. Angular/Vue/Svelte wrappers are trivial since the API is a single `convert()` call.
 
+# Optional features
+## Breakscaping warning
 
-## Breakscaping rules and fixes
-
-Breakscaping escapes characters in Bitmark text by inserting carets (^) so they aren’t parsed as markup. The inverse (unbreakscaping) removes those carets. Rules differ by context:
-
-- Bitmark body (bitmark++): escape repeated marks, code/title/list-leading markers, tag triggers, dividers, and caret runs.
-- Bitmark tag: escape repeated marks, end-of-tag bracket, and caret runs.
-- Plain tag: escape end-of-tag and caret runs.
-- Plain body: escape start-of-bit triggers only.
+Added a breakscaping warning. 
 
 In the playground editor:
-- Linting shows red squiggles where current text differs from the expected breakscaped form.
-- Quick Fix offers “Insert caret(s)” or “Remove unnecessary caret(s)”.
-- “Fix all related issues” applies to the selection if present, otherwise the whole document.
-- A paste infobar appears when issues are detected in the pasted region; click “Fix pasted region” to apply.
+- Linting shows yellow squiggles where current text differs from the expected breakscaped form.
 - Warnings are Bitmark-only and can be toggled in the UI (no live auto-fix).
 
 Implementation notes:
@@ -619,15 +612,14 @@ Implementation notes:
 
 - `.app-code-editor` bodies are context-sensitive:
   - If `@computerLanguage: json` OR the body parses as JSON (starts with `{`/`[` and JSON.parse succeeds) → ignored for breakscaping (no warnings/fixes), because it is literal data.
-  - If `@computerLanguage: bitmark` → treated as “sample markup” by default and ignored (no warnings/fixes), because authors commonly paste runnable Bitmark examples here.
-  - Optional: a per-editor toggle can switch a specific `.app-code-editor` to “literal text” mode, in which case breakscaping lint/fix applies to its body as if it were normal body text. This is useful when the editor holds prose that must be caret-escaped.
-
-- Paste notifications only appear when the pasted region actually differs from the normalized result; if no change is needed, no toast is shown.
+  - If `@computerLanguage: bitmark` → treated as “sample markup” by default and ignored (no warnings/fixes), because runnable Bitmark examples  may be pasted.
 
 
 ## AI Chat Integration
 
-The Bitmark ecosystem includes AI-powered chat capabilities to help users create and troubleshoot Bitmark content.
+An AI chat has been added. It uses Gemini and tool calling. That is, it has access to the different panes in the playground and the code (all packages).
+
+It consists of a backend (botmark-ai-chat-backend) and separate frontend (bitmark-ai-chat).
 
 ### bitmark-ai-chat-backend
 FastAPI-based backend service providing integration with Google's Gemini API and advanced tool calling capabilities.
@@ -652,17 +644,13 @@ React component library for integrating AI chat functionality into Bitmark appli
 
 **Documentation:** [bitmark-ai-chat/README.md](./bitmark-ai-chat/README.md)
 
-### bitmark-ui-renderer
+## UI Renderer
 React component library for rendering Bitmark content as interactive UI elements.
 
 **Key Features:**
-- React components for all Bitmark bit types
-- Interactive elements (quizzes, dropdowns, forms)
+- React components for some Bitmark bit types
+- Interactive elements (quizzes)
 - TypeScript support with full type safety
 - Customizable styling and theming
 
 **Documentation:** [bitmark-ui-renderer/README.md](./bitmark-ui-renderer/README.md)
-
-## Next steps
-- Add unit tests
-- Improve AI Chat

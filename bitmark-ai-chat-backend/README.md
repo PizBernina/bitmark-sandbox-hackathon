@@ -23,10 +23,8 @@ Backend service for the Bitmark AI Chat feature, providing integration with Goog
 2. **Set up environment variables:**
    
    **Option 1: Using .env file (recommended for development):**
-   ```bash
-   cp env_example.txt .env
-   # Edit .env and add your GEMINI_API_KEY
-   ```
+   Edit .env and add your GEMINI_API_KEY
+
    
    **Option 2: Using system environment variable:**
    ```bash
@@ -132,21 +130,6 @@ The AI assistant uses a system instruction to provide context about its role and
 - Set `GEMINI_SYSTEM_INSTRUCTION` to override the file-based instruction
 - Useful for deployment or testing different configurations
 
-**Default system instruction:**
-```
-You are a helpful AI assistant for the Bitmark ecosystem. Bitmark is a markup language for creating interactive educational content. You can help users with Bitmark syntax, creating interactive elements, and understanding how to use the Bitmark parser and UI renderer. Be concise and helpful in your responses.
-
-Key areas you can help with:
-- Bitmark syntax and grammar
-- Creating interactive elements (quizzes, dropdowns, etc.)
-- Understanding the Bitmark parser and how it works
-- UI rendering and component usage
-- Best practices for educational content creation
-- Troubleshooting Bitmark-related issues
-
-Always provide practical examples when explaining Bitmark concepts and keep responses focused on the user's specific needs.
-```
-
 ## Tool Usage Animation System
 
 The backend provides visual feedback when the AI uses tools to answer user questions, creating a transparent and engaging user experience.
@@ -195,7 +178,6 @@ To integrate the AI chat with the Bitmark playground, the following changes were
 
 #### 3. Tool Function Implementation
 - Created `get_playground_panes_info` function for analyzing playground content
-- Added typo detection (e.g., `[.close]` → `[.cloze]`)
 - Implemented error analysis and suggestions
 - Added support for multiple analysis types (markup_analysis, error_check, content_review)
 
@@ -228,3 +210,11 @@ The API includes comprehensive error handling for:
 - Invalid request formats
 - Tool execution errors
 - Playground content access issues
+
+## Dependencies
+
+Refer to requirements.txt
+
+## License
+
+MIT License
