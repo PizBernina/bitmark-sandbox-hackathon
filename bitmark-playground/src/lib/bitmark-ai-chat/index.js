@@ -748,7 +748,6 @@ var AIChatWindow = ({
         transition: "height 0.3s ease",
         overflow: "hidden"
       },
-      onMouseDown: handleMouseDown,
       children: [
         /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
           import_theme_ui5.Box,

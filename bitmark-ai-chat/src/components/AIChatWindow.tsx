@@ -198,7 +198,6 @@ export const AIChatWindow: React.FC<AIChatWindowProps> = ({
         transition: 'height 0.3s ease',
         overflow: 'hidden',
       }}
-      onMouseDown={handleMouseDown}
     >
       <Box
         sx={{

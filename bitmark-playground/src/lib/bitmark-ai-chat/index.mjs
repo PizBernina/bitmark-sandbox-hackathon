@@ -716,7 +716,6 @@ var AIChatWindow = ({
         transition: "height 0.3s ease",
         overflow: "hidden"
       },
-      onMouseDown: handleMouseDown,
       children: [
         /* @__PURE__ */ jsxs5(
           Box5,
