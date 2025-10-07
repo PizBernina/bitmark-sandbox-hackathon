@@ -799,3 +799,4 @@ http://localhost:3010/bitmark-playground
 - Check the individual package READMEs for more detailed information
 - Ensure all dependencies are properly installed
 - Verify your environment variables are set correctly
+- Contact Robin :)
