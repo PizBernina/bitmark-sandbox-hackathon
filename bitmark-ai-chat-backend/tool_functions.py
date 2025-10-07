@@ -141,7 +141,28 @@ def get_playground_panes_info(input_type: str = "general", pane_content: Dict[st
         elif input_type == "forms":
             return _get_forms_info()
         else:
-            return _get_general_input_info()
+            # Default/general case - return pane content if available
+            if pane_content:
+                bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
+                json_content = pane_content.get("json_content", "")
+                sandbox_content = pane_content.get("sandbox_output_pane", "")
+                
+                # Prepare sandbox output message
+                if sandbox_content:
+                    sandbox_message = sandbox_content
+                else:
+                    sandbox_message = "The Sandbox outputs pane is empty. Declare either .sandbox-output-json or .sandbox-output-bitmark bits referencing an .app-code-editor by id to see sandbox outputs here."
+                
+                return {
+                    "input_type": "general",
+                    "message": "Retrieved playground content successfully. Here's what you have in each pane.",
+                    "input_json_or_bitmark_pane": bitmark_markup if bitmark_markup else "No content in input pane",
+                    "json_content": json_content[:2000] if json_content else "No JSON content generated",
+                    "sandbox_output_pane": sandbox_message,
+                    "success": True
+                }
+            else:
+                return _get_general_input_info()
     except Exception as e:
         return {
             "input_type": input_type,
@@ -229,31 +250,39 @@ def _check_for_errors(pane_content: Dict[str, Any]) -> Dict[str, Any]:
 
 def _review_content(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     """Review content across all panes and provide feedback."""
-    review = {
-        "input_json_or_bitmark_pane": "Not provided",
-        "json_content": "Not provided", 
-        "rendered_ui_pane": "Not provided",
-        "sandbox_output_pane": "Not provided"
-    }
+    # Get pane contents
+    bitmark_markup = pane_content.get("input_json_or_bitmark_pane", "")
+    json_content = pane_content.get("json_content", "")
+    rendered_ui = pane_content.get("rendered_ui_pane", "")
+    sandbox_content = pane_content.get("sandbox_output_pane", "")
     
     feedback = []
     
-    for pane, content in pane_content.items():
-        if content and content.strip():
-            review[pane] = f"Provided ({len(content)} characters)"
-            if pane == "input_json_or_bitmark_pane":
-                if "[.cloze]" in content:
-                    feedback.append("✅ Cloze exercise detected")
-                if "[.multiple-choice]" in content:
-                    feedback.append("✅ Multiple choice question detected")
-                if "**" in content or "__" in content:
-                    feedback.append("✅ Text formatting detected")
-        else:
-            feedback.append(f"⚠️ {pane.replace('_', ' ').title()} pane is empty")
+    # Check bitmark markup
+    if bitmark_markup and bitmark_markup.strip():
+        if "[.cloze]" in bitmark_markup:
+            feedback.append("✅ Cloze exercise detected")
+        if "[.multiple-choice]" in bitmark_markup:
+            feedback.append("✅ Multiple choice question detected")
+        if "**" in bitmark_markup or "__" in bitmark_markup:
+            feedback.append("✅ Text formatting detected")
+    else:
+        feedback.append("⚠️ Input pane is empty")
+    
+    # Prepare sandbox output message
+    if sandbox_content and sandbox_content.strip():
+        sandbox_message = sandbox_content
+    else:
+        sandbox_message = "The Sandbox outputs pane is empty. Declare either .sandbox-output-json or .sandbox-output-bitmark bits referencing an .app-code-editor by id to see sandbox outputs here."
+        feedback.append("ℹ️ Sandbox pane is empty - add .app-code-editor with sandbox outputs to use it")
     
     return {
         "input_type": "content_review",
-        "review": review,
+        "message": "Retrieved playground content for review. Here's what you have in each pane.",
+        "input_json_or_bitmark_pane": bitmark_markup if bitmark_markup else "No content in input pane",
+        "json_content": json_content[:2000] if json_content else "No JSON content generated",
+        "rendered_ui_pane": rendered_ui[:1000] if rendered_ui else "No rendered UI content",
+        "sandbox_output_pane": sandbox_message,
         "feedback": feedback,
         "success": True
     }
@@ -267,12 +296,19 @@ def _troubleshoot_input_issues(pane_content: Dict[str, Any]) -> Dict[str, Any]:
     
     # Return the actual content for the LLM to analyze
     # The LLM is smart enough to understand the content and provide helpful analysis
+    
+    # Prepare sandbox output message
+    if sandbox_content:
+        sandbox_message = sandbox_content
+    else:
+        sandbox_message = "The Sandbox outputs pane is empty. Declare either .sandbox-output-json or .sandbox-output-bitmark bits referencing an .app-code-editor by id to see sandbox outputs here."
+    
     return {
         "input_type": "troubleshooting",
         "message": "Retrieved playground content successfully. Analyzing your Bitmark markup and outputs.",
         "input_json_or_bitmark_pane": bitmark_markup if bitmark_markup else "No content in input pane",
         "json_content": json_content[:2000] if json_content else "No JSON content generated",
-        "sandbox_output_pane": sandbox_content if sandbox_content else "No sandbox output generated",
+        "sandbox_output_pane": sandbox_message,
         "success": True
     }
 

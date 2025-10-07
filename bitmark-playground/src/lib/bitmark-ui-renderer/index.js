@@ -1687,40 +1687,21 @@ var BitmarkRenderer = ({
     return { data: parsedData2, errors: errors2 };
   }, []);
   (0, import_react5.useEffect)(() => {
-    setIsLoading(true);
     try {
       const { data: parsedData2, errors: validationErrors } = validateData(data);
       setErrors(validationErrors);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 100);
     } catch (error) {
       setErrors([{
         type: "parsing",
         message: "Failed to process bitmark data",
         details: error instanceof Error ? error.message : "Unknown error"
       }]);
-      setIsLoading(false);
     }
   }, [data, validateData]);
   const { data: parsedData } = validateData(data);
   const groupedData = (0, import_react5.useMemo)(() => {
     return groupSandboxBits(parsedData);
   }, [parsedData, groupSandboxBits]);
-  if (isLoading) {
-    return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
-      import_material11.Box,
-      {
-        className,
-        style,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "200px",
-        children: /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(import_material11.CircularProgress, {})
-      }
-    );
-  }
   return /* @__PURE__ */ (0, import_jsx_runtime11.jsxs)(
     import_material11.Box,
     {

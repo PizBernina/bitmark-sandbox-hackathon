@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Flex, Text } from 'theme-ui';
 import { useSnapshot } from 'valtio';
 
@@ -9,23 +9,64 @@ import { bitmarkState } from '../../state/bitmarkState';
 // eslint-disable-next-line no-console
 console.log('BitmarkRenderer version check:', BitmarkRenderer.toString().includes('SandboxPlaceholderRenderer'));
 
+// Memoized wrapper component to prevent re-renders
+const MemoizedBitmarkRenderer = memo(BitmarkRenderer, (prevProps, nextProps) => {
+  // Only re-render if data actually changed
+  return JSON.stringify(prevProps.data) === JSON.stringify(nextProps.data);
+});
+
 export const BitmarkRenderedUI: React.FC = () => {
   const snap = useSnapshot(bitmarkState);
 
+  // Debounced JSON state for smooth rendering
+  const [debouncedJson, setDebouncedJson] = useState(snap.json);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lastJsonStringRef = useRef<string>('');
+
+  // Debounce the JSON updates to prevent flickering
+  useEffect(() => {
+    // Convert to string to check if content actually changed
+    const currentJsonString = JSON.stringify(snap.json);
+
+    // Only update if the content actually changed
+    if (currentJsonString === lastJsonStringRef.current) {
+      return;
+    }
+
+    // Clear any existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Set a new timer to update after 500ms of no changes (increased from 300ms)
+    debounceTimerRef.current = setTimeout(() => {
+      lastJsonStringRef.current = currentJsonString;
+      setDebouncedJson(snap.json);
+    }, 500);
+
+    // Cleanup on unmount
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, [snap.json]);
+
   // Convert the JSON output to a format the renderer can understand
+  // Use debouncedJson instead of snap.json
   const rendererData = useMemo(() => {
     try {
-      // snap.json might already be a parsed object or a string
+      // debouncedJson might already be a parsed object or a string
       let parsedJson;
 
-      if (typeof snap.json === 'string') {
-        const jsonString = snap.json as string;
+      if (typeof debouncedJson === 'string') {
+        const jsonString = debouncedJson as string;
         if (!jsonString || jsonString.trim() === '') {
           return null;
         }
         parsedJson = JSON.parse(jsonString);
-      } else if (typeof snap.json === 'object' && snap.json !== null) {
-        parsedJson = snap.json;
+      } else if (typeof debouncedJson === 'object' && debouncedJson !== null) {
+        parsedJson = debouncedJson;
       } else {
         return null;
       }
@@ -379,13 +420,13 @@ export const BitmarkRenderedUI: React.FC = () => {
       console.error('Error parsing JSON for renderer:', error);
       return null;
     }
-  }, [snap.json]);
+  }, [debouncedJson]);
 
-  const handleInteraction = (interaction: unknown) => {
+  const handleInteraction = useCallback((interaction: unknown) => {
     // eslint-disable-next-line no-console
     console.log('User interaction:', interaction);
     // You can add more sophisticated interaction handling here
-  };
+  }, []);
 
   return (
     <Flex
@@ -421,7 +462,7 @@ export const BitmarkRenderedUI: React.FC = () => {
         }}
       >
         <ThemeProvider>
-          <BitmarkRenderer
+          <MemoizedBitmarkRenderer
             data={rendererData || []}
             onInteraction={handleInteraction}
             style={{

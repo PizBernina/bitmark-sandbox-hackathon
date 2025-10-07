@@ -1,6 +1,6 @@
 // src/components/BitmarkRenderer.tsx
 import { useState as useState5, useEffect, useCallback as useCallback2, useMemo as useMemo2 } from "react";
-import { Box as Box11, Alert as Alert3, AlertTitle as AlertTitle3, CircularProgress } from "@mui/material";
+import { Box as Box11, Alert as Alert3, AlertTitle as AlertTitle3 } from "@mui/material";
 import { motion as motion11 } from "framer-motion";
 
 // src/components/AppCodeEditorInteractiveRenderer.tsx
@@ -1652,40 +1652,21 @@ var BitmarkRenderer = ({
     return { data: parsedData2, errors: errors2 };
   }, []);
   useEffect(() => {
-    setIsLoading(true);
     try {
       const { data: parsedData2, errors: validationErrors } = validateData(data);
       setErrors(validationErrors);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 100);
     } catch (error) {
       setErrors([{
         type: "parsing",
         message: "Failed to process bitmark data",
         details: error instanceof Error ? error.message : "Unknown error"
       }]);
-      setIsLoading(false);
     }
   }, [data, validateData]);
   const { data: parsedData } = validateData(data);
   const groupedData = useMemo2(() => {
     return groupSandboxBits(parsedData);
   }, [parsedData, groupSandboxBits]);
-  if (isLoading) {
-    return /* @__PURE__ */ jsx11(
-      Box11,
-      {
-        className,
-        style,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "200px",
-        children: /* @__PURE__ */ jsx11(CircularProgress, {})
-      }
-    );
-  }
   return /* @__PURE__ */ jsxs9(
     Box11,
     {
