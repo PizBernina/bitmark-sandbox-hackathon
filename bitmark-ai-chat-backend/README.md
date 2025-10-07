@@ -31,13 +31,20 @@ Backend service for the Bitmark AI Chat feature, providing integration with Goog
    export GEMINI_API_KEY="your_actual_gemini_api_key_here"
    ```
 
-3. **Configure system instruction (optional):**
+3. **Configure model (optional):**
+   
+   By default, the backend uses `gemini-2.5-pro`. To use a different model:
+   ```bash
+   export GEMINI_MODEL="gemini-2.5-flash"
+   ```
+
+4. **Configure system instruction (optional):**
    
    The system instruction is loaded from `context-prompts/system_instruction.txt` by default. You can:
    - Edit the file directly to customize the AI's behavior
    - Or set `GEMINI_SYSTEM_INSTRUCTION` environment variable to override
 
-4. **Run the server:**
+5. **Run the server:**
    ```bash
    python main.py
    ```
@@ -113,9 +120,17 @@ Test endpoint to verify tool usage indicators work
 
 ## Configuration
 
-- **Model**: `gemini-2.5-flash`
+- **Model**: Configured in `main.py` (line 46)
+  - Default: `gemini-2.5-pro`
+  - Can be overridden via `GEMINI_MODEL` environment variable
+  - Alternative: `gemini-2.5-flash` for faster responses
+  - Example: `export GEMINI_MODEL="gemini-2.5-flash"`
 - **Response Modalities**: TEXT only
-- **CORS**: Configured for `http://localhost:3010` (frontend)
+- **CORS**: Configured for multiple frontend origins:
+  - `http://localhost:3000`
+  - `http://localhost:3010`
+  - `http://127.0.0.1:3000`
+  - `http://127.0.0.1:3010`
 - **System Instruction**: Configurable via `GEMINI_SYSTEM_INSTRUCTION` environment variable
 
 ### System Instruction
@@ -190,6 +205,12 @@ To integrate the AI chat with the Bitmark playground, the following changes were
 }
 ```
 
+**Note:** When the sandbox output pane is empty, the tool automatically provides a helpful message to the AI:
+> "The Sandbox outputs pane is empty. Declare either .sandbox-output-json or .sandbox-output-bitmark bits referencing an .app-code-editor by id to see sandbox outputs here."
+
+This prevents the AI from hallucinating content and enables it to provide accurate guidance to users.
+
+
 ## Architecture
 
 The backend uses a modular architecture with separate helper modules:
@@ -197,7 +218,7 @@ The backend uses a modular architecture with separate helper modules:
 - **`main.py`** - FastAPI application and main endpoints
 - **`models.py`** - Pydantic models for request/response handling
 - **`tool_functions.py`** - Tool implementations and function declarations
-- **`gemini_helpers.py`** - Gemini API interaction helpers
+- **`gemini_helpers.py`** - Gemini API interaction helpers (includes function calling logic)
 - **`tool_usage_tracker.py`** - Tool usage tracking and animation data
 
 ## Error Handling

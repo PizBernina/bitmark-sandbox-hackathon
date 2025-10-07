@@ -86,7 +86,8 @@ def extract_text_from_response(response) -> str:
 
 
 async def handle_function_call(part: types.Part, conversation_context: List[types.Content], 
-                             config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None) -> Tuple[str, List[Dict[str, Any]]]:
+                             config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None, 
+                             model: str = "gemini-2.5-pro") -> Tuple[str, List[Dict[str, Any]]]:
     """Handle a function call and return response text and tools used."""
     if not hasattr(part, 'function_call') or not part.function_call:
         return "", []
@@ -105,7 +106,16 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
     result = execute_function_call(function_name, function_args)
     tools_used = [{"function": function_name, "args": function_args, "result": result}]
     
-    # Add function response to conversation
+    # IMPORTANT: First add the model's function call to the conversation
+    # This is required for the model to understand what it asked for
+    conversation_context.append(
+        types.Content(
+            role="model",
+            parts=[part]
+        )
+    )
+    
+    # Then add function response to conversation
     function_response_part = types.Part.from_function_response(
         name=function_name,
         response={"result": result}
@@ -120,7 +130,7 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
     
     # Get final response with function result
     final_response = await client.aio.models.generate_content(
-        model="gemini-2.5-pro", #gemini-2.5-flash
+        model=model,
         contents=conversation_context,
         config=config
     )
@@ -131,7 +141,8 @@ async def handle_function_call(part: types.Part, conversation_context: List[type
 
 
 async def process_gemini_response(response, conversation_context: List[types.Content], 
-                                config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None) -> Tuple[str, List[Dict[str, Any]]]:
+                                config: types.GenerateContentConfig, client, pane_content: Dict[str, str] = None,
+                                model: str = "gemini-2.5-pro") -> Tuple[str, List[Dict[str, Any]]]:
     """Process Gemini response and handle function calls if present."""
     if not response.candidates or len(response.candidates) == 0:
         return "", []
@@ -156,7 +167,7 @@ async def process_gemini_response(response, conversation_context: List[types.Con
             print(f"Function call args: {part.function_call.args}")
             
             # Handle function call
-            func_response, func_tools = await handle_function_call(part, conversation_context, config, client, pane_content)
+            func_response, func_tools = await handle_function_call(part, conversation_context, config, client, pane_content, model)
             response_text = func_response
             tools_used.extend(func_tools)
             break
@@ -168,7 +179,7 @@ async def process_gemini_response(response, conversation_context: List[types.Con
         print("No function call found, trying simple response...")
         simple_config = create_simple_config(config.system_instruction.parts[0].text)
         simple_response = await client.aio.models.generate_content(
-            model="gemini-2.5-flash",
+            model=model,
             contents=conversation_context,
             config=simple_config
         )

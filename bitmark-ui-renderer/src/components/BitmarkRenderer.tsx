@@ -226,23 +226,24 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
 
   // Process data when it changes
   useEffect(() => {
-    setIsLoading(true);
+    // Removed loading state to prevent flickering on every data change
+    // setIsLoading(true);
     
     try {
       const { data: parsedData, errors: validationErrors } = validateData(data);
       setErrors(validationErrors);
       
-      // Simulate a small delay for better UX
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 100);
+      // Removed artificial delay that caused flickering
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      // }, 100);
     } catch (error) {
       setErrors([{
         type: 'parsing',
         message: 'Failed to process bitmark data',
         details: error instanceof Error ? error.message : 'Unknown error'
       }]);
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   }, [data, validateData]);
 
@@ -253,20 +254,21 @@ const BitmarkRenderer: React.FC<BitmarkRendererProps> = ({
     return groupSandboxBits(parsedData);
   }, [parsedData, groupSandboxBits]);
 
-  if (isLoading) {
-    return (
-      <Box
-        className={className}
-        style={style}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="200px"
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
+  // Removed loading spinner to prevent flickering on every data change
+  // if (isLoading) {
+  //   return (
+  //     <Box
+  //       className={className}
+  //       style={style}
+  //       display="flex"
+  //       justifyContent="center"
+  //       alignItems="center"
+  //       minHeight="200px"
+  //     >
+  //       <CircularProgress />
+  //     </Box>
+  //   );
+  // }
 
   return (
     <Box

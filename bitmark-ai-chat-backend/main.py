@@ -24,7 +24,12 @@ app = FastAPI(title="Bitmark AI Chat Backend", version="1.0.0")
 # CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3010"],  # Frontend URL
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3010",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3010"
+    ],  # Frontend URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,6 +41,10 @@ if not api_key:
     raise ValueError("GEMINI_API_KEY environment variable is required")
 
 client = genai.Client(api_key=api_key)
+
+# Model configuration - can be changed to "gemini-2.5-flash" for faster responses
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-pro")
+print(f"Using Gemini model: {GEMINI_MODEL}")
 
 # Load system instruction
 SYSTEM_INSTRUCTION = load_system_instruction()
@@ -141,14 +150,14 @@ async def chat_with_gemini(request: ChatRequest):
         
         # Get response from Gemini
         response = await client.aio.models.generate_content(
-            model="gemini-2.5-pro", #gemini-2.5-flash
+            model=GEMINI_MODEL,
             contents=conversation_context,
             config=config
         )
         
         # Process response and handle function calls
         response_text, tools_used = await process_gemini_response(
-            response, conversation_context, config, client, request.pane_content
+            response, conversation_context, config, client, request.pane_content, GEMINI_MODEL
         )
         
         # Create tool usage indicators
