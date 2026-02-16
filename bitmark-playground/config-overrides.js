@@ -20,6 +20,17 @@ module.exports = override(
       // features: ['!gotoSymbol'],
     }),
   ),
+  // Allow .mjs files in src/lib/ to import packages without file extensions.
+  // Webpack 5 treats .mjs as strict ESM which requires fully-specified imports,
+  // but the vendored bundles use bare specifiers like '@mui/material/styles'.
+  (config) => {
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /src\/lib\//,
+      resolve: { fullySpecified: false },
+    });
+    return config;
+  },
 );
 
 // For information on customizing Monaco:
