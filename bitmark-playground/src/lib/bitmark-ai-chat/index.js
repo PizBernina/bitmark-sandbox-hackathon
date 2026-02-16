@@ -1077,7 +1077,7 @@ var useChatState = (initialPosition = { x: window.innerWidth - 370, y: 50 }) => 
         content: msg.content,
         timestamp: msg.timestamp.toISOString()
       }));
-      const response = await fetch("http://localhost:8000/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
