@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useRef, useCallback, memo } from '
 import { Flex, Text } from 'theme-ui';
 import { useSnapshot } from 'valtio';
 
-import { BitmarkRenderer, ThemeProvider } from '../../lib/bitmark-ui-renderer/index.js';
+import { BitmarkRenderer, ThemeProvider } from '../../lib/bitmark-ui-renderer/index.mjs';
 import { bitmarkState } from '../../state/bitmarkState';
 
 // Debug: Check if we're using the updated library

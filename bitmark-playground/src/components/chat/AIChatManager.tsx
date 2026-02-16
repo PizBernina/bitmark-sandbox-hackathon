@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSnapshot } from 'valtio';
 
-import { AIChatWindow, AIChatButton, useChatState } from '../../lib/bitmark-ai-chat/index.js';
+import { AIChatWindow, AIChatButton, useChatState } from '../../lib/bitmark-ai-chat/index.mjs';
 import { useBitmarkParserGenerator } from '../../services/BitmarkParserGenerator';
 import { bitmarkState } from '../../state/bitmarkState';
 
